@@ -14,15 +14,24 @@ export class LoginComponent {
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
-
+  hide = true;
 constructor(private router: Router,private fb: FormBuilder,public authService: AuthService) { }
 
 login() {
   console.log("login values",this.loginForm.value);
+  this.authService.login();
   this.authService.getToken(this.loginForm.value).subscribe((data) => {
     if(this.authService.isLoggedin)
     {
        console.log("login success");
+       if(sessionStorage.role == "patient")
+          {
+              this.router.navigate(['patient']);
+          }
+        else
+        {
+          window.alert("Login success but wrong user type:" + sessionStorage.role);
+        }
     }
     else
     {

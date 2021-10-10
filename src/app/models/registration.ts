@@ -1,7 +1,8 @@
 export class Registration {
-    name: string | undefined;
-    surname: string | undefined;
-    email: string | undefined;
-    password: string | undefined;
-    date: string | undefined;
+    FirstName: string | undefined;
+    LastName: string | undefined;
+    Email: string | undefined;
+    Password: string | undefined;
+    DateOfBirth: string | undefined;
+    Type: string | undefined;
   }

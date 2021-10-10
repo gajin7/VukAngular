@@ -1,7 +1,7 @@
 .card
 {
     max-width: 800px;
-    margin: 10%;
+    margin: 5%;
 }
 
 mat-form-field {
@@ -12,3 +12,30 @@ mat-form-field {
     background: orange;
     border-radius: 100%;
   }
+
+  .registration-label
+  {
+    font-size: 40px;
+  }
+
+  .form-div
+  {
+    margin-left: 25%;
+  }
+
+  .btn-field
+{
+    border-radius: 25px;
+    width: 50%;
+}
+.btn-field-form
+{
+    border-radius: 25px;
+    width: 10%;
+}
+.input-field
+{
+    width: 100%;
+    border-radius: 25px;
+    height: 30px;
+}

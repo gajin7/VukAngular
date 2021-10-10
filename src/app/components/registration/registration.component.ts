@@ -9,11 +9,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm = this.fb.group({
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
-    date: ['', Validators.required],
+    FirstName: ['', Validators.required],
+    LastName: ['', Validators.required],
+    Email: ['', Validators.required],
+    Password: ['', Validators.required],
+    DateOfBirth: ['', Validators.required],
+    Type: ['3', Validators.required],
   });
 
   constructor(private fb: FormBuilder, private userService : UserService)
@@ -27,10 +28,10 @@ export class RegistrationComponent implements OnInit {
 
   register(): void{
     console.log("registration",this.registrationForm.value);
-    //this.userService.register(this.registrationForm.value).subscribe((data) => {
-   //   console.log("response", data);
+    this.userService.register(this.registrationForm.value).subscribe((data) => {
+     console.log("response", data);
   
-   // });
+    });
   }
 
 }

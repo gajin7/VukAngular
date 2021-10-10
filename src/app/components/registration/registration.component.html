@@ -1,44 +1,56 @@
 
     <form [formGroup]="registrationForm" (ngSubmit)="register()" accept-charset="UTF-8" role="form" >
     <mat-card class="card">
-        <label>Registration</label>
+        <label class="registration-label">Registration</label>
+        <div class=form-div>
         <div class="example-container">
+          <div>
+            <Label>Enter your name</Label>
+          </div>
             <mat-form-field appearance="fill">
-              <label>Enter your name</label>
-              <input formControlName="name" matInput placeholder="John"required>
+              <input class="input-field" formControlName="FirstName"  placeholder="John" required>
             </mat-form-field>
           </div>
           <div class="example-container">
+            <div>
+              <Label>Enter your surnamne</Label>
+            </div>
             <mat-form-field appearance="fill">
-              <label>Enter your surname</label>
-              <input formControlName="surname" matInput placeholder="Smith"required>
+              <input class="input-field" formControlName="LastName"  placeholder="Smith" required>
             </mat-form-field>
           </div>
         <div class="example-container">
+          <div>
+            <Label>Enter your email</Label>
+          </div>
             <mat-form-field appearance="fill">
-              <label>Enter your email</label>
-              <input formControlName="email" matInput placeholder="pat@example.com"  required>
+              <input class="input-field" formControlName="Email"  placeholder="pat@example.com"  required>
             </mat-form-field>
         </div>
           <div class="example-container">
+            <div>
+              <Label>Set your password</Label>
+            </div>
             <mat-form-field appearance="fill">
-              <label>Enter your password</label>
-              <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
+              <input class="input-field" formControlName="Password"  [type]="hide ? 'password' : 'text'" placeholder="password">
             </mat-form-field>
+            <button class="btn-field-form" (click)="hide = !hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
         </div>
             <div class="example-container">
+              <div>
+                <Label>Chose birth date</Label>
+              </div>
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Choose a date</mat-label>
-                    <input  formControlName="date" matInput [matDatepicker]="picker">
+                    <input class="input-field"  formControlName="DateOfBirth"  [matDatepicker]="picker" placeholder="date of birth">
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
-                  <button mat-raised-button (click)="picker.open()">Open</button>
+                  <button class="btn-field-form" mat-raised-button (click)="picker.open()">Pick</button>
               </div>
             <mat-card-actions>
                 <button class="btn-field" mat-button color="primary" >Register</button>
             </mat-card-actions>
+          </div>
     </mat-card>
 </form>

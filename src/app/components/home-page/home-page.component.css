@@ -13,7 +13,6 @@
 
   #main_div {
     background: red;
-    max-height: 100px;
     overflow-y: hidden;
   }
   

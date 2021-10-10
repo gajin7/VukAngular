@@ -1,6 +1,16 @@
 <nav class="navbar">
+    <div class="menu">
+        <button *ngIf="getRole()" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu  #menu="matMenu">
+            <button mat-menu-item  (click)="openProfile()">My Profile</button>
+            <button mat-menu-item  (click)="logOut()">Log out</button>
+        </mat-menu>
+    </div>
     <div clas="div-title">
         <img class="bar" class="logo-image" src="assets/home-page-images/logo.jpg">
-        <p class="bar" class="title">Stomatoloska ordinacija Dr. Bajic</p>
+        <p class="bar" class="title"><a class="title-link" href="/">Stomatoloska ordinacija Dr. Bajic </a></p>
     </div>
+  
 </nav>

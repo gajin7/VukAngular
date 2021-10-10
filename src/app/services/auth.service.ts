@@ -47,6 +47,14 @@ export class AuthService {
     sessionStorage.removeItem('role');
     sessionStorage.removeItem('email');
   }
+  login(): void
+  {
+    this.isLoggedin = true;
+    sessionStorage.setItem('jwt', "testToken")
+    sessionStorage.setItem('role', "patient");
+    sessionStorage.setItem('email', "testMail");
+    
+  }
 
   private handle(error: any) {
     return of (error.message);

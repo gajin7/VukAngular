@@ -25,7 +25,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import { PatientHomeComponent } from './components/patient/patient-home/patient-home.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { MatInputModule } from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
+import { ProfileComponent } from './components/profile/profile.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     NavBarComponent,
     LoginComponent,
     RegistrationComponent,
-    MapComponent
+    MapComponent,
+    PatientHomeComponent,
+    FooterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +62,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     ReactiveFormsModule,
     MatNativeDateModule,
     HttpClientModule,
+    MatInputModule,
+    MatMenuModule,
+    MatTabsModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     })

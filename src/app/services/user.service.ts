@@ -17,6 +17,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   register(user: Registration): Observable<any> {
+    console.log("Registration service info:",user);
     return this.http.post(this.hostInfo.defaultHostAddress + this.hostInfo.apiPrefix + this.hostInfo.userController + '/register',user);
   }
 }
