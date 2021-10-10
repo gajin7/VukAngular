@@ -1,0 +1,44 @@
+
+    <form [formGroup]="registrationForm" (ngSubmit)="register()" accept-charset="UTF-8" role="form" >
+    <mat-card class="card">
+        <label>Registration</label>
+        <div class="example-container">
+            <mat-form-field appearance="fill">
+              <label>Enter your name</label>
+              <input formControlName="name" matInput placeholder="John"required>
+            </mat-form-field>
+          </div>
+          <div class="example-container">
+            <mat-form-field appearance="fill">
+              <label>Enter your surname</label>
+              <input formControlName="surname" matInput placeholder="Smith"required>
+            </mat-form-field>
+          </div>
+        <div class="example-container">
+            <mat-form-field appearance="fill">
+              <label>Enter your email</label>
+              <input formControlName="email" matInput placeholder="pat@example.com"  required>
+            </mat-form-field>
+        </div>
+          <div class="example-container">
+            <mat-form-field appearance="fill">
+              <label>Enter your password</label>
+              <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+        </div>
+            <div class="example-container">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                    <input  formControlName="date" matInput [matDatepicker]="picker">
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  <button mat-raised-button (click)="picker.open()">Open</button>
+              </div>
+            <mat-card-actions>
+                <button class="btn-field" mat-button color="primary" >Register</button>
+            </mat-card-actions>
+    </mat-card>
+</form>

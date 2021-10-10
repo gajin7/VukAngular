@@ -1,0 +1,42 @@
+.example-card {
+    width: 100%;
+    height: 700px;
+  }
+  .login-card {
+    width: 100%;
+    height: 700px;
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }
+
+  #main_div {
+    background: red;
+    max-height: 100px;
+    overflow-y: hidden;
+  }
+  
+  .bar {
+    background: blue;
+    float: left;
+    margin: 1.5em;
+    width: 30%;
+  
+  }
+  .working-hours-card
+  {
+      margin-top: 10px;
+      background-color:cornflowerblue;
+      
+  }
+
+  .telephone-card
+  {
+      margin-top: 10px;
+  }
+
+  .address-card
+  {
+      margin-top: 10px;
+  }
