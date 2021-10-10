@@ -1,0 +1,28 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+              <input class="username-field" matInput placeholder="Username"  name="username" formControlName="username" required>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+          <td><mat-form-field class="example-full-width">
+            <input class="password-field" matInput placeholder="Password" type="password" name="password" formControlName="password" required>
+          </mat-form-field></td>
+        </tr></table>
+      </form>
+      <!-- <mat-progress-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-progress-spinner> -->
+    </mat-card-content>
+    <mat-card-actions>
+        <button class="btn-field" mat-button color="primary" (click)="login()">Login</button>
+    </mat-card-actions>
+    <div>
+        <p>Nemate nalog? <a class="btn-field-register" href="/registration" mat-button color="primary" >Registrujte se</a></p>
+    </div>

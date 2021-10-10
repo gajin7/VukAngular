@@ -1,0 +1,14 @@
+.card
+{
+    max-width: 800px;
+    margin: 10%;
+}
+
+mat-form-field {
+    margin-right: 12px;
+  }
+
+  .example-custom-date-class {
+    background: orange;
+    border-radius: 100%;
+  }
