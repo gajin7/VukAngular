@@ -17,7 +17,7 @@ export class HomeGuard implements CanActivate, CanActivateChild {
   if (sessionStorage.role == null || sessionStorage.role === '') {
       return true;
   }
-  if (sessionStorage.role === 'patient') {
+  if (sessionStorage.role === 'Patient') {
       this.router.navigate(['patient']);
       return false;
   }

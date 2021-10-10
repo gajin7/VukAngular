@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 
 import { Observable, pipe, of } from 'rxjs';
 import { HostInfo } from '../models/hostInfo';
-import { Registration } from '../models/registration';
+import { Registration } from '../models/request/registration';
 
 
 @Injectable({
@@ -17,7 +17,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   register(user: Registration): Observable<any> {
-    console.log("Registration service info:",user);
-    return this.http.post(this.hostInfo.defaultHostAddress + this.hostInfo.apiPrefix + this.hostInfo.userController + '/register',user);
+    return this.http.post(this.hostInfo.defaultHostAddress +  this.hostInfo.userController + '/register',user);
+  }
+
+  getUserInfo(email: string): Observable<any> {    
+    return this.http.get(this.hostInfo.defaultHostAddress +  this.hostInfo.userController + '/info?email='+email);
   }
 }

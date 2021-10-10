@@ -31,6 +31,9 @@ import { MatInputModule } from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { HttpErrorsInterceptor } from './auth/interceptors/http-errors.interceptor';
+import { AppointmentComponent } from './components/patient/appointment/appointment.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MapComponent,
     PatientHomeComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -65,12 +69,18 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatInputModule,
     MatMenuModule,
     MatTabsModule,
+    MatTableModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     })
   ],
   providers: [
     AuthService,{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorsInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })

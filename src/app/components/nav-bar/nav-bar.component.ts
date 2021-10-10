@@ -19,6 +19,7 @@ export class NavBarComponent implements OnInit {
   }
 
   openProfile () { 
+    console.log('dza');
     this.router.navigate(['profile']);
   }
 

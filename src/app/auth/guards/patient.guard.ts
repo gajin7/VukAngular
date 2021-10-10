@@ -14,7 +14,7 @@ export class ProfileGuard implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {    
 
-    if (sessionStorage.role === 'patient') {
+    if (sessionStorage.role === 'Patient') {
       return true;
     }
     // not logged in so redirect to login page

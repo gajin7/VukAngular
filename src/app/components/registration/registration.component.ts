@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,10 +15,10 @@ export class RegistrationComponent implements OnInit {
     Email: ['', Validators.required],
     Password: ['', Validators.required],
     DateOfBirth: ['', Validators.required],
-    Type: ['3', Validators.required],
+    TypeId: ['3', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private userService : UserService)
+  constructor(private fb: FormBuilder, private userService : UserService, private router : Router)
   {
     
   }
@@ -26,11 +27,10 @@ export class RegistrationComponent implements OnInit {
   }
   hide = true;
 
-  register(): void{
-    console.log("registration",this.registrationForm.value);
+  register(): void{    
     this.userService.register(this.registrationForm.value).subscribe((data) => {
-     console.log("response", data);
-  
+      window.alert("Uspesna registracija. Molimo Vas ulogujte se");
+      this.router.navigate(['']);
     });
   }
 

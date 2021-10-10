@@ -3,6 +3,6 @@ export class Registration {
     LastName: string | undefined;
     Email: string | undefined;
     Password: string | undefined;
-    DateOfBirth: string | undefined;
-    Type: string | undefined;
+    //DateOfBirth: string | undefined;
+    TypeId: string | undefined;
   }
