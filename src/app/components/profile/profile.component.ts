@@ -90,11 +90,11 @@ getTypeById(id : number) : string
 {
   if(id == 3)
   {
-    return 'patient'
+    return 'pacijent'
   }
   else
   {
-    return 'unknown'
+    return 'nepoznato'
   }
 }
 

@@ -1,56 +1,59 @@
-
+<body>
     <form [formGroup]="registrationForm" accept-charset="UTF-8" role="form" >
     <mat-card class="card">
-        <label class="registration-label">Registration</label>
+        <label class="registration-label">Registracija</label>
+        <br>
+        <label>Molimo Vas da popunite Vase podatke kako biste nastavili</label>
         <div class=form-div>
         <div class="example-container">
           <div>
-            <Label>Enter your name</Label>
+            <Label>Ime</Label>
           </div>
             <mat-form-field appearance="fill">
-              <input class="input-field" formControlName="FirstName"  placeholder="John" required>
+              <input class="input-field" formControlName="FirstName"  placeholder="Petar" required>
             </mat-form-field>
           </div>
           <div class="example-container">
             <div>
-              <Label>Enter your surnamne</Label>
+              <Label>Prezime</Label>
             </div>
             <mat-form-field appearance="fill">
-              <input class="input-field" formControlName="LastName"  placeholder="Smith" required>
+              <input class="input-field" formControlName="LastName"  placeholder="Petrovic" required>
             </mat-form-field>
           </div>
         <div class="example-container">
           <div>
-            <Label>Enter your email</Label>
+            <Label>Email adresa</Label>
           </div>
             <mat-form-field appearance="fill">
-              <input class="input-field" formControlName="Email"  placeholder="pat@example.com"  required>
+              <input class="input-field" formControlName="Email"  placeholder="petar.petrovic@domen.com"  required>
             </mat-form-field>
         </div>
           <div class="example-container">
             <div>
-              <Label>Set your password</Label>
+              <Label>Lozinka</Label>
             </div>
             <mat-form-field appearance="fill">
-              <input class="input-field" formControlName="Password"  [type]="hide ? 'password' : 'text'" placeholder="password">
+              <input class="input-field" formControlName="Password"  [type]="hide ? 'password' : 'text'" placeholder="12345">
             </mat-form-field>
-            <button class="btn-field-form" (click)="hide = !hide">
+            <button class="btn-field-form" mat-raised-button (click)="hide = !hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </div>
             <div class="example-container">
               <div>
-                <Label>Chose birth date</Label>
+                <Label>Datum rodjenja</Label>
               </div>
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <input class="input-field"  formControlName="DateOfBirth"  [matDatepicker]="picker" placeholder="date of birth">
+                    <input class="input-field"  formControlName="DateOfBirth"  [matDatepicker]="picker" placeholder="01/01/1990">
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
-                  <button class="btn-field-form" mat-raised-button (click)="picker.open()">Pick</button>
+                  <button class="btn-field-form" mat-raised-button (click)="picker.open()">  <mat-icon>calendar_today</mat-icon></button>
               </div>
             <mat-card-actions>
-                <button class="btn-field" mat-button color="primary" (click)="register()" >Register</button>
+                <button class="btn-field" mat-button color="primary" (click)="register()" >Registruj se</button>
             </mat-card-actions>
           </div>
     </mat-card>
 </form>
+</body>
