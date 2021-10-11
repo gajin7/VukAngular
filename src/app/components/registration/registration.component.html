@@ -1,5 +1,5 @@
 
-    <form [formGroup]="registrationForm" (ngSubmit)="register()" accept-charset="UTF-8" role="form" >
+    <form [formGroup]="registrationForm" accept-charset="UTF-8" role="form" >
     <mat-card class="card">
         <label class="registration-label">Registration</label>
         <div class=form-div>
@@ -49,7 +49,7 @@
                   <button class="btn-field-form" mat-raised-button (click)="picker.open()">Pick</button>
               </div>
             <mat-card-actions>
-                <button class="btn-field" mat-button color="primary" >Register</button>
+                <button class="btn-field" mat-button color="primary" (click)="register()" >Register</button>
             </mat-card-actions>
           </div>
     </mat-card>

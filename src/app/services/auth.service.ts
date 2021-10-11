@@ -51,7 +51,7 @@ export class AuthService {
   {
     this.isLoggedin = true;
     sessionStorage.setItem('jwt', "testToken")
-    sessionStorage.setItem('role', "patient");
+    sessionStorage.setItem('role', "Patient");
     sessionStorage.setItem('email', "testMail");
     
   }

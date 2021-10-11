@@ -51,7 +51,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <form [formGroup]="dateForm" accept-charset="UTF-8" role="form" (ngSubmit)="changeDate()">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="field">
             <mat-label>Choose a date</mat-label>
             <input matInput formControlName="date" [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -76,14 +76,14 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <form [formGroup]="passwordForm" accept-charset="UTF-8" role="form" (ngSubmit)="changePassword()">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="field">
         <mat-label>Enter old password</mat-label>
         <input matInput formControlName="oldPassword" [type]="hideOld ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
           <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="field">
         <mat-label>Enter new password</mat-label>
         <input matInput formControlName="newPassword" [type]="hideNew ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
