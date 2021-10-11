@@ -15,23 +15,26 @@
               </mat-form-field>                  
               </div>
             <mat-card-actions>
-                <button class="btn-field" mat-button color="primary" >Register</button>
+                <button class="btn-field" mat-button color="primary" >Show appoitments</button>
             </mat-card-actions>
           </div>
     </mat-card>
 </form>
+
+
 <table class="table">
     <thead>
       <tr>
         <td>From</td>
         <td>To </td>
-        <td></td>
+        <td>Dentist</td>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let el of appointments">
         <td>{{el.DateTimeFrom}}</td>
         <td>{{el.DateTimeTo}}</td>
+        <td>{{el.DentistName}}</td>
         
     </tbody>
   </table>

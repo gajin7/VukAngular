@@ -34,6 +34,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { HttpErrorsInterceptor } from './auth/interceptors/http-errors.interceptor';
 import { AppointmentComponent } from './components/patient/appointment/appointment.component';
 import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import {MatTableModule} from '@angular/material/table';
     MatMenuModule,
     MatTabsModule,
     MatTableModule,
+    MatExpansionModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     })

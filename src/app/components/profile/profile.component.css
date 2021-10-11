@@ -1,0 +1,28 @@
+.accordion
+{
+    margin: 25%;
+}
+
+.card-main
+{
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.card-info
+{
+    margin-top: 2%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.field
+{
+    margin: 2%;
+}
+
+.mat-panel-description
+{
+    float: left;
+}

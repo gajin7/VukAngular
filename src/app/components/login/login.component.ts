@@ -19,7 +19,7 @@ constructor(private router: Router,private fb: FormBuilder,public authService: A
 
 login() {
   console.log("login values",this.loginForm.value);
-  //this.authService.login();
+  this.authService.login();
   this.authService.getToken(this.loginForm.value).subscribe((data) => {
     if(this.authService.isLoggedin)
     {
