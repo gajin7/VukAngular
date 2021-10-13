@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AppointmentPersonalResponse } from 'src/app/models/response/appointmentPersonalResponse';
 import { AppointmentResponse } from 'src/app/models/response/appointmentResponse';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
@@ -11,6 +12,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 })
 export class AppointmentComponent implements OnInit {
   appointments: Array<AppointmentResponse> = [];
+  appointmentsPersonal: Array<AppointmentPersonalResponse> = [];
   constructor(private appointmentService : AppointmentService, private fb : FormBuilder) { }
   
   appointmentDate = this.fb.group({
@@ -20,6 +22,7 @@ export class AppointmentComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.GetPersonalAppointment();
   }
 
   getAppointments(){
@@ -30,6 +33,7 @@ export class AppointmentComponent implements OnInit {
       .subscribe((data)=> 
         { 
           this.appointments = data as Array<AppointmentResponse>;
+          console.log(this.appointments)
         } 
       )
   }
@@ -74,8 +78,23 @@ export class AppointmentComponent implements OnInit {
 
   BookAppoitment( appointment: AppointmentResponse)
   {
-    window.alert(appointment.DentistName);
+    this.appointmentService.bookAppointment(appointment.Id).subscribe(
+      () => 
+      {
+        window.alert('nesto')
+        this.getAppointments()
+      }
+    )
+    //window.alert(appointment.DentistName);
   }
 
-  
+  GetPersonalAppointment(){
+    this.appointmentService.getPersonalAppointments()
+      .subscribe((data)=> 
+        { 
+          this.appointmentsPersonal = data as Array<AppointmentPersonalResponse>;
+          console.log(data)
+        } 
+      )
+  }  
 }

@@ -34,6 +34,7 @@ import { HttpErrorsInterceptor } from './auth/interceptors/http-errors.intercept
 import { AppointmentComponent } from './components/patient/appointment/appointment.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { CardComponent } from './components/patient/card/card.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     PatientHomeComponent,
     FooterComponent,
     ProfileComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

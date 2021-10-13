@@ -30,8 +30,21 @@
   
       <div class="example-container">
         <div style="margin-top: 2%;">
-          <Label>Moji termini</Label>
+          <Label>Moji termini</Label>          
         <br>    
+        <table class="table">
+          <thead>
+            <tr>
+              <td>Od</td>
+              <td>Stomatolog</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hover-tr" *ngFor="let el of appointmentsPersonal">
+              <td>{{el.DateTimeFrom}}</td>
+              <td>{{el.DentistName}}</td>              
+          </tbody>
+        </table>
         </div>
       </div>
     </div>

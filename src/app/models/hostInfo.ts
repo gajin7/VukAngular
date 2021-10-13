@@ -9,4 +9,5 @@ export class HostInfo {
     }
   userController: string = '/users';
   appointmentController: string = '/appointments';
+  cardController: string = '/cards';
   }
