@@ -22,7 +22,6 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './auth/interceptors/jwt-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import {MatNativeDateModule} from '@angular/material/core';
 import { PatientHomeComponent } from './components/patient/patient-home/patient-home.component';
@@ -43,7 +42,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     NavBarComponent,
     LoginComponent,
     RegistrationComponent,
-    MapComponent,
     PatientHomeComponent,
     FooterComponent,
     ProfileComponent,

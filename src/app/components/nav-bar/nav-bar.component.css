@@ -1,71 +1,54 @@
 .navbar
 {
 
-    height: 7%;
+    height: 8%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.219);
 }
 
 h1 {
-    margin-left: 1%;
-    font-family:Baskerville,Times,'Times New Roman',serif;
+  font-family:Baskerville,Times,'Times New Roman',serif;
     font-size:xx-large;
     color: rgba(0, 0, 0, 0.486);
     font-variant:small-caps;
-    text-align:left;
     font-weight:bold;
-    padding:15px 0px 15px 0px; /* Tweak this to your liking */
+    margin-left: 4%;
+    padding-top: 1%;
     }
   
 .div-title
-{
-    float: left;
-    margin-top: 50px;
+{ 
     overflow-y: hidden;
-}
-
-.logo-image
-{
-    float: left;
-    width: 50px;
-    height: 50px;
 }
 
 .menu
 {
     float: right;
+    padding-top: 1%;
 }
 
 .title-link
 {
-    position: relative;
-    padding: 0;
-    margin: 0;
     font-family: "Raleway", sans-serif;
     font-weight: 300;
     font-size: 40px;
     color: #080808;
-    -webkit-transition: all 0.4s ease 0s;
-    -o-transition: all 0.4s ease 0s;
-    transition: all 0.4s ease 0s;
+    
 }
 
-/* Style 8
-   ----------------------------- */
-   .eight h1 {
-    text-align:center;
-   
-    text-transform:uppercase;
-    font-size:26px; letter-spacing:1px;
-    
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: 16px 0;
-    grid-gap: 22px;
-  }
-  
-  .eight h1:after,.eight h1:before {
-    content: " ";
-    display: block;
-    border-bottom: 2px solid #ccc;
-    background-color:#f8f8f8;
-  }
+.icon-display {
+    transform: scale(2);
+    color: rgba(0, 0, 0, 0.493);
+ }
+
+ .home-icon
+ {
+     float: left;
+     display: block;
+     padding-top: 1%;
+     padding-left: 1%;
+ }
+
+ .icon-display:hover
+ {
+     background-color: rgba(0, 0, 0, 0.164);
+ }

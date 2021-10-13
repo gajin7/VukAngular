@@ -45,7 +45,7 @@
               <mat-card-title>Prijava</mat-card-title>
               <mat-card-subtitle>Prijava i registracija na sistem</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class=login_comp>
               <app-login></app-login>
             </mat-card-content>
           </mat-card>
@@ -92,9 +92,17 @@
                   <h3>Kontakt telefon: <a href="tel:+38121225886">021/225-886</a></h3>
                 </mat-card>
                 <mat-card class="address-card">
+                  <mat-icon style="float:left">email</mat-icon>
+                    <h3>Elektronska posta: <a href = "mailto: abc@example.com">abc@example.com</a></h3>
+                </mat-card>
+                <mat-card class="address-card">
                   <mat-icon style="float:left">map</mat-icon>
-                    <h3>Adresa: Pariske Komune 12/24 Novi Sad</h3>
-                    <app-map></app-map>
+                    <h3>Adresa: Milete Jaksica 7, 21000 Novi Sad</h3>
+                    <div class="mapouter">
+                      <div class="gmap_canvas">
+                        <iframe width="100%" height="290" id="gmap_canvas" src="https://maps.google.com/maps?q=Milete%20Jaksica%207%20Novi%20Sad&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                         frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                      </div></div>
                 </mat-card>
             </mat-card-content>
           </mat-card>

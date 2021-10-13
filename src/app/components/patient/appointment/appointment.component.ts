@@ -11,7 +11,6 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 })
 export class AppointmentComponent implements OnInit {
   appointments: Array<AppointmentResponse> = [];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   constructor(private appointmentService : AppointmentService, private fb : FormBuilder) { }
   
   appointmentDate = this.fb.group({
@@ -37,6 +36,7 @@ export class AppointmentComponent implements OnInit {
   // }
 
   getAppointments(){
+    
     var datePipe = new DatePipe('en-US');
     var app1 = new AppointmentResponse();
     app1.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
@@ -64,6 +64,11 @@ export class AppointmentComponent implements OnInit {
     this.appointments.push(app2);
     this.appointments.push(app3);
     this.appointments.push(app4);
+  }
+
+  BookAppoitment( appointment: AppointmentResponse)
+  {
+    window.alert(appointment.DentistName);
   }
 
   

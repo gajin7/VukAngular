@@ -1,6 +1,6 @@
 .hover-tr:hover
 {
-  background-color:rgba(128, 128, 128, 0.048)
+  background-color:rgba(128, 128, 128, 0)
 }
 
 .ppointment-label
@@ -22,7 +22,28 @@
     margin-top: 3%;
     margin-right: 3%;
     width: 60%;
-    height: 100%;
 
 }
+
+.table
+{
+    table-layout: fixed;
+   overflow-y:auto;
+
+   border-spacing: 1px;
+  border-collapse: separate;
+}
+
+.table-card
+{
+    overflow-y: hidden;
+    height: 600px;
+}
+
+td {
+    width: 40% ;
+    height: 40%;
+  }
+
+
 

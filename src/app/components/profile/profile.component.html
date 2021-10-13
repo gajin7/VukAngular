@@ -1,6 +1,15 @@
 
 <mat-card class="card-main">
-    <h1>Korisnik: {{profileForm.value.firstName}} {{profileForm.value.lastName}} - {{profileForm.value.type}}</h1>
+    <div>
+        <mat-icon>person</mat-icon>
+        <h1>{{profileForm.value.firstName}} {{profileForm.value.lastName}} </h1>
+    </div>
+    
+    <h2>{{profileForm.value.type}}</h2>
+    
+</mat-card>
+
+<mat-card class="card-info">
     <label><b>Poslednji pregled: </b> {{profileForm.value.lastAppointment}}</label>
     <br>
     <label><b>Sledeci pregled: </b>{{profileForm.value.nextAppointment}}</label>

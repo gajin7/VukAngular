@@ -24,6 +24,7 @@
     float: left;
     margin: 1.5em;
     width: 30%;
+    position: relative;
   
   }
   .working-hours-card
@@ -41,4 +42,12 @@
   .address-card
   {
       margin-top: 10px;
+  }
+
+  .login_comp
+  {  
+    position: relative;
+    left: 25%
+
+    
   }

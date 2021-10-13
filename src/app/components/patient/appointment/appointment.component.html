@@ -27,15 +27,14 @@
 
 
 <div class="table-div">
-<mat-card>
-
+<mat-card class=table-card>
   <p class="ppointment-label">Slobodni termini</p>
 <table class="table">
     <thead>
       <tr>
-        <td>From</td>
-        <td>To </td>
-        <td>Dentist</td>
+        <td>Od</td>
+        <td>Do </td>
+        <td>Stomatolog</td>
         <td></td>
       </tr>
     </thead>
@@ -44,7 +43,7 @@
         <td>{{el.DateTimeFrom}}</td>
         <td>{{el.DateTimeTo}}</td>
         <td>{{el.DentistName}}</td>
-        <button mat-button>Zakazi</button>
+        <button mat-button (click)="BookAppoitment(el)">Zakazi</button>
         
     </tbody>
   </table>

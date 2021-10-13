@@ -1,3 +1,7 @@
+.example-card{
+    position: absolute;
+}
+
 .username-field
 {
     width: 100%;
@@ -14,15 +18,10 @@
 
 .btn-field
 {
-    width: 50%;
+    width: 100%;
 }
 .btn-field-register
 {
    
     width: 50%;
-}
-
-.example-card
-{
-    margin-top: 3%;
 }
