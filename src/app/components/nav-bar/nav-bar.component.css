@@ -1,13 +1,19 @@
 .navbar
 {
-    background-color:rgba(128, 128, 128, 0.425);
-    height: 50px;
+    height: 7%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.219);
 }
-.title
-{
-    padding-top: 1%;
-    margin-left: 5%;
-}
+
+h1 {
+    font-family:Baskerville,Times,'Times New Roman',serif;
+    font-size:xx-large;
+    color: rgba(0, 0, 0, 0.486);
+    font-variant:small-caps;
+    text-align:left;
+    font-weight:bold;
+    padding: 1%; /* Tweak this to your liking */
+    }
+  
 .div-title
 {
     float: left;
@@ -29,8 +35,35 @@
 
 .title-link
 {
-    padding-top: 1%;
-    color: whitesmoke;
-    font-size: xx-large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    color: #080808;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
 }
+
+/* Style 8
+   ----------------------------- */
+   .eight h1 {
+    text-align:center;
+   
+    text-transform:uppercase;
+    font-size:26px; letter-spacing:1px;
+    
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 16px 0;
+    grid-gap: 22px;
+  }
+  
+  .eight h1:after,.eight h1:before {
+    content: " ";
+    display: block;
+    border-bottom: 2px solid #ccc;
+    background-color:#f8f8f8;
+  }
