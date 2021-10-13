@@ -21,4 +21,12 @@ export class AppointmentService {
       console.log('srv', date);   
     return this.http.get(this.hostInfo.defaultHostAddress +  this.hostInfo.appointmentController + '?day='+date);
   }
+
+  getPersonalAppointments(): Observable<any> {
+  return this.http.get(this.hostInfo.defaultHostAddress +  this.hostInfo.appointmentController + '/personal?email='+sessionStorage.email);
+  }
+
+  bookAppointment(appointmentId: number | undefined): Observable<any>  {
+    return this.http.put(this.hostInfo.defaultHostAddress +  this.hostInfo.appointmentController + '/' + appointmentId + '?userEmail=' + sessionStorage.email, null)
+  }
 }
