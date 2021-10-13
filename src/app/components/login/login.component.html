@@ -2,7 +2,7 @@
     <mat-card-header>
       <mat-card-title>Prijava</mat-card-title>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="container">
       <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
         <table class="example-full-width" cellspacing="0">
           <tr>
@@ -14,7 +14,10 @@
           </tr>
           <tr>
           <td><mat-form-field class="example-full-width">
-            <input class="password-field"  placeholder="Lozinka" type="password" name="password" formControlName="password" required>
+            <input style="float: left;" class="password-field"  placeholder="Lozinka" type="password" name="password" formControlName="password" required [type]="hide ? 'password' : 'text'">
+            <button style="float: right;"  mat-icon-button  (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field></td>
         </tr></table>
       </form>

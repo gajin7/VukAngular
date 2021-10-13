@@ -1,17 +1,19 @@
 .navbar
 {
+
     height: 7%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.219);
 }
 
 h1 {
+    margin-left: 1%;
     font-family:Baskerville,Times,'Times New Roman',serif;
     font-size:xx-large;
     color: rgba(0, 0, 0, 0.486);
     font-variant:small-caps;
     text-align:left;
     font-weight:bold;
-    padding: 1%; /* Tweak this to your liking */
+    padding:15px 0px 15px 0px; /* Tweak this to your liking */
     }
   
 .div-title

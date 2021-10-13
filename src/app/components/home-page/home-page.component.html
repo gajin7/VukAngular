@@ -23,12 +23,15 @@
             </mat-card-header>
             <img mat-card-image src="assets/home-page-images/smile.jpg">
             <mat-card-content>
-              <p>
+              <p align="justify">
                 Naše stomatološke usluge pružamo u savremenom i prijatnom ambijentu. Koristimo najnovija saznanja i poslednju reč tehnike. Veoma nam je bitna vaša udobnost prilikom tretmana jer znamo da vam je bila potrebna hrabrost i da je odlazak kod zubara uvek stresan. Uz našu pomoć savladajte strah od stomatoloških intervencija.
               </p>
-              <p>
+              <p align="justify"> 
                 Stručno osoblje svojim znanjem i umećem osposobljeno je da pruži najkvalitetniju uslugu estetske stomatologije savladavajući sa lakoćom i najzahtevnije estetske probleme.
                 Estetska stomatologija može drastično da promeni vaš izgled i samopouzdanje.
+              </p>
+              <p align="justify">
+                Različiti estetski tretmani od izbeljivanja, ispravljanja zuba pa i uključivanja invazivnijih metoda kao što su fasete (veneers) i bezmetalne krune (cirkonija i litijumdisilikatne) mogu vaš osmeh dovesti do perfekcije. Od nefunkcionalnog, loše estetskog do komformnog i lepog osmeha potrebna je samo vaša čvrsta odluka.
               </p>
             </mat-card-content>
           </mat-card>
@@ -58,16 +61,39 @@
             </mat-card-header>
             <mat-card-content style="margin-top: 10px;">
                 <mat-card class="working-hours-card">
-                    <p>Radno vreme:</p>
-                    <p>Pon-Pet - 08:00 - 20:00</p>
-                    <p>Sub: 10:00 - 16:00</p>
-                    <p>Ned: neradan dan</p>
+                  <div>
+                    <mat-icon style="float:left">date_range</mat-icon>
+                    <h3>Radno vreme</h3>
+                  </div>
+                  <div class=working_hours>
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          PONEDELJAK - PETAK :
+                          <td>08:00 - 20:00</td>
+                        </tr>
+                        <tr>
+                          SUBOTA : 
+                          <td>10:00 - 16:00</td>
+                        </tr>
+                        <tr>
+                         NEDELJA I PRAZNIK :
+                         <td>Neradno</td>
+                        </tr>
+                        
+                        
+                      </tbody>
+                    </table>
+
+                  </div>
                 </mat-card>
                 <mat-card class="telephone-card">
-                    <p>Kontakt telefon: <a href="tel:+38121225886">021/225-886</a></p>
+                  <mat-icon style="float:left">phone</mat-icon>
+                  <h3>Kontakt telefon: <a href="tel:+38121225886">021/225-886</a></h3>
                 </mat-card>
                 <mat-card class="address-card">
-                    <p>Adresa: Pariske Komune 12/24 Novi Sad</p>
+                  <mat-icon style="float:left">map</mat-icon>
+                    <h3>Adresa: Pariske Komune 12/24 Novi Sad</h3>
                     <app-map></app-map>
                 </mat-card>
             </mat-card-content>
