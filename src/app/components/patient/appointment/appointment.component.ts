@@ -22,49 +22,55 @@ export class AppointmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // getAppointments(){
-  //   var datePipe = new DatePipe('en-US');
-  //   var date = datePipe.transform(this.appointmentDate.value.Date, 'MM-dd-yyyy')
-  //   console.log(date)
-  //   this.appointmentService.getAppointments(date)
-  //     .subscribe((data)=> 
-  //       { 
-  //         this.appointments = data as Array<AppointmentResponse>;
-  //         console.log("zdravo jovo ", this.appointments);
-  //       } 
-  //     )
-  // }
-
   getAppointments(){
-    
     var datePipe = new DatePipe('en-US');
-    var app1 = new AppointmentResponse();
-    app1.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app1.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app1.DentistName = "Pera";
-    app1.PatientName = "Jovan"
+    var date = datePipe.transform(this.appointmentDate.value.Date, 'MM-dd-yyyy')
+    console.log(date)
+    this.appointmentService.getAppointments(date)
+      .subscribe((data)=> 
+        { 
+          this.appointments = data as Array<AppointmentResponse>;
+        } 
+      )
+  }
 
-    var app2 = new AppointmentResponse();
-    app2.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app2.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app2.DentistName = "Marko";
+  // getAppointments(){
+    
+  //   var datePipe = new DatePipe('en-US');
+  //   var app1 = new AppointmentResponse();
+  //   app1.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app1.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app1.DentistName = "Pera";
+  //   app1.AppoitmentId = 1;
+  //   app1.Reserved = false;
 
-    var app3 = new AppointmentResponse();
-    app3.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app3.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app3.DentistName = "Janko";
+  //   var app2 = new AppointmentResponse();
+  //   app2.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app2.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app2.DentistName = "Marko";
+  //   app2.AppoitmentId = 1;
+  //   app2.Reserved = false;
 
-    var app4 = new AppointmentResponse();
-    app4.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app4.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
-    app4.DentistName = "Vuk";
+  //   var app3 = new AppointmentResponse();
+  //   app3.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app3.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app3.DentistName = "Janko";
+  //   app3.AppoitmentId = 1;
+  //   app3.Reserved = false;
+
+  //   var app4 = new AppointmentResponse();
+  //   app4.DateTimeFrom = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app4.DateTimeTo = datePipe.transform(this.appointmentDate.value.Date, 'hh:mm');
+  //   app4.DentistName = "Vuk";
+  //   app4.AppoitmentId = 1;
+  //   app4.Reserved = true;
     
 
-    this.appointments.push(app1);
-    this.appointments.push(app2);
-    this.appointments.push(app3);
-    this.appointments.push(app4);
-  }
+  //   this.appointments.push(app1);
+  //   this.appointments.push(app2);
+  //   this.appointments.push(app3);
+  //   this.appointments.push(app4);
+  // }
 
   BookAppoitment( appointment: AppointmentResponse)
   {

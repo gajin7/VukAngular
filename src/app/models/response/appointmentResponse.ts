@@ -1,7 +1,7 @@
 export class AppointmentResponse {
-    //Id: number | undefined;
+    AppoitmentId: number | undefined;
     DateTimeFrom: string | null  | undefined;
     DateTimeTo:   string | null   | undefined;
     DentistName: string | undefined;
-    PatientName: string | undefined;
+    Reserved: boolean | undefined;
   }

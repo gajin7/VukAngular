@@ -43,7 +43,7 @@
         <td>{{el.DateTimeFrom}}</td>
         <td>{{el.DateTimeTo}}</td>
         <td>{{el.DentistName}}</td>
-        <button mat-button (click)="BookAppoitment(el)">Zakazi</button>
+        <button mat-button (click)="BookAppoitment(el)"[disabled]="el.Reserved">Zakazi</button>
         
     </tbody>
   </table>
