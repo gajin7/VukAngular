@@ -13,13 +13,10 @@ import { HttpClient } from "@angular/common/http";
 export class AuthWebService {
   config: HostInfo = new HostInfo();
 
-  constructor(
-    private baseWebService: BaseWebServiceService,
-    private http: HttpClient
-  ) {}
+  constructor(private baseWebService: BaseWebServiceService, private http: HttpClient) {}
 
   login(user: User): Observable<any> {
-    return this.http.post<any>(
+    return this.baseWebService.postRequest(
       this.config.defaultHostAddress + this.config.tokenPath,
       `username=` +
         user.username +

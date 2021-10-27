@@ -69,15 +69,15 @@ export class BaseWebServiceService {
       ...additionalHeaders,
     });
     const options = {
-      // headers,
-      // responseType,
-      // reportProgress: false,
-      // observe: "body",
-      // withCredentials: false,
+      headers,
+      responseType,
+      reportProgress: false,
+      observe: "body",
+      withCredentials: false,
       body,
     };
 
-    // options.withCredentials = true;
+    options.withCredentials = true;
 
     return options;
   }
