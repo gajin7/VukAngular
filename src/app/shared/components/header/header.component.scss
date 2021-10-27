@@ -1,0 +1,47 @@
+.navbar {
+    height: 80px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.219);
+    display: flex;
+    justify-content: space-between;
+
+
+    .left {
+        display: flex;
+        height: 100%;
+
+        .home-icon {
+            box-sizing: border-box;
+            height: 100%;
+            width: 80px;
+            padding: 10px;
+            color: rgba(0, 0, 0, 0.493);
+            font-size: 60px;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.164);
+            }
+        }
+
+        .div-title {
+            display: flex;
+            align-items: center;
+            h1 {
+                margin: 13px 0 0 10px;
+                font-family: Baskerville, Times, 'Times New Roman', serif;
+                font-size: 40px;
+                color: rgba(0, 0, 0, 0.486);
+                font-variant: small-caps;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        height: 100%;
+        width: 80px;
+        justify-content: center;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.486);
+    }
+}

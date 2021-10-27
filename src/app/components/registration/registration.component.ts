@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { AuthWebService } from 'src/app/shared/web-services/auth-web.service';
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
     TypeId: ['3', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private userService : UserService, private router : Router)
+  constructor(private fb: FormBuilder, private authWebService : AuthWebService, private router : Router)
   {
     
   }
@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit {
   hide = true;
 
   register(): void{    
-    this.userService.register(this.registrationForm.value).subscribe((data) => {
+    this.authWebService.register(this.registrationForm.value).subscribe((data) => {
       window.alert("Uspesna registracija. Molimo Vas ulogujte se");
       this.router.navigate(['']);
     });

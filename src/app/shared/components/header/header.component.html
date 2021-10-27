@@ -1,0 +1,21 @@
+<nav class="navbar">
+    <div class="left">
+        <a href="/">
+            <mat-icon class="home-icon">home</mat-icon>
+        </a>
+        <div class="div-title">
+            <h1><em>Stomatoloska ordinacija</em></h1>
+        </div>
+    </div>
+    <div class="right">
+        <div *ngIf="role" class="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openProfile()">My Profile</button>
+                <button mat-menu-item (click)="logOut()">Log out</button>
+            </mat-menu>
+        </div>
+    </div>
+</nav>

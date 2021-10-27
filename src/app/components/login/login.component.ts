@@ -1,44 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import {Router} from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { take, takeUntil } from "rxjs/operators";
+import { AuthStoreService } from "src/app/shared/services/auth-store-service";
+import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   isLoginFailed: boolean = false;
   loginForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
+    username: ["", Validators.required],
+    password: ["", Validators.required],
   });
   hide = true;
-constructor(private router: Router,private fb: FormBuilder,public authService: AuthService) { }
 
-login() {
-  console.log("login values",this.loginForm.value);
-  this.authService.login();
-  this.authService.getToken(this.loginForm.value).subscribe((data) => {
-    if(this.authService.isLoggedin)
-    {
-       console.log("login success");
-       if(sessionStorage.role == "Patient")
-          {
-              this.router.navigate(['patient']);
+  private readonly $destroySubject = new Subject();
+
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    public authWebService: AuthWebService,
+    private authStoreService: AuthStoreService
+  ) {}
+
+  login() {
+    this.authWebService
+      .login(this.loginForm.value)
+      .pipe(take(1), takeUntil(this.$destroySubject))
+      .subscribe(
+        (res: any) => {
+          if (res.access_token) {
+            this.authStoreService.token = res.access_token;
+
+            this.router.navigate(["patient"]);
           }
-        else
-        {
-          window.alert("Login success but wrong user type:" + sessionStorage.role);
+        },
+        () => {
+          () => {
+            this.authStoreService.token = null;
+            this.authStoreService.user = null;
+          };
         }
-    }
-    else
-    {
-      this.isLoginFailed = true;
-      window.alert("Login failed, please check your username and password");
-    }
+      );
+  }
 
-  });
-}
+  ngOnDestroy(): void {
+    this.$destroySubject.next();
+  }
 }

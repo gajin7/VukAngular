@@ -1,0 +1,13 @@
+.example-card {
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .form-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+}
