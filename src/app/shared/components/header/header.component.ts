@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthStoreService } from "../../services/auth-store-service";
-import { AuthWebService } from "../../web-services/auth-web.service";
+import { AuthStoreService } from "src/app/shared/services/auth-store-service";
+import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
 
 @Component({
   selector: "app-header",
@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
     this.authWebService.logout().subscribe(() => {
       this.authStoreService.token = null;
       this.authStoreService.user = null;
+      this.router.navigate(["auth"]);
     });
   }
 

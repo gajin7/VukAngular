@@ -16,8 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    //throw new Error("Method not implemented.");
-    let jwt = sessionStorage.jwt;
+    let jwt = localStorage.jwt;
     if (jwt) {
       req = req.clone({
         setHeaders: {

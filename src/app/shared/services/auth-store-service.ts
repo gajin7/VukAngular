@@ -24,10 +24,15 @@ export class AuthStoreService {
 
   // user
   get token(): string | null {
-    return this._token.getValue();
+    let token = this._token.getValue();
+    if (!token) {
+      token = localStorage.jwt;
+    }
+    return token;
   }
 
   set token(data: string | null) {
+    localStorage.setItem("jwt", data || "");
     this._token.next(data);
   }
 

@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 
 export class HostInfo {
-  defaultHostAddress: string = "https://localhost:44344";
+  defaultHostAddress: string = "http://localhost:54739";
   tokenPath: string = "/oauth/token";
 
   httpOptionsJson = {

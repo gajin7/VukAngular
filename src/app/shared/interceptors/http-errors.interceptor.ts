@@ -8,10 +8,14 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError as observableThrowError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { BaseAlertService } from "../services/base-alert-service";
 
 @Injectable()
 export class HttpErrorsInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private baseAlertService: BaseAlertService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -20,11 +24,9 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((err) => {
         if (err.status === 401) {
-          this.router.navigate(['']);
-        } else {
-          console.log(err);
-          window.alert(err.error.Message);
+          this.router.navigate([""]);
         }
+        this.baseAlertService.showAlert(err.message);
         return observableThrowError(err);
       })
     );

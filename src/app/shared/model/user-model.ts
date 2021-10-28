@@ -2,7 +2,7 @@ export class UserModel {
     id: string = '';
     email: string = '';
     firstName: string = '';
-    lastaName: string = '';
+    lastName: string = '';
     name: string = '';
     type: string = '';
     lastAppoitment: string = '';

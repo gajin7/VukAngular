@@ -1,0 +1,17 @@
+<div class="logo-wrapper">
+    <a routerLink="''">
+        <img src="assets/home-page-images/dentistLogo.png" alt="">
+    </a>
+</div>
+<nav class="nav-wrapper">
+    <ul>
+        <li class="item" *ngFor="let navItem of navigationItems">
+            <a class="parent-item" [routerLink]="navItem.route" routerLinkActive="router-link-active">
+                <mat-icon class="icon">{{navItem.icon}}</mat-icon>
+                <span class="title">{{navItem.displayName}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<app-footer [lightMode]="true"></app-footer>

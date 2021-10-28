@@ -24,13 +24,36 @@ export class AuthGuard implements CanActivate {
 
   canActivate(
     _route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    _state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authStoreService.user) {
       return true;
     } else {
-      // implement aditional check from token
-      return false;
+      return this.authWebService
+        .getUserInfo(this.authStoreService.email || "")
+        .pipe(
+          map((userData) => {
+            if (userData) {
+              this.authStoreService.user = {
+                email: userData.Email,
+                firstName: userData.FirstName,
+                id: userData.Id,
+                lastAppoitment: userData.LastAppoitment,
+                lastName: userData.LastName,
+                name: userData.Name,
+                suggestedAppoitment: userData.SuggestedAppoitment,
+                type: userData.Type,
+              };
+              return true;
+            }
+            this.router.navigate([this.redirectToNotAuthorizedPage]);
+            return false;
+          }),
+          catchError(() => {
+            this.router.navigate([this.redirectToNotAuthorizedPage]);
+            return of(false);
+          })
+        );
     }
   }
 }

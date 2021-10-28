@@ -37,14 +37,33 @@ export class LoginComponent implements OnDestroy {
           if (res.access_token) {
             this.authStoreService.token = res.access_token;
 
-            this.router.navigate(["patient"]);
+            // Implement get current user
+            this.authWebService
+              .getUserInfo(this.authStoreService.email || "")
+              .subscribe(
+                (userData) => {
+                  this.authStoreService.user = {
+                    email: userData.Email,
+                    firstName: userData.FirstName,
+                    id: userData.Id,
+                    lastAppoitment: userData.LastAppoitment,
+                    lastName: userData.LastName,
+                    name: userData.Name,
+                    suggestedAppoitment: userData.SuggestedAppoitment,
+                    type: userData.Type,
+                  };
+                  this.router.navigate([""]);
+                },
+                () => {
+                  this.authStoreService.token = null;
+                  this.authStoreService.user = null;
+                }
+              );
           }
         },
         () => {
-          () => {
-            this.authStoreService.token = null;
-            this.authStoreService.user = null;
-          };
+          this.authStoreService.token = null;
+          this.authStoreService.user = null;
         }
       );
   }

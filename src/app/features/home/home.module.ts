@@ -1,0 +1,52 @@
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatTableModule } from "@angular/material/table";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppointmentComponent } from "src/app/components/patient/appointment/appointment.component";
+import { CardComponent } from "src/app/components/patient/card/card.component";
+import { PatientHomeComponent } from "src/app/components/patient/patient-home/patient-home.component";
+import { HomeRoutingModule } from "./home-routing.module";
+import { HomeComponent } from "./home.component";
+
+@NgModule({
+  imports: [
+    HomeRoutingModule,
+    CommonModule,
+    MatTabsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatNativeDateModule,
+    MatTableModule
+  ],
+  exports: [
+    HomeComponent,
+    CardComponent,
+    AppointmentComponent,
+    PatientHomeComponent,
+  ],
+  declarations: [
+    HomeComponent,
+    CardComponent,
+    AppointmentComponent,
+    PatientHomeComponent,
+  ],
+  providers: [],
+})
+export class HomeModule {}

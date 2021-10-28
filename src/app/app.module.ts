@@ -24,28 +24,18 @@ import { JwtInterceptor } from "./shared/interceptors/jwt-interceptor";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AgmCoreModule } from "@agm/core";
 import { MatNativeDateModule } from "@angular/material/core";
-import { PatientHomeComponent } from "./components/patient/patient-home/patient-home.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HttpErrorsInterceptor } from "./shared/interceptors/http-errors.interceptor";
-import { AppointmentComponent } from "./components/patient/appointment/appointment.component";
 import { MatTableModule } from "@angular/material/table";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { CardComponent } from "./components/patient/card/card.component";
-import { HeaderComponent } from './shared/components/header/header.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MainLayoutModule } from "./layouts/main-layout/main-layout.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RegistrationComponent,
-    PatientHomeComponent,
-    ProfileComponent,
-    AppointmentComponent,
-    CardComponent
-  ],
+  declarations: [AppComponent, RegistrationComponent, ProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -69,6 +59,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     MatTabsModule,
     MatTableModule,
     MatExpansionModule,
+    MatSnackBarModule,
+    MainLayoutModule,
     AgmCoreModule.forRoot({
       apiKey: "",
     }),

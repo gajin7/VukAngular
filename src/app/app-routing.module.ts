@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
 import { MainLayoutComponent } from "./layouts/main-layout/main-layout.component";
+import { AuthGuard } from "./shared/guards/auth.guard";
 
 // const routes: Routes = [
 //   {
@@ -30,10 +31,10 @@ const routes: Routes = [
     path: "",
     component: MainLayoutComponent,
     loadChildren: () =>
-      import("./layouts/main-layout/main-layout.module").then(
-        (m) => m.MainLayoutModule
+      import("./features/main/main-module").then(
+        (m) => m.MainModule
       ),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "auth",
@@ -43,6 +44,10 @@ const routes: Routes = [
         (m) => m.AuthLayoutModule
       ),
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

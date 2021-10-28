@@ -1,5 +1,10 @@
-<app-header></app-header>
-<div class="content">
-    <router-outlet></router-outlet>
+<app-side-menu></app-side-menu>
+<div class="main-content">
+    <app-header></app-header>
+    <div class="contnet-wrapper">
+        <router-outlet></router-outlet>
+        <div *ngIf="globalService.isActivatedLoader$ | async" class="loader">
+            <div class="lds-hourglass"></div>
+        </div>
+    </div>
 </div>
-<app-footer></app-footer>

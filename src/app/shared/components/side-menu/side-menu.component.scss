@@ -1,0 +1,116 @@
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--color-table-border, #efeff3);
+    width: 280px;
+    padding: 20px;
+    position: relative;
+
+    app-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .router-link-active {
+        color: var(--color-primary, #5849e0) !important;
+    }
+
+    .logo-wrapper {
+        height: 240px;
+        width: 100%;
+        padding: 60px;
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .nav-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .item {
+            border-radius: 4px;
+            margin-bottom: 10px;
+
+            .parent-item {
+                display: flex;
+                flex-direction: row;
+                height: 40px;
+                width: 100%;
+                align-items: center;
+                align-content: center;
+                color: var(--color-main-darker, #282a3c);
+                font-weight: 600;
+                border-radius: 4px;
+
+                .icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 4px;
+
+                    .sidebar-icon {
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    &.activated {
+                        color: var(--color-primary, #5849e0);
+                        background-color: var(--color-primary-background, #e4e0f1);
+                    }
+                }
+
+                .title {
+                    padding: 10px;
+                    font-size: 12px;
+
+                    &.activated {
+                        color: var(--color-primary, #5849e0);
+                        font-weight: 600;
+                    }
+                }
+
+                &.activated {
+                    color: var(--color-primary, #5849e0);
+                    background-color: var(--color-primary-background, #e4e0f1);
+                }
+
+                &.disabled {
+                    color: var(--color-main-light, #bbbbbb);
+                }
+            }
+
+            .parent-item:hover {
+                color: var(--color-primary, #5849e0);
+                cursor: pointer;
+
+                &.disabled {
+                    color: var(--color-main-light, #bbbbbb);
+                    background-color: unset;
+                }
+
+                .icon {
+                    color: var(--color-primary, #5849e0);
+                    background-color: var(--color-primary-background, #e4e0f1);
+                }
+            }
+        }
+    }
+}

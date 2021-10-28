@@ -1,0 +1,14 @@
+<ng-container *ngIf="appointment">
+    <div class="status" [class.status-free]="!appointment.Reserved"></div>
+    <div class="container">
+        <div class="appointment-detail">Od: {{appointment.DateTimeFrom }}</div>
+        <div class="appointment-detail">Do: {{appointment.DateTimeTo }}</div>
+        <div class="appointment-detail">{{ appointment.Reserved ? "Zauzet" : "Slobodan" }}</div>
+        <div class="appointment-detail">Trajanje: {{duration}}</div>
+        <div class="appointment-detail">
+            <button mat-stroked-button>Zakaži</button>
+        </div>
+    </div>
+
+    <div *ngIf="appointment.Reserved" class="disabled-panel"></div>
+</ng-container>

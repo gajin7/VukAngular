@@ -1,55 +1,64 @@
-.main-div {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-    padding: 20px;
-    grid-gap: 40px;
-    width: 100%;
+:host {
+    display: flex;
+    flex-direction: column;
 
-    .bar {
-        height: 100%;
+    .main-div {
+        flex: 1;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+        padding: 20px;
+        grid-gap: 20px;
+        width: 100%;
+        background-color: var(--color-main-lighter);
 
-        .example-card {
+        .bar {
             height: 100%;
-            width: 100%;
 
-            .card-image {
+            .example-card {
+                height: 100%;
                 width: 100%;
+
+                .card-image {
+                    width: 100%;
+                }
+
+                .working-hours-card {
+                    margin-top: 10px;
+                    background-color: rgba(0, 0, 0, 0.205);
+                }
+
+                .telephone-card {
+                    margin-top: 10px;
+                }
+
+                .address-card {
+                    margin-top: 10px;
+
+                }
+
             }
 
-            .working-hours-card {
-                margin-top: 10px;
-                background-color: rgba(0, 0, 0, 0.205);
+            .example-header-image {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .icon-display {
+                    transform: scale(2);
+                }
+
             }
 
-            .telephone-card {
-                margin-top: 10px;
-            }
-
-            .address-card {
-                margin-top: 10px;
-            }
-
-        }
-
-        .example-header-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .icon-display {
-                transform: scale(2);
-            }
-
-        }
-
-        .login-card {
-            height: 100%;
-            width: 100%;
+            .login-card {
+                height: 100%;
+                width: 100%;
 
 
-            .login-card-content {
-                margin: auto;
-                max-width: 380px;
+                .login-card-content {
+                    margin: auto;
+                    max-width: 380px;
+                }
             }
         }
     }
