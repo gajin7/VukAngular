@@ -3,7 +3,7 @@
     <div class="container">
         <ng-container *ngIf="isPersonal">
             <div class="appointment-detail">Datum: {{appointment.DateTimeFrom | date: 'dd.MM.yyyy.'}}</div>
-            <div class="appointment-detail">Vreme: {{appointment.DateTimeFrom  | date: 'hh:mm'}}</div>
+            <div class="appointment-detail">Vreme: {{appointment.DateTimeFrom  | date: 'HH:mm'}}</div>
             <!-- <div class="appointment-detail" *ngIf="!isPast">
                 <button mat-stroked-button (click)="emitAppointmentCancel()">Otkaži</button>
             </div> -->

@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { ROLE } from "../../model/role";
+import { AuthStoreService } from "../../services/auth-store-service";
 import { SideMenuItemI } from "./side-menu-item.interface";
 
 @Component({
@@ -9,12 +11,42 @@ import { SideMenuItemI } from "./side-menu-item.interface";
 export class SideMenuComponent implements OnInit {
   navigationItems: SideMenuItemI[] = [
     { displayName: "Početna", key: "home", route: "/home", icon: "home" },
-    { displayName: "Zakazivanje", key: "appointments", route: "/appointments", icon: "edit_calendar", canActivateRole: ['*'] },
-    { displayName: "Intervencije", key: "interventions", route: "/interventions", icon: "dvr", canActivateRole: ['*'] },
-    { displayName: "Transakcije", key: "transactions", route: "/transactions", icon: "receipt_long", canActivateRole: ['*'] }
+    {
+      displayName: "Zakazivanje",
+      key: "appointments",
+      route: "/appointments",
+      icon: "edit_calendar",
+      canActivateRole: [ROLE.ADMIN, ROLE.PATIENT],
+    },
+    {
+      displayName: "Raspored",
+      key: "schedule",
+      route: "/schedule",
+      icon: "edit_calendar",
+      canActivateRole: [ROLE.ADMIN, ROLE.DENTIST],
+    },
+    {
+      displayName: "Intervencije",
+      key: "interventions",
+      route: "/interventions",
+      icon: "dvr",
+    },
+    {
+      displayName: "Transakcije",
+      key: "transactions",
+      route: "/transactions",
+      icon: "receipt_long",
+    },
   ];
 
-  constructor() {}
+  constructor(private authStoreService: AuthStoreService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.navigationItems = this.navigationItems.filter((i) => {
+      if (i.canActivateRole?.length) {
+        return i.canActivateRole.includes(this.authStoreService.role || "");
+      }
+      return true;
+    });
+  }
 }
