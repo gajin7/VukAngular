@@ -17,7 +17,16 @@ const routes: Routes = [
     data: {
       permissions: [ROLE.ADMIN, ROLE.PATIENT],
     },
-    canActivate: [PermissionGuard]
+    canActivate: [PermissionGuard],
+  },
+  {
+    path: "schedule",
+    loadChildren: () =>
+      import("../schedule/schedule.module").then((m) => m.ScheduleModule),
+    data: {
+      permissions: [ROLE.ADMIN, ROLE.DENTIST],
+    },
+    canActivate: [PermissionGuard],
   },
   {
     path: "",
