@@ -46,11 +46,6 @@ export class AuthStoreService {
   }
 
   get role(): string | null {
-    if (!this.token) {
-      return null;
-    }
-    const decodedJwtJsonData = window.atob(this.token.split(".")[1]);
-    const decodedJwtData = JSON.parse(decodedJwtJsonData);
-    return decodedJwtData.role;
+    return this.user?.Type || null;
   }
 }

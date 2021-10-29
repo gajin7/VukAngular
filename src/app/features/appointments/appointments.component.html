@@ -4,21 +4,36 @@
         <label class="date-label">Odaberite datum:</label>
         <mat-form-field>
             <mat-label>Datum</mat-label>
-            <input (dateChange)="dateChangedHandler($event)" matInput [matDatepickerFilter]="disablePastDays"
-                [matDatepicker]="picker" [value]="today">
+            <input (dateChange)="dataChangedHandler()" matInput [matDatepickerFilter]="disablePastDays"
+                [matDatepicker]="picker" [(ngModel)]="dateValue">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <label class="date-label">Odaberite zubara:</label>
+        <mat-form-field>
+            <mat-label>Zubar</mat-label>
+            <mat-select (selectionChange)="dataChangedHandler()" [(ngModel)]="dentistId">
+                <mat-option *ngFor="let dentist of dentists" [value]="dentist.Id">
+                    {{dentist.FirstName +" "+ dentist.LastName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
     <div class="my-appointment panel-card">
+
         <h2 class="section-title">Moji termini</h2>
+        <div class="appoinments-list">
+            <app-appointment-item *ngFor="let item of appointmentsPersonal" [isPersonal]="true" [appointment]="item"
+                class="panel-card">
+            </app-appointment-item>
+        </div>
     </div>
 </div>
 <div class="calendar panel-card">
     <h2 class="section-title">Termini za dan: </h2>
 
     <div class="appoinments-list">
-        <app-appointment-item *ngFor="let item of appointments" [appointment]="item" class="panel-card">
+        <app-appointment-item *ngFor="let item of appointments" (bookAppointment)="bookAppointment(item)"
+            [appointment]="item" class="panel-card">
         </app-appointment-item>
     </div>
 </div>

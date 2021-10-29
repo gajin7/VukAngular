@@ -11,8 +11,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppointmentComponent } from "src/app/components/patient/appointment/appointment.component";
 import { CardComponent } from "src/app/components/patient/card/card.component";
 import { PatientHomeComponent } from "src/app/components/patient/patient-home/patient-home.component";
 import { HomeRoutingModule } from "./home-routing.module";
@@ -38,13 +36,11 @@ import { HomeComponent } from "./home.component";
   exports: [
     HomeComponent,
     CardComponent,
-    AppointmentComponent,
     PatientHomeComponent,
   ],
   declarations: [
     HomeComponent,
     CardComponent,
-    AppointmentComponent,
     PatientHomeComponent,
   ],
   providers: [],

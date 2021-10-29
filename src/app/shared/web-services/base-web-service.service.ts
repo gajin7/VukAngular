@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
-export class BaseWebServiceService {
+export class BaseWebService {
   constructor(private http: HttpClient) {}
 
   getRequest<T>(url: string, classType?: Type<T>): Observable<T> {
@@ -23,7 +23,7 @@ export class BaseWebServiceService {
     url: string,
     data?: K,
     headers?: object,
-    classType?: Type<T>,
+    classType?: Type<T>
   ): Observable<T> {
     const options = this.addOptionsForRequest(headers);
     return this.http.post<T>(url, data, options).pipe(
@@ -56,6 +56,18 @@ export class BaseWebServiceService {
         return classType ? plainToClass(classType, res as T) : res;
       })
     );
+  }
+
+  constructUrlWithParams(
+    url: string,
+    params: { [key: string]: string }
+  ): string {
+    let paramString = "?";
+    for (const [key, value] of Object.entries(params)) {
+      paramString += paramString.length > 1 ? "&" : "";
+      paramString += key + "=" + value;
+    }
+    return url + paramString;
   }
 
   private addOptionsForRequest(

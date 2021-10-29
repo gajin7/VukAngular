@@ -4,5 +4,5 @@ export class Appointment {
   DateTimeTo: string | null | undefined;
   DentistName: string | undefined;
   PatientName: string | undefined;
-  IsReserved: boolean | undefined;
+  Reserved: boolean | undefined;
 }

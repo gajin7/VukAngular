@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HostInfo } from "../../models/hostInfo";
 import { User } from "../../models/user";
-import { BaseWebServiceService } from "./base-web-service.service";
+import { BaseWebService } from "./base-web-service.service";
 import { Registration } from "src/app/models/request/registration";
 import { HttpClient } from "@angular/common/http";
 
@@ -13,7 +13,9 @@ import { HttpClient } from "@angular/common/http";
 export class AuthWebService {
   config: HostInfo = new HostInfo();
 
-  constructor(private baseWebService: BaseWebServiceService, private http: HttpClient) {}
+  constructor(
+    private baseWebService: BaseWebService,
+  ) {}
 
   login(user: User): Observable<any> {
     return this.baseWebService.postRequest(
@@ -40,12 +42,9 @@ export class AuthWebService {
     );
   }
 
-  getUserInfo(email: string): Observable<any> {
+  getUserInfo(): Observable<any> {
     return this.baseWebService.getRequest(
-      this.config.defaultHostAddress +
-        this.config.userController +
-        "/info?email=" +
-        email
+      this.config.defaultHostAddress + this.config.userController + '/info'
     );
   }
 }

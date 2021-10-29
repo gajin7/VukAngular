@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserInfo() {
-    this.authWebService.getUserInfo(sessionStorage.email).subscribe((data) => {
+    this.authWebService.getUserInfo().subscribe((data) => {
       var profile = data as UserInfo;
       this.profileForm.setValue({
         firstName: profile.FirstName,

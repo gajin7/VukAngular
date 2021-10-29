@@ -3,7 +3,7 @@
     <app-header></app-header>
     <div class="contnet-wrapper">
         <router-outlet></router-outlet>
-        <div *ngIf="globalService.isActivatedLoader$ | async" class="loader">
+        <div class="loader" [class.visible]="isLoading">
             <div class="lds-hourglass"></div>
         </div>
     </div>

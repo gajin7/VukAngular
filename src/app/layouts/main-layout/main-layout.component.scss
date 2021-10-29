@@ -28,6 +28,11 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                display: none;
+
+                &.visible {
+                    display: unset;
+                }
             }
         }
     }

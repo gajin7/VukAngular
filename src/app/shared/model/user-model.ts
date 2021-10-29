@@ -1,10 +1,12 @@
+import { ROLE } from "./role";
+
 export class UserModel {
-    id: string = '';
-    email: string = '';
-    firstName: string = '';
-    lastName: string = '';
-    name: string = '';
-    type: string = '';
-    lastAppoitment: string = '';
-    suggestedAppoitment: string = '';
+  Id: string = "";
+  Email: string = "";
+  FirstName: string = "";
+  LastName: string = "";
+  Name: string = "";
+  Type: ROLE = ROLE.UNAUTHORIZED;
+  LastAppoitment: string = "";
+  SuggestedAppoitment: string = "";
 }

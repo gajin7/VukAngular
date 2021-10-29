@@ -16,6 +16,10 @@
         &.status-free {
             background-color: var(--color-success);
         }
+
+        &.past {
+            background-color: var(--color-disabled);
+        }
     }
 
     .disabled-panel {
