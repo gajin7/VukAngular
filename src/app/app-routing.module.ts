@@ -31,10 +31,8 @@ const routes: Routes = [
     path: "",
     component: MainLayoutComponent,
     loadChildren: () =>
-      import("./features/main/main-module").then(
-        (m) => m.MainModule
-      ),
-    canActivate: [AuthGuard]
+      import("./features/main/main-module").then((m) => m.MainModule),
+    canActivate: [AuthGuard],
   },
   {
     path: "auth",
@@ -45,9 +43,16 @@ const routes: Routes = [
       ),
   },
   {
-    path: '**',
-    redirectTo: ''
-  }
+    path: "page-not-found",
+    loadChildren: () =>
+      import("./layouts/page-not-found/page-not-found.module").then(
+        (m) => m.PageNotFoundModule
+      ),
+  },
+  {
+    path: "**",
+    redirectTo: "page-not-found",
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
