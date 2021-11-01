@@ -3,10 +3,10 @@ import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 import { MatDialog } from "@angular/material/dialog";
 import { forkJoin, Subject } from "rxjs";
 import { finalize, take, takeUntil } from "rxjs/operators";
-import { Appointment } from "src/app/models/appoitment";
+import { AppointmentModel } from "src/app/shared/model/appoitment.model";
 import { CreateAppointmentPopupComponent } from "src/app/shared/components/create-appointment-popup/create-appointment-popup.component";
 import { ROLE } from "src/app/shared/model/role";
-import { UserModel } from "src/app/shared/model/user-model";
+import { UserModel } from "src/app/shared/model/user.model";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
 import { GlobalService } from "src/app/shared/services/global-service";
 import { AppointmentWebService } from "src/app/shared/web-services/appointment-web.service";
@@ -18,8 +18,8 @@ import { UserWebService } from "src/app/shared/web-services/user-web.service";
   styleUrls: ["./appointments.component.scss"],
 })
 export class AppointmentsComponent implements OnInit, OnDestroy {
-  appointments: Appointment[] = [];
-  appointmentsPersonal: Appointment[] = [];
+  appointments: AppointmentModel[] = [];
+  appointmentsPersonal: AppointmentModel[] = [];
   dentists: UserModel[] = [];
   patients: UserModel[] = [];
 
@@ -120,7 +120,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  bookAppointment(appointment: Appointment) {
+  bookAppointment(appointment: AppointmentModel) {
     this.globalService.activateLoader();
     this.appointmentWebService
       .bookAppointment(
@@ -147,7 +147,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  cancelAppointment(appointment: Appointment) {
+  cancelAppointment(appointment: AppointmentModel) {
     // TODO: implement
   }
 

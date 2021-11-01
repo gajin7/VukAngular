@@ -1,0 +1,41 @@
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .select-wrapper {
+        background-color: white;
+        flex: 0 1 400px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+
+        h2 {
+            font-size: xx-large;
+            font-weight: 400;
+        }
+    }
+
+    .table-wrapper {
+        margin-left: 20px;
+        background-color: white;
+        flex: 1;
+        height: 100%;
+    }
+
+    @media screen and (max-width: 1050px) {
+        & {
+            flex-direction: column;
+            max-height: unset;
+        }
+
+        .select-wrapper {
+            flex: 0 1 300px;
+        }
+
+        .table-wrapper {
+            margin: 20px 0 0 0;
+        }
+    }
+}

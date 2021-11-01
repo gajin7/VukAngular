@@ -13,6 +13,7 @@ import { AppointmentItemModule } from "src/app/shared/components/appointment-ite
 import { CreateAppointmentPopupModule } from "src/app/shared/components/create-appointment-popup/create-appointment-popup.module";
 import { AppointmentsComponent } from "./appointments.component";
 import { AppointmentRoutingModule } from "./appoitments-routing.module";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { AppointmentRoutingModule } from "./appoitments-routing.module";
     MatTooltipModule,
     CreateAppointmentPopupModule,
     MatDialogModule,
+    MatNativeDateModule,
   ],
   exports: [AppointmentsComponent],
   declarations: [AppointmentsComponent],

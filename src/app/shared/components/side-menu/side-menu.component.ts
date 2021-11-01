@@ -38,6 +38,13 @@ export class SideMenuComponent implements OnInit {
       route: "/transactions",
       icon: "receipt_long",
     },
+    {
+      displayName: "Upravljački panel",
+      key: "administration",
+      route: "/administration",
+      icon: "admin_panel_settings",
+      canActivateRole: [ROLE.ADMIN],
+    },
   ];
 
   constructor(private authStoreService: AuthStoreService) {}

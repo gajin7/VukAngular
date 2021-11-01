@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
-import { Appointment } from "src/app/models/appoitment";
-import { HostInfo } from "src/app/models/hostInfo";
+import { AppointmentModel } from "src/app/shared/model/appoitment.model";
+import { HostInfo } from "src/app/config/hostInfo";
 import { BaseWebService } from "./base-web-service.service";
 
 @Injectable({ providedIn: "root" })
@@ -10,7 +10,7 @@ export class AppointmentWebService {
   config: HostInfo = new HostInfo();
   constructor(private baseWebService: BaseWebService) {}
 
-  getAppointments(date: string, dentistId: string): Observable<Appointment[]> {
+  getAppointments(date: string, dentistId: string): Observable<AppointmentModel[]> {
     return this.baseWebService.getRequest(
       this.baseWebService.constructUrlWithParams(
         this.config.defaultHostAddress + this.config.appointmentController,
@@ -19,7 +19,7 @@ export class AppointmentWebService {
     );
   }
 
-  getPersonalAppointments(email: string): Observable<Appointment[]> {
+  getPersonalAppointments(email: string): Observable<AppointmentModel[]> {
     return this.baseWebService
       .getRequest(
         this.baseWebService.constructUrlWithParams(
@@ -32,7 +32,7 @@ export class AppointmentWebService {
       .pipe(
         map((appointments: any) =>
           appointments.sort(
-            (a: Appointment, b: Appointment) =>
+            (a: AppointmentModel, b: AppointmentModel) =>
               new Date(b.DateTimeFrom || "").getTime() -
               new Date(a.DateTimeFrom || "").getTime()
           )
@@ -58,8 +58,8 @@ export class AppointmentWebService {
 
   createAppointments(
     dentistId: string,
-    appointments: Partial<Appointment>[]
-  ): Observable<Appointment[]> {
+    appointments: Partial<AppointmentModel>[]
+  ): Observable<AppointmentModel[]> {
     return this.baseWebService.postRequest(
       this.config.defaultHostAddress + this.config.appointmentController,
       {

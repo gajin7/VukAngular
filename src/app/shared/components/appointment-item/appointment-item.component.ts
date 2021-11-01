@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Appointment } from "src/app/models/appoitment";
+import { AppointmentModel } from "src/app/shared/model/appoitment.model";
 
 @Component({
   selector: "app-appointment-item",
@@ -8,7 +8,7 @@ import { Appointment } from "src/app/models/appoitment";
 })
 export class AppointmentItemComponent implements OnInit {
   @Input()
-  appointment: Appointment | null = null;
+  appointment: AppointmentModel | null = null;
   @Input()
   isPersonal: boolean = false;
   @Input()

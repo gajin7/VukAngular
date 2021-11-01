@@ -42,6 +42,17 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
   },
   {
+    path: "administration",
+    loadChildren: () =>
+      import("../administration/administration.module").then(
+        (m) => m.AdministrationModule
+      ),
+    data: {
+      permissions: [ROLE.ADMIN],
+    },
+    canActivate: [PermissionGuard],
+  },
+  {
     path: "",
     redirectTo: "home",
   },

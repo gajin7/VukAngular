@@ -1,4 +1,4 @@
-export class Appointment {
+export class AppointmentModel {
   Id: number | undefined;
   DateTimeFrom: string | null | undefined;
   DateTimeTo: string | null | undefined;

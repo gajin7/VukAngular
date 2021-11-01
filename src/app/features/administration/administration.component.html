@@ -1,0 +1,9 @@
+<div class="select-wrapper">
+    <h2>Odaberi entitet</h2>
+    <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let item of entitiesList" [value]="item.internalName">
+            {{item.displayName}}
+        </mat-list-option>
+    </mat-selection-list>
+</div>
+<div class="table-wrapper"></div>

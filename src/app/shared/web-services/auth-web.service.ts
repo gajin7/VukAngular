@@ -1,11 +1,8 @@
 import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs";
-import { HostInfo } from "../../models/hostInfo";
-import { User } from "../../models/user";
+import { HostInfo } from "../../config/hostInfo";
 import { BaseWebService } from "./base-web-service.service";
-import { Registration } from "src/app/models/request/registration";
-import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +14,7 @@ export class AuthWebService {
     private baseWebService: BaseWebService,
   ) {}
 
-  login(user: User): Observable<any> {
+  login(user: any): Observable<any> {
     return this.baseWebService.postRequest(
       this.config.defaultHostAddress + this.config.tokenPath,
       `username=` +
@@ -35,7 +32,8 @@ export class AuthWebService {
     );
   }
 
-  register(user: Registration): Observable<any> {
+  // TODO: create model for registration
+  register(user: any): Observable<any> {
     return this.baseWebService.postRequest(
       this.config.defaultHostAddress + this.config.userController + "/register",
       user

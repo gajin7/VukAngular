@@ -11,7 +11,6 @@ import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
-import { RegistrationComponent } from "./components/registration/registration.component";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatSelectModule } from "@angular/material/select";
 import { MatRadioModule } from "@angular/material/radio";
@@ -26,7 +25,6 @@ import { AgmCoreModule } from "@agm/core";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
-import { ProfileComponent } from "./components/profile/profile.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HttpErrorsInterceptor } from "./shared/interceptors/http-errors.interceptor";
 import { MatTableModule } from "@angular/material/table";
@@ -35,32 +33,15 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MainLayoutModule } from "./layouts/main-layout/main-layout.module";
 
 @NgModule({
-  declarations: [AppComponent, RegistrationComponent, ProfileComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    GoogleMapsModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatGridListModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatToolbarModule,
-    MatDatepickerModule,
     MatIconModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
-    HttpClientModule,
-    MatInputModule,
-    MatMenuModule,
-    MatTabsModule,
-    MatTableModule,
-    MatExpansionModule,
     MatSnackBarModule,
     MainLayoutModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: "",
     }),

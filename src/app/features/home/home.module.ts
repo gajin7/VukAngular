@@ -11,8 +11,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { CardComponent } from "src/app/components/patient/card/card.component";
-import { PatientHomeComponent } from "src/app/components/patient/patient-home/patient-home.component";
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 
@@ -31,18 +29,10 @@ import { HomeComponent } from "./home.component";
     MatToolbarModule,
     MatIconModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
   ],
-  exports: [
-    HomeComponent,
-    CardComponent,
-    PatientHomeComponent,
-  ],
-  declarations: [
-    HomeComponent,
-    CardComponent,
-    PatientHomeComponent,
-  ],
+  exports: [HomeComponent],
+  declarations: [HomeComponent],
   providers: [],
 })
 export class HomeModule {}

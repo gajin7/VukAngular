@@ -7,6 +7,6 @@ export class UserModel {
   LastName: string = "";
   Name: string = "";
   Type: ROLE = ROLE.UNAUTHORIZED;
-  LastAppoitment: string = "";
-  SuggestedAppoitment: string = "";
+  LastAppointment: string = "";
+  SuggestedAppointment: string = "";
 }
