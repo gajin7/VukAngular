@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>{{generateAuto ? "Automatsko kreiranje" : "Kreiranje"}} termina:</h1>
+<div mat-dialog-content class="content">
+    <form *ngIf="inputForm" [formGroup]="inputForm">
+        <mat-form-field>
+            <mat-label>
+                Vreme pocetka termina</mat-label>
+            <input matInput formControlName="startTime" class="timepicker" [ngxTimepicker]="picker1" [format]=24
+                placeholder="Pocetak" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Vreme zavrsetka termina</mat-label>
+            <input matInput formControlName="endTime" class="timepicker" [ngxTimepicker]="picker2" [format]=24
+                placeholder="Kraj" required>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="generateAuto">
+            <mat-label>Interval</mat-label>
+            <mat-select formControlName="intervals" required>
+                <mat-option *ngFor="let interval of intervals | keyvalue" [value]="interval.key">
+                    {{ interval.value }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="inputForm.errors?.timeDiffError && (inputForm.touched || inputForm.dirty)" class="error-list">
+            Vreme završetka mora biti nakon vremena početka!
+        </div>
+
+        <div class="actions">
+            <button mat-raised-button [disabled]="inputForm.invalid" color="primary" type="submit"
+                (click)="createAppointments()">Kreiraj</button>
+            <button mat-raised-button mat-dialog-close>Odustani</button>
+        </div>
+    </form>
+
+
+
+    <ngx-material-timepicker #picker1 [enableKeyboardInput]=true>
+    </ngx-material-timepicker>
+    <ngx-material-timepicker #picker2 [enableKeyboardInput]=true>
+    </ngx-material-timepicker>
+
+</div>

@@ -23,7 +23,7 @@ export class SideMenuComponent implements OnInit {
       key: "schedule",
       route: "/schedule",
       icon: "edit_calendar",
-      canActivateRole: [ROLE.ADMIN, ROLE.DENTIST],
+      canActivateRole: [ROLE.DENTIST],
     },
     {
       displayName: "Intervencije",

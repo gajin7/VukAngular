@@ -1,5 +1,5 @@
 <ng-container *ngIf="appointment">
-    <div class="status" [class.status-free]="!appointment.Reserved" [class.past]="isPast"></div>
+    <div class="status" [class.status-free]="!appointment.Reserved && !isPast" [class.past]="isPast"></div>
     <div class="container">
         <ng-container *ngIf="isPersonal">
             <div class="appointment-detail">Datum: {{appointment.DateTimeFrom | date: 'dd.MM.yyyy.'}}</div>
@@ -11,9 +11,10 @@
         <ng-container *ngIf="!isPersonal">
             <div class="appointment-detail">Od: {{appointment.DateTimeFrom }}</div>
             <div class="appointment-detail">Do: {{appointment.DateTimeTo }}</div>
-            <div class="appointment-detail">{{ appointment.Reserved ? "Zauzet" : "Slobodan" }}</div>
-            <div class="appointment-detail">Trajanje: {{duration}}</div>
             <div class="appointment-detail">
+                {{ appointment.Reserved ? (isPatient ? "Zauzet": "Sa pacijentom") : "Slobodan" }}</div>
+            <div class="appointment-detail">Trajanje: {{duration}}</div>
+            <div *ngIf="isPatient" class="appointment-detail">
                 <button mat-stroked-button (click)="emitAppointmentSelect()">Zakaži</button>
             </div>
         </ng-container>

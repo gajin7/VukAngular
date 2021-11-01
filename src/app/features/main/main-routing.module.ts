@@ -22,9 +22,11 @@ const routes: Routes = [
   {
     path: "schedule",
     loadChildren: () =>
-      import("../schedule/schedule.module").then((m) => m.ScheduleModule),
+      import("../appointments/appointments.module").then(
+        (m) => m.AppointmentsModule
+      ),
     data: {
-      permissions: [ROLE.ADMIN, ROLE.DENTIST],
+      permissions: [ROLE.DENTIST],
     },
     canActivate: [PermissionGuard],
   },

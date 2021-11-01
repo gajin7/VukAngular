@@ -10,7 +10,7 @@ import { BaseAlertService } from "../services/base-alert-service";
 
 @Injectable({ providedIn: "root" })
 export class PermissionGuard implements CanActivate {
-  redirectToNotAuthorizedPage = "auth";
+  redirectToNotAuthorizedPage = "";
 
   constructor(
     private authStoreService: AuthStoreService,

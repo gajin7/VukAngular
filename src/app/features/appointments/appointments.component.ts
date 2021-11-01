@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
+import { MatDialog } from "@angular/material/dialog";
 import { forkJoin, Subject } from "rxjs";
 import { finalize, take, takeUntil } from "rxjs/operators";
 import { Appointment } from "src/app/models/appoitment";
+import { CreateAppointmentPopupComponent } from "src/app/shared/components/create-appointment-popup/create-appointment-popup.component";
+import { ROLE } from "src/app/shared/model/role";
 import { UserModel } from "src/app/shared/model/user-model";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
 import { GlobalService } from "src/app/shared/services/global-service";
@@ -18,6 +21,10 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   appointments: Appointment[] = [];
   appointmentsPersonal: Appointment[] = [];
   dentists: UserModel[] = [];
+  patients: UserModel[] = [];
+
+  readonly USET_TYPE = ROLE;
+  userRole: ROLE = ROLE.PATIENT;
 
   private yesterday: Date = new Date(
     new Date().valueOf() - 1000 * 60 * 60 * 24
@@ -25,6 +32,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   dateValue: Date = new Date();
   dentistId: string = "";
+  patientEmail: string = "";
 
   private readonly destroyEvent$ = new Subject();
 
@@ -32,24 +40,37 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     private appointmentWebService: AppointmentWebService,
     private globalService: GlobalService,
     private userWebService: UserWebService,
-    private authStoreService: AuthStoreService
+    private authStoreService: AuthStoreService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.globalService.activateLoader();
+    this.userRole = this.authStoreService.role as ROLE;
     forkJoin([
       this.appointmentWebService.getPersonalAppointments(
         this.authStoreService.email!
       ),
       this.userWebService.getDentists(),
+      ...(this.userRole === ROLE.ADMIN
+        ? [this.userWebService.getPatients()]
+        : []),
     ])
       .pipe(take(1), takeUntil(this.destroyEvent$))
       .subscribe((response: any) => {
-        // this.appointments = response[0];
         this.appointmentsPersonal = response[0];
         this.dentists = response[1].Data;
+        if (this.userRole === ROLE.ADMIN) {
+          this.patients = response[2].Data;
+          if (this.patients.length) {
+            this.patientEmail = this.patients[0].Email;
+          }
+        }
         if (this.dentists.length) {
-          this.dentistId = this.dentists[0].Id;
+          this.dentistId =
+            this.userRole === ROLE.DENTIST
+              ? this.authStoreService.user!.Id
+              : this.dentists[0].Id;
         }
         this.appointmentWebService
           .getAppointments(this.dateValue.toISOString(), this.dentistId)
@@ -65,11 +86,22 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   }
 
   disablePastDays = (d: Date | null): boolean => {
-    return !!d && d.getTime() > this.yesterday.getTime();
+    return !!d && d.getDay() > 0 && d.getTime() > this.yesterday.getTime();
   };
 
   dataChangedHandler(): void {
     this.getAppointments(this.dateValue, this.dentistId);
+  }
+
+  patientChanged(): void {
+    this.getPersonalAppoitnemnts();
+  }
+
+  getPersonalAppoitnemnts(): void {
+    this.appointmentWebService
+      .getPersonalAppointments(this.patientEmail)
+      .pipe(take(1), takeUntil(this.destroyEvent$))
+      .subscribe((v) => (this.appointmentsPersonal = v));
   }
 
   getAppointments(date: Date, dentistId: string): void {
@@ -91,7 +123,12 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   bookAppointment(appointment: Appointment) {
     this.globalService.activateLoader();
     this.appointmentWebService
-      .bookAppointment(appointment.Id!, this.authStoreService.email!)
+      .bookAppointment(
+        appointment.Id!,
+        this.userRole === ROLE.ADMIN
+          ? this.patientEmail
+          : this.authStoreService.email!
+      )
       .pipe(
         take(1),
         takeUntil(this.destroyEvent$),
@@ -106,11 +143,32 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
           }
           return a;
         });
+        this.getPersonalAppoitnemnts();
       });
   }
 
   cancelAppointment(appointment: Appointment) {
     // TODO: implement
+  }
+
+  openCreateDialog(auto: boolean = false): void {
+    this.matDialog
+      .open(CreateAppointmentPopupComponent, {
+        width: "400px",
+        data: {
+          generateAuto: auto,
+          currentDay: this.dateValue,
+          dentistId: this.dentistId,
+        },
+      })
+      .afterClosed()
+      .subscribe((v) => {
+        if (v) {
+          console.log("closed success");
+        } else {
+          console.log("closed");
+        }
+      });
   }
 
   ngOnDestroy(): void {

@@ -55,4 +55,22 @@ export class AppointmentWebService {
       {}
     );
   }
+
+  createAppointments(
+    dentistId: string,
+    appointments: Partial<Appointment>[]
+  ): Observable<Appointment[]> {
+    return this.baseWebService.postRequest(
+      this.config.defaultHostAddress + this.config.appointmentController,
+      {
+        Appointments: appointments.map((a) => {
+          return {
+            DentistID: dentistId,
+            DateTimeFrom: a.DateTimeFrom,
+            DateTimeTo: a.DateTimeTo,
+          };
+        }),
+      }
+    );
+  }
 }

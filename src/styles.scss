@@ -31,3 +31,12 @@ body {
     box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
     // border-radius: 4px;
 }
+
+// 3rd party customization
+.timepicker-overlay {
+    z-index: 1200 !important;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+}

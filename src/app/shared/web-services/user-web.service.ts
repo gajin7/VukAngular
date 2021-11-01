@@ -17,4 +17,13 @@ export class UserWebService {
       )
     );
   }
+
+  getPatients(): Observable<UserModel[]> {
+    return this.baseWebService.getRequest(
+      this.baseWebService.constructUrlWithParams(
+        this.config.defaultHostAddress + this.config.userController,
+        { userTypeId: "3" }
+      )
+    );
+  }
 }
