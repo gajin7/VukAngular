@@ -1,4 +1,4 @@
 export class ServiceTypeModel {
-  Id: number | undefined;
+  Id: number | undefined = undefined;
   Name: string = "";
 }

@@ -5,4 +5,6 @@ export interface AdministrationItemI {
   displayName: string;
   internalName: string;
   url: string;
+  paginated?: boolean;
+  isDependant?: boolean
 }

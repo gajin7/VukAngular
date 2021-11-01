@@ -1,7 +1,7 @@
 export class InterventionModel {
-  Id: number | undefined;
-  ServiceName: string | undefined;
-  DentistName: string | null | undefined;
-  IsExecuted: boolean | undefined;
-  ToothName: string | undefined;
+  Id: number | undefined = undefined;
+  ServiceName: string = "";
+  DentistName: string = "";
+  IsExecuted: boolean = false;
+  ToothName: string = "";
 }

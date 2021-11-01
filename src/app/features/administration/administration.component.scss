@@ -15,6 +15,10 @@
             font-size: xx-large;
             font-weight: 400;
         }
+
+        mat-selection-list {
+            overflow-y: auto;
+        }
     }
 
     .table-wrapper {
@@ -22,6 +26,10 @@
         background-color: white;
         flex: 1;
         height: 100%;
+
+        table {
+            width: 100%;
+        }
     }
 
     @media screen and (max-width: 1050px) {

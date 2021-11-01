@@ -2,18 +2,20 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import { AppointmentModel } from "src/app/shared/model/appoitment.model";
-import { HostInfo } from "src/app/config/hostInfo";
+import { Configuration } from "src/app/config/configuration";
 import { BaseWebService } from "./base-web-service.service";
 
 @Injectable({ providedIn: "root" })
 export class AppointmentWebService {
-  config: HostInfo = new HostInfo();
   constructor(private baseWebService: BaseWebService) {}
 
-  getAppointments(date: string, dentistId: string): Observable<AppointmentModel[]> {
+  getAppointments(
+    date: string,
+    dentistId: string
+  ): Observable<AppointmentModel[]> {
     return this.baseWebService.getRequest(
       this.baseWebService.constructUrlWithParams(
-        this.config.defaultHostAddress + this.config.appointmentController,
+        Configuration.PATH_APPOINTMENTS,
         { day: date, dentistId }
       )
     );
@@ -23,9 +25,7 @@ export class AppointmentWebService {
     return this.baseWebService
       .getRequest(
         this.baseWebService.constructUrlWithParams(
-          this.config.defaultHostAddress +
-            this.config.appointmentController +
-            "/personal",
+          Configuration.PATH_APPOINTMENTS + "/personal",
           { email }
         )
       )
@@ -46,10 +46,7 @@ export class AppointmentWebService {
   ): Observable<void> {
     return this.baseWebService.putRequest(
       this.baseWebService.constructUrlWithParams(
-        this.config.defaultHostAddress +
-          this.config.appointmentController +
-          "/" +
-          appointmnetId,
+        Configuration.PATH_APPOINTMENTS + "/" + appointmnetId,
         { userEmail: email }
       ),
       {}
@@ -60,17 +57,14 @@ export class AppointmentWebService {
     dentistId: string,
     appointments: Partial<AppointmentModel>[]
   ): Observable<AppointmentModel[]> {
-    return this.baseWebService.postRequest(
-      this.config.defaultHostAddress + this.config.appointmentController,
-      {
-        Appointments: appointments.map((a) => {
-          return {
-            DentistID: dentistId,
-            DateTimeFrom: a.DateTimeFrom,
-            DateTimeTo: a.DateTimeTo,
-          };
-        }),
-      }
-    );
+    return this.baseWebService.postRequest(Configuration.PATH_APPOINTMENTS, {
+      Appointments: appointments.map((a) => {
+        return {
+          DentistID: dentistId,
+          DateTimeFrom: a.DateTimeFrom,
+          DateTimeTo: a.DateTimeTo,
+        };
+      }),
+    });
   }
 }
