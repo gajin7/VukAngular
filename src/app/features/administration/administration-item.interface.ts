@@ -6,5 +6,7 @@ export interface AdministrationItemI {
   internalName: string;
   url: string;
   paginated?: boolean;
-  isDependant?: boolean
+  isDependant?: boolean;
+  parameters?: { key: string; value: string };
+  queryParameters?: { key: string; value: string };
 }

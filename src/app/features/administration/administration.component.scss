@@ -19,6 +19,10 @@
         mat-selection-list {
             overflow-y: auto;
         }
+
+        .depends-on {
+            margin-top: 20px;
+        }
     }
 
     .table-wrapper {
@@ -26,9 +30,21 @@
         background-color: white;
         flex: 1;
         height: 100%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
 
         table {
             width: 100%;
+
+        }
+
+        .empty-response {
+            position: absolute;
+            top: calc(50% - 10px);
+            left: calc(50% - 130px);
+            width: 260px;
+            text-align: center;
         }
     }
 
