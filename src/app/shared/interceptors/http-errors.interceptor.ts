@@ -24,7 +24,7 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((err) => {
         if (err.status === 401) {
-          this.router.navigate([""]);
+          this.router.navigate(["auth"]);
         }
         this.baseAlertService.showAlert(err.message);
         return observableThrowError(err);

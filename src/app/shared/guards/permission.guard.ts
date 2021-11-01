@@ -5,12 +5,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from "@angular/router";
-import { ROLE } from "../model/role";
 import { AuthStoreService } from "../services/auth-store-service";
 import { BaseAlertService } from "../services/base-alert-service";
 
 @Injectable({ providedIn: "root" })
 export class PermissionGuard implements CanActivate {
+  redirectToNotAuthorizedPage = "auth";
+
   constructor(
     private authStoreService: AuthStoreService,
     private router: Router,
@@ -35,7 +36,7 @@ export class PermissionGuard implements CanActivate {
   }
 
   private handleUnauthorised(): void {
-    this.router.navigate(["/"]);
+    this.router.navigate([this.redirectToNotAuthorizedPage]);
     this.baseAlerService.showAlert("You dont have access!");
   }
 }
