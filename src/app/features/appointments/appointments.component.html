@@ -55,8 +55,9 @@
 
 
     <div class="appoinments-list">
-        <app-appointment-item *ngFor="let item of appointments" [isPatient]="userRole === USET_TYPE.PATIENT"
-            (bookAppointment)="bookAppointment(item)" [appointment]="item" class="panel-card">
+        <app-appointment-item *ngFor="let item of appointments" [dateToCalculate]="dateValue"
+            [isPatient]="userRole === USET_TYPE.PATIENT" (bookAppointment)="bookAppointment(item)" [appointment]="item"
+            class="panel-card">
         </app-appointment-item>
     </div>
 </div>

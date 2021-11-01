@@ -13,6 +13,8 @@ export class AppointmentItemComponent implements OnInit {
   isPersonal: boolean = false;
   @Input()
   isPatient: boolean = true;
+  @Input()
+  dateToCalculate: Date = new Date();
   @Output()
   bookAppointment: EventEmitter<void> = new EventEmitter();
   @Output()
@@ -30,13 +32,13 @@ export class AppointmentItemComponent implements OnInit {
       this.isPast = this.today.getTime() - date.getTime() > 0;
     } else {
       if (this.appointment?.DateTimeFrom && this.appointment?.DateTimeTo) {
-        const from = new Date();
+        const from = new Date(this.dateToCalculate);
         from.setHours(parseInt(this.appointment?.DateTimeFrom?.split(":")[0]));
         from.setMinutes(
           parseInt(this.appointment?.DateTimeFrom?.split(":")[1])
         );
         this.isPast = this.today.getTime() - from.getTime() > 0;
-        const to = new Date();
+        const to = new Date(this.dateToCalculate);
         to.setHours(parseInt(this.appointment?.DateTimeTo?.split(":")[0]));
         to.setMinutes(parseInt(this.appointment?.DateTimeTo?.split(":")[1]));
 

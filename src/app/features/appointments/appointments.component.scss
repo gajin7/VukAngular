@@ -84,6 +84,18 @@
 
             .picker {
                 margin: 0;
+                flex: 1;
+
+                .picker-date {
+                    order: 2;
+                    margin-bottom: 0;
+                }
+
+                .my-appointment {
+                    max-height: 300px;
+                    order: 1;
+                    margin-bottom: 20px;
+                }
             }
 
             .calendar {
