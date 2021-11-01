@@ -30,6 +30,7 @@ export class SideMenuComponent implements OnInit {
       key: "interventions",
       route: "/interventions",
       icon: "dvr",
+      canActivateRole: [ROLE.ADMIN, ROLE.DENTIST],
     },
     {
       displayName: "Transakcije",

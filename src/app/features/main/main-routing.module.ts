@@ -31,6 +31,17 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
   },
   {
+    path: "interventions",
+    loadChildren: () =>
+      import("../interventions/interventions.module").then(
+        (m) => m.IntrventionsModule
+      ),
+    data: {
+      permissions: [ROLE.ADMIN, ROLE.DENTIST],
+    },
+    canActivate: [PermissionGuard],
+  },
+  {
     path: "",
     redirectTo: "home",
   },
