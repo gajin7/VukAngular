@@ -28,9 +28,35 @@
     .right {
         display: flex;
         height: 100%;
-        width: 80px;
+        // width: 120px;
         justify-content: center;
         align-items: center;
         color: var(--color-main, #747474);
+
+        .menu {
+            display: flex;
+            padding: 0 20px;
+
+            .user-data {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 20px;
+
+                .avatar {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 25px;
+                    background-color: var(--color-main);
+                    color: white;
+                    font-size: 18px;
+                    margin-right: 10px;
+                }
+            }
+        }
     }
 }

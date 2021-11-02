@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
 import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
@@ -10,6 +10,8 @@ import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
 })
 export class HeaderComponent implements OnInit {
   role: string | null = null;
+  displayName: string = "";
+  initals: string = "";
 
   constructor(
     public authStoreService: AuthStoreService,
@@ -18,8 +20,12 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authStoreService.user$.subscribe(() => {
-      this.role = this.authStoreService.role;
+    this.authStoreService.user$.subscribe((value) => {
+      if (value) {
+        this.role = value.Type;
+        this.displayName = value.FirstName;
+        this.initals = value.FirstName[0] + value?.LastName[0] || "";
+      }
     });
   }
 
