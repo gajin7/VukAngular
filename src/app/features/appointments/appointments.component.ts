@@ -3,7 +3,7 @@ import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 import { MatDialog } from "@angular/material/dialog";
 import { forkJoin, Subject } from "rxjs";
 import { finalize, take, takeUntil } from "rxjs/operators";
-import { AppointmentModel } from "src/app/shared/model/appoitment.model";
+import { AppointmentModel } from "src/app/shared/model/appointment.model";
 import { CreateAppointmentPopupComponent } from "src/app/shared/components/create-appointment-popup/create-appointment-popup.component";
 import { ROLE } from "src/app/shared/model/role";
 import { UserModel } from "src/app/shared/model/user.model";

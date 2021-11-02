@@ -1,1 +1,31 @@
-<p>interventions works!</p>
+<div class="select-wrapper">
+    <h2>Termini za dan</h2>
+    <label class="date-label">Odaberite datum:</label>
+    <mat-form-field>
+        <mat-label>Datum</mat-label>
+        <input (dateChange)="dataChangedHandler()" matInput [matDatepicker]="picker" [(ngModel)]="dateValue">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <ng-container *ngIf="userRole === USET_TYPE.ADMIN">
+        <label class="date-label">Odaberite zubara:</label>
+        <mat-form-field>
+            <mat-label>Zubar</mat-label>
+            <mat-select (selectionChange)="dataChangedHandler()" [(ngModel)]="dentistId">
+                <mat-option *ngFor="let dentist of dentists" [value]="dentist.Id">
+                    {{dentist.FirstName +" "+ dentist.LastName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+    <div class="appoinments-list">
+        <app-appointment-item *ngFor="let item of appointments" [class.clickable]="item.Reserved"
+            [dateToCalculate]="dateValue" [appointment]="item" [isDisplayOnly]="true" [isPatient]="false"
+            class="panel-card" (click)="appointmentSelected(item)">
+        </app-appointment-item>
+    </div>
+</div>
+<div class="table-wrapper">
+    <div *ngIf="!interventions.length" class="empty-response">
+        Odaberite karton pacijenta!
+    </div>
+</div>

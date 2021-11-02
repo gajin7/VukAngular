@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
-import { AppointmentModel } from "src/app/shared/model/appoitment.model";
+import { AppointmentModel } from "src/app/shared/model/appointment.model";
 import { Configuration } from "src/app/config/configuration";
 import { BaseWebService } from "./base-web-service.service";
 

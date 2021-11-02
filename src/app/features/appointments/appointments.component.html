@@ -1,6 +1,6 @@
 <div class="picker">
     <div class="picker-date panel-card">
-        <h2 class="section-title">Zakazivanje termina</h2>
+        <h2 class="section-title">{{ userRole === USET_TYPE.DENTIST ? "Datum" : "Zakazivanje termina"}}</h2>
         <label class="date-label">Odaberite datum:</label>
         <mat-form-field>
             <mat-label>Datum</mat-label>

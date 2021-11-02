@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { AppointmentModel } from "src/app/shared/model/appoitment.model";
+import { AppointmentModel } from "src/app/shared/model/appointment.model";
 
 @Component({
   selector: "app-appointment-item",
@@ -13,6 +13,8 @@ export class AppointmentItemComponent implements OnInit {
   isPersonal: boolean = false;
   @Input()
   isPatient: boolean = true;
+  @Input()
+  isDisplayOnly: boolean = false;
   @Input()
   dateToCalculate: Date = new Date();
   @Output()

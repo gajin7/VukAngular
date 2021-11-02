@@ -1,0 +1,82 @@
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .date-label {
+        margin-bottom: 5px;
+    }
+
+    .select-wrapper {
+        background-color: white;
+        flex: 0 1 400px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+
+        h2 {
+            font-size: xx-large;
+            font-weight: 400;
+        }
+
+        mat-selection-list {
+            overflow-y: auto;
+        }
+
+        .appoinments-list {
+            min-height: 0;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            app-appointment-item {
+                pointer-events: none;
+                transition: 100ms ease transform;
+                will-change: transform;
+
+                &.clickable {
+                    pointer-events: initial;
+                    cursor: pointer;
+
+                    &:hover {
+                        transform: translate3d(1px, -2px, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    .table-wrapper {
+        margin-left: 20px;
+        background-color: white;
+        flex: 1;
+        height: 100%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+
+        .empty-response {
+            position: absolute;
+            top: calc(50% - 10px);
+            left: calc(50% - 130px);
+            width: 260px;
+            text-align: center;
+        }
+    }
+
+    @media screen and (max-width: 1050px) {
+        & {
+            flex-direction: column;
+            max-height: unset;
+        }
+
+        .select-wrapper {
+            flex: 0 1 300px;
+        }
+
+        .table-wrapper {
+            margin: 20px 0 0 0;
+        }
+    }
+}
