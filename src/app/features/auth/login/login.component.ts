@@ -10,6 +10,7 @@ import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
+  providers: [FormBuilder]
 })
 export class LoginComponent implements OnDestroy {
   isLoginFailed: boolean = false;

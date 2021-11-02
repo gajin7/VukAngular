@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import { AuthLayoutComponent } from "./auth-layout.component";
 import { AuthLayoutRoutingModule } from "./auth-layout-touting.module";
 import { LoginModule } from "src/app/features/auth/login/login.module";
@@ -12,6 +12,15 @@ import { FooterModule } from "src/app/shared/components/footer/footer.module";
 @NgModule({
   declarations: [AuthLayoutComponent],
   exports: [AuthLayoutComponent],
-  imports: [AuthLayoutRoutingModule, CommonModule, LoginModule, MatCardModule, MatFormFieldModule, MatIconModule, HeaderModule, FooterModule],
+  imports: [
+    AuthLayoutRoutingModule,
+    CommonModule,
+    LoginModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    HeaderModule,
+    FooterModule,
+  ],
 })
 export class AuthLayoutModule {}
