@@ -5,5 +5,5 @@ export class AppointmentModel {
   DentistName: string | undefined;
   PatientName: string | undefined;
   Reserved: boolean | undefined;
-  PatientMail: string | undefined;
+  PatientEmail: string | undefined;
 }

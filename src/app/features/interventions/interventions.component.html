@@ -20,12 +20,56 @@
     <div class="appoinments-list">
         <app-appointment-item *ngFor="let item of appointments" [class.clickable]="item.Reserved"
             [dateToCalculate]="dateValue" [appointment]="item" [isDisplayOnly]="true" [isPatient]="false"
-            class="panel-card" (click)="appointmentSelected(item)">
+            [isSelected]="(selectedAppointment$ | async) === item" class="panel-card"
+            (click)="appointmentSelected(item)">
         </app-appointment-item>
     </div>
 </div>
 <div class="table-wrapper">
-    <div *ngIf="!interventions.length" class="empty-response">
+    <h2>
+        Detalji pacijenta:
+        <ng-container *ngIf="selectedAppointment$ | async">{{ selectedAppointment$.value?.PatientName  }}
+        </ng-container>
+    </h2>
+    <ng-container *ngIf="selectedAppointment$ | async">
+        <div class="add-button" *ngIf="intrventionSelection.length">
+            <button mat-mini-fab color="primary" (click)="interventionsList.deselectAll()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+
+        <div class="previous-interventions">
+            <h3>Istorija intervencija</h3>
+            <div class="interventions-list">
+                <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="intrventionSelection">
+                    <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
+                        <div class="intervention">
+                            <div>Usluga: {{intervention.ServiceName}}</div>
+                            <div>Zub: {{intervention.ToothName}}</div>
+                            <mat-icon [class.success]="intervention.IsExecuted"
+                                [color]="intervention.IsExecuted || 'primary'">
+                                {{intervention.IsExecuted ? "task_alt" : "pending_actions"}}
+                            </mat-icon>
+                        </div>
+                    </mat-list-option>
+                </mat-selection-list>
+                <div class="empty-response" *ngIf="">Pacijent nema pređašnjih intervencija</div>
+            </div>
+
+        </div>
+
+        <div class="intervention-details">
+            <div class="transition-container" [class.show-bottom]="intrventionSelection.length">
+                <app-create-edit-intervention [services]="services" [teeth]="teeth" class="intervention-panel">
+                </app-create-edit-intervention>
+                <app-create-edit-intervention [services]="services" [teeth]="teeth" [isEditMode]="true" [intervention]="intrventionSelection[0]" class="intervention-panel">
+                </app-create-edit-intervention>
+            </div>
+        </div>
+
+    </ng-container>
+
+    <div *ngIf="(selectedAppointment$ | async) === null" class="empty-response">
         Odaberite karton pacijenta!
     </div>
 </div>

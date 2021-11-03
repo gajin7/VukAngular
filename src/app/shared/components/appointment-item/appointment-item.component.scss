@@ -3,8 +3,15 @@
     flex-direction: row;
     width: 100%;
     min-height: 50px;
-    margin: 10px 0;
     position: relative;
+
+    &.selected {
+        margin-left: 10px;
+    }
+
+    &:not(:first-of-type){
+        margin-top: 10px;
+    }
 
     .status {
         position: relative;

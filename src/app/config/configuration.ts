@@ -12,6 +12,7 @@ export class Configuration {
   static readonly PATH_USERS = Configuration.HOST + "/users";
   static readonly PATH_APPOINTMENTS = Configuration.HOST + "/appointments";
   static readonly PATH_CARDS = Configuration.HOST + "/cards";
+  static readonly PATH_TEETH = Configuration.HOST + "/teeth";
   static readonly PATH_BILLS = Configuration.HOST + "/bills";
   static readonly PATH_SERVICES = Configuration.HOST + "/services";
   static readonly PATH_SERVICE_TYPES = Configuration.HOST + "/service-types";

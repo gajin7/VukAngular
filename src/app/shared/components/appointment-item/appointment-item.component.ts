@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { AppointmentModel } from "src/app/shared/model/appointment.model";
 
 @Component({
@@ -17,6 +24,11 @@ export class AppointmentItemComponent implements OnInit {
   isDisplayOnly: boolean = false;
   @Input()
   dateToCalculate: Date = new Date();
+
+  @HostBinding("class.selected")
+  @Input()
+  isSelected: boolean = false;
+
   @Output()
   bookAppointment: EventEmitter<void> = new EventEmitter();
   @Output()

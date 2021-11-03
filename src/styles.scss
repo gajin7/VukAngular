@@ -27,6 +27,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .panel-card {
     box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
     // border-radius: 4px;
@@ -39,4 +43,8 @@ body {
 
 .mat-dialog-actions {
     justify-content: flex-end;
+}
+
+.mat-list-base {
+    padding-top: 0 !important;
 }
