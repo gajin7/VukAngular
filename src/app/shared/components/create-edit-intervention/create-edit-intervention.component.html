@@ -2,7 +2,7 @@
 <div class="items">
     <div class="services">
         <h4>Naziv usluge</h4>
-        <div class="list">
+        <div class="list" #servicesList>
             <mat-selection-list [multiple]="false" [(ngModel)]="selectedService" [class.pointer-none]="isEditMode" >
                 <mat-list-option *ngFor="let service of services" [value]="service">
                     {{ service.Name }}
@@ -12,7 +12,7 @@
     </div>
     <div class="teeth">
         <h4>Zub</h4>
-        <div class="list">
+        <div class="list" #teethList>
             <mat-selection-list [multiple]="false" [(ngModel)]="selectedTooth" [class.pointer-none]="isEditMode">
                 <mat-list-option *ngFor="let tooth of teeth" [value]="tooth">
                     {{ tooth.Name }}
