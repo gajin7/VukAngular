@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
 import { finalize, take, takeUntil } from "rxjs/operators";
 import { AppointmentModel } from "src/app/shared/model/appointment.model";
@@ -37,6 +43,14 @@ export class InterventionsComponent implements OnInit, OnDestroy {
 
   readonly USET_TYPE = ROLE;
   userRole: ROLE = ROLE.PATIENT;
+
+  private interventionsElement?: ElementRef;
+
+  @ViewChild("interventionsListElement") set content(content: ElementRef) {
+    if (content) {
+      this.interventionsElement = content;
+    }
+  }
 
   constructor(
     private appointmentWebService: AppointmentWebService,
@@ -154,6 +168,12 @@ export class InterventionsComponent implements OnInit, OnDestroy {
         .subscribe((interv) => {
           this.interventions.push(interv);
           this.interventionSelection = [interv];
+          setTimeout(() => {
+            if (this.interventionsElement) {
+              this.interventionsElement.nativeElement.scrollTop =
+                this.interventionsElement.nativeElement.scrollHeight;
+            }
+          });
         });
     }
   }

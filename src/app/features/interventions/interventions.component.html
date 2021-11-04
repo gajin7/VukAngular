@@ -40,8 +40,8 @@
 
         <div class="previous-interventions">
             <h3>Istorija intervencija</h3>
-            <div class="interventions-list">
-                <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
+            <div #interventionsListElement class="interventions-list">
+                <mat-selection-list  #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
                     <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
                         <div class="intervention">
                             <div>Usluga: {{intervention.ServiceName}}</div>

@@ -85,6 +85,7 @@
                 min-height: 0;
                 overflow-y: auto;
                 position: relative;
+                scroll-behavior: smooth;
 
                 .intervention {
                     position: absolute;
