@@ -1,1 +1,29 @@
-<p>bills works!</p>
+<div class="bills-container">
+    <h2 class="section-title">Generisani računi:</h2>
+    <div class="search-bar">
+
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label>Filter po zubaru</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let dentist of dentists" [value]="dentist.Id">
+                        {{dentist.FirstName + " " + dentist.LastName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label>Filter po pacijentu</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let patient of patients" [value]="patient.Id">
+                        {{patient.FirstName + " " + patient.LastName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-icon>search</mat-icon>
+        <button mat-icon-button>
+            <mat-icon color="primary">x</mat-icon>
+        </button>
+    </div>
+    <div class="content"></div>
+</div>
