@@ -121,7 +121,20 @@ export class AdministrationComponent implements OnInit {
         (v: any) => {
           this.selectedClassEntities = this.selectedItem?.paginated
             ? v.Data
-            : v;
+            : Array.isArray(v)
+            ? v
+            : [v];
+          this.selectedClassEntities.forEach((x) => {
+            Object.keys(x).forEach((k) => {
+              if (x[k] && typeof x[k] === "object") {
+                if (Array.isArray(x[k])) {
+                  x[k] = x[k].map((s: any) => s.Name).join(", ");
+                } else if (x[k].hasOwnProperty("Name")) {
+                  x[k] = x[k].Name;
+                }
+              }
+            });
+          });
         },
         () => {
           this.selectedClassEntities = [];

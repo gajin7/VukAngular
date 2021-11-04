@@ -3,9 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
-} from "@angular/material/form-field";
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { AuthWebService } from "./shared/web-services/auth-web.service";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";

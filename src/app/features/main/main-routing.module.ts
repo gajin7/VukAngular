@@ -53,6 +53,11 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
   },
   {
+    path: "bills",
+    loadChildren: () =>
+      import("../bills/bills.module").then((m) => m.BillsModule),
+  },
+  {
     path: "",
     redirectTo: "home",
   },

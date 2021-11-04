@@ -33,9 +33,9 @@ export class SideMenuComponent implements OnInit {
       canActivateRole: [ROLE.ADMIN, ROLE.DENTIST],
     },
     {
-      displayName: "Transakcije",
-      key: "transactions",
-      route: "/transactions",
+      displayName: "Računi",
+      key: "bills",
+      route: "/bills",
       icon: "receipt_long",
     },
     {

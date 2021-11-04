@@ -4,3 +4,5 @@ export class ServiceModel {
   Price: number = 0;
   Description: string = "";
 }
+
+ServiceModel.prototype.toString = () => 'jabuka'
