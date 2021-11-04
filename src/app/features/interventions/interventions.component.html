@@ -32,7 +32,7 @@
         </ng-container>
     </h2>
     <ng-container *ngIf="selectedAppointment$ | async">
-        <div class="add-button" *ngIf="intrventionSelection.length">
+        <div class="add-button" *ngIf="interventionSelection.length">
             <button mat-mini-fab color="primary" (click)="interventionsList.deselectAll()">
                 <mat-icon>add</mat-icon>
             </button>
@@ -41,7 +41,7 @@
         <div class="previous-interventions">
             <h3>Istorija intervencija</h3>
             <div class="interventions-list">
-                <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="intrventionSelection">
+                <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
                     <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
                         <div class="intervention">
                             <div>Usluga: {{intervention.ServiceName}}</div>
@@ -59,10 +59,13 @@
         </div>
 
         <div class="intervention-details">
-            <div class="transition-container" [class.show-bottom]="intrventionSelection.length">
-                <app-create-edit-intervention [services]="services" [teeth]="teeth" class="intervention-panel">
+            <div class="transition-container" [class.show-bottom]="interventionSelection.length">
+                <app-create-edit-intervention [services]="services" [teeth]="teeth"
+                    (saveClick)="createIntervenion($event)" class="intervention-panel">
                 </app-create-edit-intervention>
-                <app-create-edit-intervention [services]="services" [teeth]="teeth" [isEditMode]="true" [intervention]="intrventionSelection[0]" class="intervention-panel">
+                <app-create-edit-intervention [services]="services" [teeth]="teeth" [isEditMode]="true"
+                    [intervention]="interventionSelection[0]"
+                    (finishClick)="completeIntervention(interventionSelection[0])" class="intervention-panel">
                 </app-create-edit-intervention>
             </div>
         </div>

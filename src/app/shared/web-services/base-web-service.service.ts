@@ -60,7 +60,7 @@ export class BaseWebService {
 
   constructUrlWithParams(
     url: string,
-    params: { [key: string]: string }
+    params: { [key: string]: string | number}
   ): string {
     let paramString = "?";
     for (const [key, value] of Object.entries(params)) {

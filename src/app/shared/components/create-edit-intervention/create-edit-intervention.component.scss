@@ -53,14 +53,12 @@
             margin-left: 20px;
             padding: 10px;
 
-            button {
-                width: 100px;
+            .icon {
+                transform: scale(1.5);
+            }
 
-                &.wrapped {
-                    padding: 8px 0;
-                    white-space: pre-wrap !important;
-                    line-height: 20px;
-                }
+            button:not(.icon) {
+                width: 100px;
             }
         }
     }

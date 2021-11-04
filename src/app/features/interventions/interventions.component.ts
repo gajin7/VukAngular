@@ -11,6 +11,7 @@ import { AuthStoreService } from "src/app/shared/services/auth-store-service";
 import { GlobalService } from "src/app/shared/services/global-service";
 import { AppointmentWebService } from "src/app/shared/web-services/appointment-web.service";
 import { CardWebService } from "src/app/shared/web-services/card-web.service";
+import { InterventionWebService } from "src/app/shared/web-services/intervention-web.service";
 import { ServiceWebService } from "src/app/shared/web-services/service-web.service";
 import { ToothWebService } from "src/app/shared/web-services/tooth-web.service";
 import { UserWebService } from "src/app/shared/web-services/user-web.service";
@@ -27,17 +28,19 @@ export class InterventionsComponent implements OnInit, OnDestroy {
   teeth: ToothModel[] = [];
   services: ServiceModel[] = [];
 
+  cardId: number | undefined;
   dentistId: string = "";
   dentists: UserModel[] = [];
   selectedAppointment$: BehaviorSubject<AppointmentModel | null> =
     new BehaviorSubject<AppointmentModel | null>(null);
-  intrventionSelection: InterventionModel[] = [];
+  interventionSelection: InterventionModel[] = [];
 
   readonly USET_TYPE = ROLE;
   userRole: ROLE = ROLE.PATIENT;
 
   constructor(
     private appointmentWebService: AppointmentWebService,
+    private interventionWebService: InterventionWebService,
     private cardWebServie: CardWebService,
     private toothWebService: ToothWebService,
     private serviceWebService: ServiceWebService,
@@ -83,11 +86,13 @@ export class InterventionsComponent implements OnInit, OnDestroy {
               finalize(() => this.globalService.deactivateLoader())
             )
             .subscribe((card) => {
+              this.cardId = card.Id;
               this.interventions = card.Interventions;
               this.loadTeeth();
               this.loadServices();
             });
         } else {
+          this.cardId = undefined;
           this.interventions = [];
         }
       });
@@ -131,6 +136,53 @@ export class InterventionsComponent implements OnInit, OnDestroy {
       this.selectedAppointment$.next(appointemnt);
     }
   }
+
+  createIntervenion(intervention: Partial<InterventionModel>): void {
+    if (this.cardId && intervention.ServiceId && intervention.ToothId) {
+      this.globalService.activateLoader();
+      this.interventionWebService
+        .createIntervention(
+          this.cardId,
+          intervention.ServiceId,
+          intervention.ToothId
+        )
+        .pipe(
+          take(1),
+          takeUntil(this.destroyEvent$),
+          finalize(() => this.globalService.deactivateLoader())
+        )
+        .subscribe((interv) => {
+          this.interventions.push(interv);
+          this.interventionSelection = [interv];
+        });
+    }
+  }
+
+  completeIntervention(intervention: InterventionModel): void {
+    if (
+      intervention.Id &&
+      this.dentistId &&
+      this.selectedAppointment$.value?.Id
+    ) {
+      this.globalService.activateLoader();
+      this.interventionWebService
+        .completeIntervention(
+          intervention.Id,
+          parseInt(this.dentistId),
+          this.selectedAppointment$.value?.Id
+        )
+        .pipe(
+          take(1),
+          takeUntil(this.destroyEvent$),
+          finalize(() => this.globalService.deactivateLoader())
+        )
+        .subscribe(() => {
+          intervention.IsExecuted = true;
+        });
+    }
+  }
+
+  showBillForAppointment(): void {}
 
   ngOnDestroy(): void {
     this.destroyEvent$.next();

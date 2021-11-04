@@ -1,9 +1,9 @@
 <h2>{{ isEditMode ? "Detalji intervencije" : "Kreiraj intervenciju"}}</h2>
 <div class="items">
     <div class="services">
-        <h4>Naziv servisa</h4>
+        <h4>Naziv usluge</h4>
         <div class="list">
-            <mat-selection-list [multiple]="false" [(ngModel)]="selectedService">
+            <mat-selection-list [multiple]="false" [(ngModel)]="selectedService" [class.pointer-none]="isEditMode" >
                 <mat-list-option *ngFor="let service of services" [value]="service">
                     {{ service.Name }}
                 </mat-list-option>
@@ -13,7 +13,7 @@
     <div class="teeth">
         <h4>Zub</h4>
         <div class="list">
-            <mat-selection-list [multiple]="false" [(ngModel)]="selectedTooth">
+            <mat-selection-list [multiple]="false" [(ngModel)]="selectedTooth" [class.pointer-none]="isEditMode">
                 <mat-list-option *ngFor="let tooth of teeth" [value]="tooth">
                     {{ tooth.Name }}
                 </mat-list-option>
@@ -21,8 +21,14 @@
         </div>
     </div>
     <div class="actions">
-        <button mat-raised-button color="primary">Kreiraj</button>
-        <button mat-raised-button color="primary">Kompletiraj</button>
-        <button mat-raised-button color="primary" class="wrapped">Generiši račun</button>
+        <button *ngIf="intervention?.IsExecuted" mat-icon-button color="primary" class="icon"
+            (click)="emmitAction(ACTIONS.SHOW_BILL)">
+            <mat-icon>receipt_long</mat-icon>
+        </button>
+        <button mat-raised-button [disabled]="!isEditMode || intervention?.IsExecuted" color="primary"
+            (click)="emmitAction(ACTIONS.FINISH)">Kompletiraj</button>
+        <button *ngIf="!isEditMode" mat-raised-button color="primary"
+            [disabled]="!selectedTooth.length || !selectedService.length"
+            (click)="emmitAction(ACTIONS.SAVE)">Kreiraj</button>
     </div>
 </div>
