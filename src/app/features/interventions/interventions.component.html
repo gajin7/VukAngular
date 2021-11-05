@@ -43,8 +43,8 @@
             </div>
         </ng-container>
 
-        <div class="intervention-container">
-            <div class="previous-interventions" [class.full-height]="userRole === USER_TYPE.PATIENT">
+        <div class="intervention-container" [class.full-height]="userRole === USER_TYPE.PATIENT">
+            <div class="previous-interventions">
                 <h3>Istorija intervencija</h3>
                 <div class="add-button">
                     <button *ngIf="interventionSelection.length" mat-mini-fab color="primary"
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="billServices" class="bill-items" [class.full-height]="userRole === USER_TYPE.PATIENT">
+            <div *ngIf="billServices && userRole !== USER_TYPE.PATIENT" class="bill-items">
                 <h3>Usluge termina</h3>
                 <div class="bill-items-container">
                     <mat-list role="list">
@@ -80,6 +80,7 @@
                         </mat-list-item>
                     </mat-list>
                 </div>
+                <div *ngIf="bill$.value" class="total-price"> {{ bill$.value.TotalPrice | currency: 'RSD '}} </div>
             </div>
         </div>
 
