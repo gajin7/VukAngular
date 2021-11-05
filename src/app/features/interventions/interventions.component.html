@@ -57,7 +57,8 @@
                         </div>
                     </mat-list-option>
                 </mat-selection-list>
-                <div class="empty-response" *ngIf="!interventions.length">
+                <div class="empty-content" *ngIf="!interventions.length">
+                    <mat-icon>history_edu</mat-icon>
                     {{userRole === USER_TYPE.PATIENT ? "Nemate pređašnjih intervencija" : "Pacijent nema pređašnjih intervencija"}}
                 </div>
             </div>

@@ -64,6 +64,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
           this.patients = response[2].Data;
           if (this.patients.length) {
             this.patientEmail = this.patients[0].Email;
+            this.getPersonalAppoitnemnts();
           }
         }
         if (this.dentists.length) {
@@ -164,9 +165,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe((v) => {
         if (v) {
-          console.log("closed success");
-        } else {
-          console.log("closed");
+          this.getAppointments(this.dateValue, this.dentistId);
         }
       });
   }

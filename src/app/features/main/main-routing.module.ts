@@ -15,7 +15,7 @@ const routes: Routes = [
         (m) => m.AppointmentsModule
       ),
     data: {
-      permissions: [ROLE.ADMIN, ROLE.PATIENT],
+      permissions: [ROLE.PATIENT],
     },
     canActivate: [PermissionGuard],
   },
@@ -26,7 +26,7 @@ const routes: Routes = [
         (m) => m.AppointmentsModule
       ),
     data: {
-      permissions: [ROLE.DENTIST],
+      permissions: [ROLE.DENTIST, ROLE.ADMIN],
     },
     canActivate: [PermissionGuard],
   },

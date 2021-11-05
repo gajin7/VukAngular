@@ -16,8 +16,8 @@
                 <div class="appointment-detail">
                     {{ appointment.Reserved ? (isPatient ? "Zauzet": "Sa pacijentom") : "Slobodan" }}</div>
                 <div class="appointment-detail">Trajanje: {{duration}}</div>
-                <div *ngIf="isPatient" class="appointment-detail">
-                    <button mat-stroked-button (click)="emitAppointmentSelect()">Zakaži</button>
+                <div *ngIf="isPatient " class="appointment-detail">
+                    <button *ngIf="!isPast" mat-stroked-button (click)="emitAppointmentSelect()">Zakaži</button>
                 </div>
             </ng-container>
 
