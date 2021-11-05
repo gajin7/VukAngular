@@ -35,34 +35,52 @@
 
     <ng-container *ngIf="(selectedAppointment$ | async) || (userRole === USER_TYPE.PATIENT &&  interventions.length)">
         <ng-container *ngIf="userRole !== USER_TYPE.PATIENT">
-            <div class="add-button" *ngIf="interventionSelection.length">
-                <button mat-mini-fab color="primary" (click)="interventionsList.deselectAll()">
-                    <mat-icon>add</mat-icon>
+            <div class="add-button">
+                <button *ngIf="(selectedAppointment$ | async)?.Reserved" mat-mini-fab color="primary"
+                    matTooltip="Prikaz detaljanog računa" (click)="showBillForAppointment()">
+                    <mat-icon>receipt_long</mat-icon>
                 </button>
             </div>
         </ng-container>
 
-        <div class="previous-interventions" [class.full-height]="userRole === USER_TYPE.PATIENT">
-            <h3>Istorija intervencija</h3>
-            <div #interventionsListElement class="interventions-list">
-                <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
-                    <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
-                        <div class="intervention">
-                            <div>Usluga: {{intervention.ServiceName}}</div>
-                            <div>Zub: {{intervention.ToothName}}</div>
-                            <mat-icon [class.success]="intervention.IsExecuted"
-                                [color]="intervention.IsExecuted || 'primary'">
-                                {{intervention.IsExecuted ? "task_alt" : "pending_actions"}}
-                            </mat-icon>
-                        </div>
-                    </mat-list-option>
-                </mat-selection-list>
-                <div class="empty-content" *ngIf="!interventions.length">
-                    <mat-icon>history_edu</mat-icon>
-                    {{userRole === USER_TYPE.PATIENT ? "Nemate pređašnjih intervencija" : "Pacijent nema pređašnjih intervencija"}}
+        <div class="intervention-container">
+            <div class="previous-interventions" [class.full-height]="userRole === USER_TYPE.PATIENT">
+                <h3>Istorija intervencija</h3>
+                <div class="add-button">
+                    <button *ngIf="interventionSelection.length" mat-mini-fab color="primary"
+                        (click)="interventionsList.deselectAll()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div #interventionsListElement class="interventions-list">
+                    <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
+                        <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
+                            <div class="intervention">
+                                <div>Usluga: {{intervention.ServiceName}}</div>
+                                <div>Zub: {{intervention.ToothName}}</div>
+                                <mat-icon [class.success]="intervention.IsExecuted"
+                                    [color]="intervention.IsExecuted || 'primary'">
+                                    {{intervention.IsExecuted ? "task_alt" : "pending_actions"}}
+                                </mat-icon>
+                            </div>
+                        </mat-list-option>
+                    </mat-selection-list>
+                    <div class="empty-content" *ngIf="!interventions.length">
+                        <mat-icon>history_edu</mat-icon>
+                        {{userRole === USER_TYPE.PATIENT ? "Nemate pređašnjih intervencija" : "Pacijent nema pređašnjih intervencija"}}
+                    </div>
                 </div>
             </div>
-
+            <div *ngIf="billServices" class="bill-items" [class.full-height]="userRole === USER_TYPE.PATIENT">
+                <h3>Usluge termina</h3>
+                <div class="bill-items-container">
+                    <mat-list role="list">
+                        <mat-list-item role="listitem" *ngFor="let service of billServices | keyvalue">
+                            <div>{{service.value.name + " x"+service.value.count}}</div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
         </div>
 
         <div *ngIf="userRole !== USER_TYPE.PATIENT" class="intervention-details">
@@ -72,7 +90,8 @@
                 </app-create-edit-intervention>
                 <app-create-edit-intervention [services]="services" [teeth]="teeth" [isEditMode]="true"
                     [intervention]="interventionSelection[0]"
-                    (finishClick)="completeIntervention(interventionSelection[0])" class="intervention-panel">
+                    (finishClick)="completeIntervention(interventionSelection[0])"
+                    (showBillClick)="showBillForAppointment()" class="intervention-panel">
                 </app-create-edit-intervention>
             </div>
         </div>

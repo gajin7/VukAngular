@@ -5,9 +5,11 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject, Subject } from "rxjs";
 import { finalize, take, takeUntil } from "rxjs/operators";
 import { AppointmentModel } from "src/app/shared/model/appointment.model";
+import { BillModel } from "src/app/shared/model/bill.model";
 import { InterventionModel } from "src/app/shared/model/intervention.model";
 import { ROLE } from "src/app/shared/model/role";
 import { ServiceModel } from "src/app/shared/model/service.model";
@@ -16,6 +18,7 @@ import { UserModel } from "src/app/shared/model/user.model";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
 import { GlobalService } from "src/app/shared/services/global-service";
 import { AppointmentWebService } from "src/app/shared/web-services/appointment-web.service";
+import { BillWebService } from "src/app/shared/web-services/bill-web.service";
 import { CardWebService } from "src/app/shared/web-services/card-web.service";
 import { InterventionWebService } from "src/app/shared/web-services/intervention-web.service";
 import { ServiceWebService } from "src/app/shared/web-services/service-web.service";
@@ -33,6 +36,10 @@ export class InterventionsComponent implements OnInit, OnDestroy {
   interventions: InterventionModel[] = [];
   teeth: ToothModel[] = [];
   services: ServiceModel[] = [];
+
+  bill$: BehaviorSubject<BillModel | null> =
+    new BehaviorSubject<BillModel | null>(null);
+  billServices: { [key: string]: { name: string; count: number } } = {};
 
   cardId: number | undefined;
   dentistId: string = "";
@@ -61,7 +68,9 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     private serviceWebService: ServiceWebService,
     private authStoreService: AuthStoreService,
     private globalService: GlobalService,
-    private userWebService: UserWebService
+    private userWebService: UserWebService,
+    private billWebService: BillWebService,
+    private router: Router
   ) {}
 
   private readonly destroyEvent$ = new Subject();
@@ -96,6 +105,7 @@ export class InterventionsComponent implements OnInit, OnDestroy {
       .subscribe((appointemnt: AppointmentModel | null) => {
         if (appointemnt) {
           this.getInterventions(appointemnt.PatientEmail?.toString() || "");
+          this.getBill(appointemnt.Id || "");
           this.loadTeeth();
           this.loadServices();
         } else {
@@ -103,6 +113,22 @@ export class InterventionsComponent implements OnInit, OnDestroy {
           this.interventions = [];
         }
       });
+
+    this.bill$.pipe(takeUntil(this.destroyEvent$)).subscribe((bill) => {
+      this.billServices = {};
+      bill?.Services.forEach((service: ServiceModel) => {
+        if (service.Id) {
+          if (this.billServices[service.Id]) {
+            this.billServices[service.Id].count++;
+          } else {
+            this.billServices[service.Id] = {
+              name: service.Name,
+              count: 1,
+            };
+          }
+        }
+      });
+    });
   }
 
   getInterventions(email: string, skipUncompeted?: boolean): void {
@@ -142,6 +168,13 @@ export class InterventionsComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         this.appointments = response;
       });
+  }
+
+  getBill(appointmentId: string | number): void {
+    this.billWebService
+      .getBillByAppointment(appointmentId)
+      .pipe(take(1), takeUntil(this.destroyEvent$))
+      .subscribe((v) => this.bill$.next(v));
   }
 
   loadTeeth(): void {
@@ -211,11 +244,16 @@ export class InterventionsComponent implements OnInit, OnDestroy {
         )
         .subscribe(() => {
           intervention.IsExecuted = true;
+          this.getBill(this.selectedAppointment$.value?.Id || "");
         });
     }
   }
 
-  showBillForAppointment(): void {}
+  showBillForAppointment(): void {
+    this.router.navigate(["bills"], {
+      queryParams: { appointmentId: this.selectedAppointment$.value?.Id },
+    });
+  }
 
   ngOnDestroy(): void {
     this.destroyEvent$.next();

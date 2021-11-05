@@ -16,7 +16,6 @@ import { ToothModel } from "../../model/tooth.model";
 export enum INTERVENTION_ACTIONS {
   SAVE,
   FINISH,
-  SHOW_BILL,
 }
 
 @Component({
@@ -39,8 +38,6 @@ export class CreateEditInterventionComponent implements OnChanges {
   saveClick: EventEmitter<Partial<InterventionModel>> = new EventEmitter();
   @Output()
   finishClick: EventEmitter<void> = new EventEmitter();
-  @Output()
-  showBillClick: EventEmitter<void> = new EventEmitter();
 
   @ViewChild("servicesList") servicesList?: ElementRef;
   @ViewChild("teethList") teethList?: ElementRef;
@@ -81,9 +78,6 @@ export class CreateEditInterventionComponent implements OnChanges {
           ServiceId: this.selectedService[0].Id,
           ToothId: this.selectedTooth[0].Id,
         });
-        break;
-      case INTERVENTION_ACTIONS.SHOW_BILL:
-        this.showBillClick.emit();
         break;
       case INTERVENTION_ACTIONS.FINISH:
         this.finishClick.emit();

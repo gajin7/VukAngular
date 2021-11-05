@@ -1,4 +1,14 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
+import { MatExpansionPanel } from "@angular/material/expansion";
+import { ActivatedRoute } from "@angular/router";
 import { forkJoin, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 import { BillModel } from "src/app/shared/model/bill.model";
@@ -6,7 +16,6 @@ import { ROLE } from "src/app/shared/model/role";
 import { ServiceModel } from "src/app/shared/model/service.model";
 import { UserModel } from "src/app/shared/model/user.model";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
-import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
 import { BillWebService } from "src/app/shared/web-services/bill-web.service";
 import { UserWebService } from "src/app/shared/web-services/user-web.service";
 
@@ -29,13 +38,36 @@ export class BillsComponent implements OnInit, OnDestroy {
   dentist: UserModel | undefined;
   totalPrice: number = 0;
 
+  appointmentRouteId: number | undefined;
+  billFromRoute: BillModel | undefined;
+
+  private billsList?: ElementRef;
+  @ViewChild("billsList") set content(content: ElementRef) {
+    if (content) {
+      this.billsList = content;
+    }
+  }
+
+  private billsItems?: QueryList<MatExpansionPanel>;
+  @ViewChildren("billsItems") set contents(
+    content: QueryList<MatExpansionPanel>
+  ) {
+    if (content) {
+      this.billsItems = content;
+    }
+  }
+
   constructor(
     private authStoreService: AuthStoreService,
     private userWebService: UserWebService,
-    private billWebService: BillWebService
+    private billWebService: BillWebService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+      this.appointmentRouteId = parseInt(params["appointmentId"]);
+    });
     this.userRole = this.authStoreService.user?.Type || ROLE.ADMIN;
     if (this.userRole === ROLE.DENTIST) {
       this.dentist = this.authStoreService.user || undefined;
@@ -59,6 +91,24 @@ export class BillsComponent implements OnInit, OnDestroy {
         this.bills = response.bills.filter(
           (b: BillModel) => b.PatientName != null
         );
+
+        this.billFromRoute = this.bills.find(
+          (b: BillModel) => b.AppointmentId === this.appointmentRouteId
+        );
+
+        setTimeout(() => {
+          if (this.billFromRoute && this.billsList) {
+            console.log(this.billFromRoute);
+            const index = this.bills.indexOf(this.billFromRoute);
+            if (index > 0) {
+              this.billsList.nativeElement.scrollTop =
+                68 * this.bills.indexOf(this.billFromRoute);
+              if (this.billFromRoute.Services.length) {
+                this.billsItems?.get(index)?.toggle();
+              }
+            }
+          }
+        });
 
         this.updatePrices();
 

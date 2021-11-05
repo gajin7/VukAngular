@@ -18,4 +18,10 @@ export class BillWebService {
       )
     );
   }
+
+  getBillByAppointment(appointmentId: number | string): Observable<BillModel> {
+    return this.baseWebService.getRequest(
+      Configuration.PATH_BILLS + "/" + appointmentId
+    );
+  }
 }

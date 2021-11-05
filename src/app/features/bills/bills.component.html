@@ -42,14 +42,14 @@
             {{ totalPrice | currency: 'RSD '}}
         </div>
     </div>
-    <div class="content-container">
+    <div #billsList class="content-container">
         <div class="empty-content" *ngIf="!bills.length">
             <mat-icon>receipt</mat-icon>
             Ne postoje računi!
         </div>
         <div class="content">
             <ng-container *ngFor="let bill of bills">
-                <mat-expansion-panel [class.pointer-none]="!bill.Services.length" [hideToggle]="!bill.Services.length">
+                <mat-expansion-panel #billsItems [class.pointer-none]="!bill.Services.length" [hideToggle]="!bill.Services.length">
                     <mat-expansion-panel-header>
                         <div class="bill-header">
                             <div>{{bill.AppointmentDate | date: 'dd.MM.YYYY.'}} -

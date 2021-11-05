@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSelectModule } from "@angular/material/select";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { AppointmentItemModule } from "src/app/shared/components/appointment-item/appointment-item.module";
 import { CreateEditInterventionModule } from "src/app/shared/components/create-edit-intervention/create-edit-intervention.module";
 import { InterventionsRoutingModule } from "./interventions-routing.module";
@@ -29,7 +30,8 @@ import { InterventionsComponent } from "./interventions.component";
     MatIconModule,
     CreateEditInterventionModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
   exports: [InterventionsComponent],
   declarations: [InterventionsComponent],

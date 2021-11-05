@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Configuration } from "src/app/config/configuration";
 import { BaseWebService } from "./base-web-service.service";
-import { InterventionModel } from "../model/intervention.model";
 import { CardModel } from "../model/card.model";
 
 @Injectable({ providedIn: "root" })

@@ -21,12 +21,8 @@
         </div>
     </div>
     <div class="actions">
-        <button *ngIf="intervention?.IsExecuted" mat-icon-button color="primary" class="icon"
-            (click)="emmitAction(ACTIONS.SHOW_BILL)">
-            <mat-icon>receipt_long</mat-icon>
-        </button>
         <button mat-raised-button [disabled]="!isEditMode || intervention?.IsExecuted" color="primary"
-            (click)="emmitAction(ACTIONS.FINISH)">Kompletiraj</button>
+            (click)="emmitAction(ACTIONS.FINISH)">Dodaj terminu</button>
         <button *ngIf="!isEditMode" mat-raised-button color="primary"
             [disabled]="!selectedTooth.length || !selectedService.length"
             (click)="emmitAction(ACTIONS.SAVE)">Kreiraj</button>
