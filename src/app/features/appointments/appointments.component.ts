@@ -23,7 +23,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   dentists: UserModel[] = [];
   patients: UserModel[] = [];
 
-  readonly USET_TYPE = ROLE;
+  readonly USER_TYPE = ROLE;
   userRole: ROLE = ROLE.PATIENT;
 
   private yesterday: Date = new Date(

@@ -36,12 +36,13 @@ export class InterventionsComponent implements OnInit, OnDestroy {
 
   cardId: number | undefined;
   dentistId: string = "";
+  patientId: string = "";
   dentists: UserModel[] = [];
   selectedAppointment$: BehaviorSubject<AppointmentModel | null> =
     new BehaviorSubject<AppointmentModel | null>(null);
   interventionSelection: InterventionModel[] = [];
 
-  readonly USET_TYPE = ROLE;
+  readonly USER_TYPE = ROLE;
   userRole: ROLE = ROLE.PATIENT;
 
   private interventionsElement?: ElementRef;
@@ -71,6 +72,9 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     if (this.userRole === ROLE.DENTIST) {
       this.dentistId = this.authStoreService.user?.Id || "";
       this.getAppointments();
+    } else if (this.userRole === ROLE.PATIENT) {
+      this.patientId = this.authStoreService.user?.Email || "";
+      this.getInterventions(this.patientId, true);
     } else {
       this.userWebService
         .getDentists()
@@ -90,21 +94,10 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     this.selectedAppointment$
       .pipe(takeUntil(this.destroyEvent$))
       .subscribe((appointemnt: AppointmentModel | null) => {
-        this.globalService.activateLoader();
         if (appointemnt) {
-          this.cardWebServie
-            .getCardByUserEmail(appointemnt.PatientEmail?.toString() || "")
-            .pipe(
-              take(1),
-              takeUntil(this.destroyEvent$),
-              finalize(() => this.globalService.deactivateLoader())
-            )
-            .subscribe((card) => {
-              this.cardId = card.Id;
-              this.interventions = card.Interventions;
-              this.loadTeeth();
-              this.loadServices();
-            });
+          this.getInterventions(appointemnt.PatientEmail?.toString() || "");
+          this.loadTeeth();
+          this.loadServices();
         } else {
           this.cardId = undefined;
           this.interventions = [];
@@ -112,8 +105,28 @@ export class InterventionsComponent implements OnInit, OnDestroy {
       });
   }
 
+  getInterventions(email: string, skipUncompeted?: boolean): void {
+    this.globalService.activateLoader();
+    this.cardWebServie
+      .getCardByUserEmail(email)
+      .pipe(
+        take(1),
+        takeUntil(this.destroyEvent$),
+        finalize(() => this.globalService.deactivateLoader())
+      )
+      .subscribe((card) => {
+        this.cardId = card.Id;
+        if (skipUncompeted) {
+          this.interventions = card.Interventions.filter((x) => x.IsExecuted);
+        } else {
+          this.interventions = card.Interventions;
+        }
+      });
+  }
+
   dataChangedHandler(): void {
     this.getAppointments();
+    this.selectedAppointment$.next(null);
   }
 
   getAppointments(): void {

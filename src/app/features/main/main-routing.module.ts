@@ -42,6 +42,17 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
   },
   {
+    path: "patient-card",
+    loadChildren: () =>
+      import("../interventions/interventions.module").then(
+        (m) => m.IntrventionsModule
+      ),
+    data: {
+      permissions: [ROLE.PATIENT],
+    },
+    canActivate: [PermissionGuard],
+  },
+  {
     path: "administration",
     loadChildren: () =>
       import("../administration/administration.module").then(

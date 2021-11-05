@@ -1,4 +1,4 @@
-<div class="select-wrapper">
+<div *ngIf="userRole !== USER_TYPE.PATIENT" class="select-wrapper">
     <h2>Termini za dan</h2>
     <label class="date-label">Odaberite datum:</label>
     <mat-form-field>
@@ -7,7 +7,7 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <ng-container *ngIf="userRole === USET_TYPE.ADMIN">
+    <ng-container *ngIf="userRole === USER_TYPE.ADMIN">
         <label class="date-label">Odaberite zubara:</label>
         <mat-form-field>
             <mat-label>Zubar</mat-label>
@@ -26,22 +26,26 @@
     </div>
 </div>
 <div class="table-wrapper">
-    <h2>
+    <h2 *ngIf="userRole !== USER_TYPE.PATIENT">
         Detalji pacijenta:
         <ng-container *ngIf="selectedAppointment$ | async">{{ selectedAppointment$.value?.PatientName  }}
         </ng-container>
     </h2>
-    <ng-container *ngIf="selectedAppointment$ | async">
-        <div class="add-button" *ngIf="interventionSelection.length">
-            <button mat-mini-fab color="primary" (click)="interventionsList.deselectAll()">
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
+    <h2 *ngIf="userRole === USER_TYPE.PATIENT">Vaš karton</h2>
 
-        <div class="previous-interventions">
+    <ng-container *ngIf="(selectedAppointment$ | async) || (userRole === USER_TYPE.PATIENT &&  interventions.length)">
+        <ng-container *ngIf="userRole !== USER_TYPE.PATIENT">
+            <div class="add-button" *ngIf="interventionSelection.length">
+                <button mat-mini-fab color="primary" (click)="interventionsList.deselectAll()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+
+        <div class="previous-interventions" [class.full-height]="userRole === USER_TYPE.PATIENT">
             <h3>Istorija intervencija</h3>
             <div #interventionsListElement class="interventions-list">
-                <mat-selection-list  #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
+                <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
                     <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
                         <div class="intervention">
                             <div>Usluga: {{intervention.ServiceName}}</div>
@@ -53,12 +57,14 @@
                         </div>
                     </mat-list-option>
                 </mat-selection-list>
-                <div class="empty-response" *ngIf="">Pacijent nema pređašnjih intervencija</div>
+                <div class="empty-response" *ngIf="!interventions.length">
+                    {{userRole === USER_TYPE.PATIENT ? "Nemate pređašnjih intervencija" : "Pacijent nema pređašnjih intervencija"}}
+                </div>
             </div>
 
         </div>
 
-        <div class="intervention-details">
+        <div *ngIf="userRole !== USER_TYPE.PATIENT" class="intervention-details">
             <div class="transition-container" [class.show-bottom]="interventionSelection.length">
                 <app-create-edit-intervention [services]="services" [teeth]="teeth"
                     (saveClick)="createIntervenion($event)" class="intervention-panel">
@@ -72,7 +78,10 @@
 
     </ng-container>
 
-    <div *ngIf="(selectedAppointment$ | async) === null" class="empty-response">
-        Odaberite karton pacijenta!
+    <div *ngIf="(userRole === USER_TYPE.PATIENT && !interventions.length) || (userRole !== USER_TYPE.PATIENT && (selectedAppointment$ | async) === null)"
+        class="empty-content">
+        <mat-icon>badge</mat-icon>
+        {{userRole === USER_TYPE.PATIENT? "Vaš karton nema intervencija!" : "Odaberite termin da bi pristupili kartonu pacijenta!" }}
+
     </div>
 </div>

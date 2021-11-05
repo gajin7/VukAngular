@@ -13,7 +13,7 @@ export class BillWebService {
   }
 
   getBillsByUsers(queryParams: {
-    [key: string]: number;
+    [key: string]: number | string;
   }): Observable<BillModel[]> {
     return this.baseWebService.getRequest(
       this.baseWebService.constructUrlWithParams(

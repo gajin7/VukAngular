@@ -1,6 +1,6 @@
 <div class="picker">
     <div class="picker-date panel-card">
-        <h2 class="section-title">{{ userRole === USET_TYPE.DENTIST ? "Datum" : "Zakazivanje termina"}}</h2>
+        <h2 class="section-title">{{ userRole === USER_TYPE.DENTIST ? "Datum" : "Zakazivanje termina"}}</h2>
         <label class="date-label">Odaberite datum:</label>
         <mat-form-field>
             <mat-label>Datum</mat-label>
@@ -9,7 +9,7 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <ng-container *ngIf="userRole != USET_TYPE.DENTIST">
+        <ng-container *ngIf="userRole != USER_TYPE.DENTIST">
             <label class="date-label">Odaberite zubara:</label>
             <mat-form-field>
                 <mat-label>Zubar</mat-label>
@@ -19,7 +19,7 @@
                 </mat-select>
             </mat-form-field>
         </ng-container>
-        <ng-container *ngIf="userRole === USET_TYPE.ADMIN">
+        <ng-container *ngIf="userRole === USER_TYPE.ADMIN">
             <label class="date-label">Odaberite pacijenta:</label>
             <mat-form-field>
                 <mat-label>Pacijent</mat-label>
@@ -31,8 +31,8 @@
             </mat-form-field>
         </ng-container>
     </div>
-    <div *ngIf="userRole != USET_TYPE.DENTIST" class="my-appointment panel-card">
-        <h2 class="section-title">{{ userRole === USET_TYPE.ADMIN ? "Termini pacijenta" : "Moji termini"}}</h2>
+    <div *ngIf="userRole != USER_TYPE.DENTIST" class="my-appointment panel-card">
+        <h2 class="section-title">{{ userRole === USER_TYPE.ADMIN ? "Termini pacijenta" : "Moji termini"}}</h2>
         <div class="appoinments-list">
             <app-appointment-item *ngFor="let item of appointmentsPersonal" [isPersonal]="true" [appointment]="item"
                 class="panel-card">
@@ -43,7 +43,7 @@
 <div class="calendar panel-card">
     <div class="heading">
         <h2 class="section-title">Termini za dan: </h2>
-        <div *ngIf="userRole != USET_TYPE.PATIENT" class="actions">
+        <div *ngIf="userRole != USER_TYPE.PATIENT" class="actions">
             <button mat-mini-fab matTooltip="Dodaj termin" color="primary" (click)="openCreateDialog()">
                 <mat-icon>add</mat-icon>
             </button>
@@ -56,8 +56,12 @@
 
     <div class="appoinments-list">
         <app-appointment-item *ngFor="let item of appointments" [dateToCalculate]="dateValue"
-            [isPatient]="userRole === USET_TYPE.PATIENT" (bookAppointment)="bookAppointment(item)" [appointment]="item"
+            [isPatient]="userRole === USER_TYPE.PATIENT" (bookAppointment)="bookAppointment(item)" [appointment]="item"
             class="panel-card">
         </app-appointment-item>
+        <div *ngIf="!appointments.length" class="empty-content">
+            <mat-icon>event_busy</mat-icon>
+            {{ userRole === USER_TYPE.PATIENT ? "Nema termina za navedeni dan!" : "Niste kreirali termine za navedeni dan!" }}
+        </div>
     </div>
 </div>
