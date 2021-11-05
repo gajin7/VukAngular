@@ -46,7 +46,7 @@
         <div class="intervention-container" [class.full-height]="userRole === USER_TYPE.PATIENT">
             <div class="previous-interventions">
                 <h3>Istorija intervencija</h3>
-                <div class="add-button">
+                <div class="add-button" *ngIf="userRole !== USER_TYPE.PATIENT">
                     <button *ngIf="interventionSelection.length" mat-mini-fab color="primary"
                         (click)="interventionsList.deselectAll()">
                         <mat-icon>add</mat-icon>
