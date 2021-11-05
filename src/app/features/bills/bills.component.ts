@@ -37,8 +37,16 @@ export class BillsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userRole = this.authStoreService.user?.Type || ROLE.ADMIN;
+    if (this.userRole === ROLE.DENTIST) {
+      this.dentist = this.authStoreService.user || undefined;
+    } else if (this.userRole === ROLE.PATIENT) {
+      this.patient = this.authStoreService.user || undefined;
+    }
     forkJoin({
-      bills: this.billWebService.getBills(),
+      bills: this.billWebService.getBillsByUsers({
+        ...(this.dentist ? { dentistId: this.dentist.Id } : {}),
+        ...(this.patient ? { patientId: this.patient.Id } : {}),
+      }),
       ...(this.userRole === ROLE.ADMIN || this.userRole === ROLE.DENTIST
         ? { patients: this.userWebService.getPatients() }
         : {}),

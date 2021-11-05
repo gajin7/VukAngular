@@ -8,10 +8,6 @@ import { BillModel } from "../model/bill.model";
 export class BillWebService {
   constructor(private baseWebService: BaseWebService) {}
 
-  getBills(): Observable<BillModel[]> {
-    return this.baseWebService.getRequest(Configuration.PATH_BILLS);
-  }
-
   getBillsByUsers(queryParams: {
     [key: string]: number | string;
   }): Observable<BillModel[]> {
