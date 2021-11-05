@@ -3,7 +3,7 @@
     <div class="services">
         <h4>Naziv usluge</h4>
         <div class="list" #servicesList>
-            <mat-selection-list [multiple]="false" [(ngModel)]="selectedService" [class.pointer-none]="isEditMode" >
+            <mat-selection-list [multiple]="false" [(ngModel)]="selectedService" [class.pointer-none]="isEditMode">
                 <mat-list-option *ngFor="let service of services" [value]="service">
                     {{ service.Name }}
                 </mat-list-option>
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="actions">
-        <button mat-raised-button [disabled]="!isEditMode || intervention?.IsExecuted" color="primary"
+        <button mat-raised-button *ngIf="isEditMode" [disabled]="intervention?.IsExecuted" color="primary"
             (click)="emmitAction(ACTIONS.FINISH)">Dodaj terminu</button>
         <button *ngIf="!isEditMode" mat-raised-button color="primary"
             [disabled]="!selectedTooth.length || !selectedService.length"
