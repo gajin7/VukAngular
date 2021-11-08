@@ -1,14 +1,17 @@
-import { Component, OnInit, Type } from "@angular/core";
+import { Component, OnDestroy, OnInit, Type } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSelectionListChange } from "@angular/material/list";
 import { Subject, Subscription } from "rxjs";
-import { debounceTime } from "rxjs/operators";
+import { debounceTime, take, takeUntil } from "rxjs/operators";
 import { Configuration } from "src/app/config/configuration";
+import { SubmittableFormPopupService } from "src/app/shared/components/submittable-form-popup/submittable-form-popup.service";
 import { BillModel } from "src/app/shared/model/bill.model";
 import { CardModel } from "src/app/shared/model/card.model";
 import { InterventionModel } from "src/app/shared/model/intervention.model";
 import { ServiceTypeModel } from "src/app/shared/model/service-type.mode";
 import { ServiceModel } from "src/app/shared/model/service.model";
 import { UserModel } from "src/app/shared/model/user.model";
+import { BaseAlertService } from "src/app/shared/services/base-alert-service";
 import { BaseWebService } from "src/app/shared/web-services/base-web-service.service";
 import { AdministrationItemI } from "./administration-item.interface";
 
@@ -16,8 +19,9 @@ import { AdministrationItemI } from "./administration-item.interface";
   selector: "app-administration",
   templateUrl: "./administration.component.html",
   styleUrls: ["./administration.component.scss"],
+  providers: [FormBuilder, SubmittableFormPopupService],
 })
-export class AdministrationComponent implements OnInit {
+export class AdministrationComponent implements OnInit, OnDestroy {
   readonly administrationItems: AdministrationItemI[] = [
     {
       type: BillModel,
@@ -52,9 +56,18 @@ export class AdministrationComponent implements OnInit {
       displayName: "Korisnik",
       internalName: "user",
       url: Configuration.PATH_USERS,
+      createUrl: Configuration.PATH_USERS_CREATE,
       isDependant: true,
       paginated: true,
       queryParameters: { key: "userTypeId", value: "ID tipa korisnika" },
+      createModel: {
+        button: "Kreiraj zubara",
+        FirstName: "",
+        LastName: "",
+        TypeId: 2,
+        Email: "",
+        Password: "",
+      },
     },
     {
       type: InterventionModel,
@@ -73,7 +86,16 @@ export class AdministrationComponent implements OnInit {
   dependantValueSubscription: Subscription | undefined = undefined;
   dependantValue: string = "";
 
-  constructor(private baseWebService: BaseWebService) {}
+  createItemFormGroup?: FormGroup;
+
+  private readonly destroyEvent$ = new Subject();
+
+  constructor(
+    private baseWebService: BaseWebService,
+    private fb: FormBuilder,
+    private formPopup: SubmittableFormPopupService,
+    private baseAlert: BaseAlertService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -117,33 +139,81 @@ export class AdministrationComponent implements OnInit {
       if (parameters) {
         url = this.baseWebService.constructUrlWithParams(url, parameters);
       }
-      this.baseWebService.getRequest(url).subscribe(
-        (v: any) => {
-          this.selectedClassEntities = this.selectedItem?.paginated
-            ? v.Data
-            : Array.isArray(v)
-            ? v
-            : [v];
-          this.selectedClassEntities.forEach((x) => {
-            Object.keys(x).forEach((k) => {
-              if (x[k] && typeof x[k] === "object") {
-                if (Array.isArray(x[k])) {
-                  x[k] = x[k].map((s: any) => s.Name).join(", ");
-                } else if (x[k].hasOwnProperty("Name")) {
-                  x[k] = x[k].Name;
+      this.baseWebService
+        .getRequest(url)
+        .pipe(take(1), takeUntil(this.destroyEvent$))
+        .subscribe(
+          (v: any) => {
+            this.selectedClassEntities = this.selectedItem?.paginated
+              ? v.Data
+              : Array.isArray(v)
+              ? v
+              : [v];
+            this.selectedClassEntities.forEach((x) => {
+              Object.keys(x).forEach((k) => {
+                if (x[k] && typeof x[k] === "object") {
+                  if (Array.isArray(x[k])) {
+                    x[k] = x[k].map((s: any) => s.Name).join(", ");
+                  } else if (x[k].hasOwnProperty("Name")) {
+                    x[k] = x[k].Name;
+                  }
                 }
-              }
+              });
             });
-          });
-        },
-        () => {
-          this.selectedClassEntities = [];
+          },
+          () => {
+            this.selectedClassEntities = [];
+          }
+        );
+    }
+  }
+
+  showCreatePopup(): void {
+    if (this.selectedItem) {
+      if (this.selectedItem.createModel) {
+        this.createItemFormGroup = this.fb.group({});
+        for (let key in this.selectedItem.createModel) {
+          if (
+            this.selectedItem.createModel[key] &&
+            typeof this.selectedItem.createModel[key] === "string" &&
+            key[0].toLowerCase() === key[0]
+          ) {
+            continue;
+          }
+          this.createItemFormGroup.addControl(
+            key,
+            this.fb.control(
+              this.selectedItem.createModel[key],
+              Validators.required
+            )
+          );
         }
-      );
+        this.formPopup
+          .openDialogForm(this.createItemFormGroup, "Kreiraj zubara")
+          .subscribe((formValue: { [key: string]: any }) => {
+            if (formValue) {
+              this.baseWebService
+                .postRequest(this.selectedItem?.createUrl || "", formValue)
+                .pipe(take(1), takeUntil(this.destroyEvent$))
+                .subscribe((resp: any) => {
+                  this.baseAlert.showAlert(
+                    resp.FirstName +
+                      " je kreiran! Ukoliko postoji zavisno polje unesite vrednost da biste videli kreiran objekat."
+                  );
+                });
+            }
+          });
+      } else {
+        this.createItemFormGroup = undefined;
+      }
     }
   }
 
   dependantIdEntered(v: any): void {
     this.dependantValue$.next(v.target.value);
+  }
+
+  ngOnDestroy(): void {
+    this.destroyEvent$.next();
   }
 }

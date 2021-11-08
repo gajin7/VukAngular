@@ -10,6 +10,7 @@ export class Configuration {
   static readonly PATH_TOKEN = Configuration.HOST + "/oauth/token";
 
   static readonly PATH_USERS = Configuration.HOST + "/users";
+  static readonly PATH_USERS_CREATE = Configuration.HOST + "/users/register";
   static readonly PATH_APPOINTMENTS = Configuration.HOST + "/appointments";
   static readonly PATH_CARDS = Configuration.HOST + "/cards";
   static readonly PATH_TEETH = Configuration.HOST + "/teeth";
