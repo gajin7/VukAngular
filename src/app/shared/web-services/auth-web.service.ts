@@ -37,4 +37,27 @@ export class AuthWebService {
   getUserInfo(): Observable<any> {
     return this.baseWebService.getRequest(Configuration.PATH_USERS + "/info");
   }
+
+  forgotPassword(email: string) {
+    return this.baseWebService.getRequest(
+      this.baseWebService.constructUrlWithParams(
+        Configuration.PATH_USERS + "/forgot-password",
+        {
+          email,
+        }
+      )
+    );
+  }
+
+  resetPassword(token: string, data: any) {
+    return this.baseWebService.postRequest(
+      this.baseWebService.constructUrlWithParams(
+        Configuration.PATH_USERS + "/reset-password",
+        {
+          token,
+        }
+      ),
+      data
+    );
+  }
 }

@@ -1,17 +1,22 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
-<div mat-dialog-content class="content">
-    <form *ngIf="data.formGroup" [formGroup]="data.formGroup" autocomplete="off" (ngSubmit)="submitForm()">
-        <input matInput [type]="'password'" autocomplete="off" class="true-hidden">
-        <ng-container *ngFor="let control of data.formGroup.controls | keyvalue">
-            <mat-form-field *ngIf="formConfiguration[control.key].visible">
-                <mat-label>{{control.key}}</mat-label>
-                <input matInput [formControlName]="control.key" [placeholder]="control.key"
-                    [value]="control.value.value" autocomplete="off" [type]="formConfiguration[control.key].type" required>
-            </mat-form-field>
-        </ng-container>
-        <div class="actions">
-            <button mat-raised-button [disabled]="data.formGroup.invalid" color="primary" type="submit">Kreiraj</button>
-            <button mat-raised-button mat-dialog-close>Odustani</button>
-        </div>
-    </form>
-</div>
+<ng-container *ngIf="finalData">
+    <h1 mat-dialog-title>{{finalData.title}}</h1>
+    <div mat-dialog-content class="content">
+        <form *ngIf="finalData.formGroup" [formGroup]="finalData.formGroup" autocomplete="off"
+            (ngSubmit)="submitForm()">
+            <input matInput [type]="'password'" autocomplete="off" class="true-hidden">
+            <ng-container *ngFor="let control of finalData.formGroup.controls | keyvalue">
+                <mat-form-field *ngIf="formConfiguration[control.key].visible">
+                    <mat-label>{{control.key}}</mat-label>
+                    <input matInput [formControlName]="control.key" [placeholder]="control.key"
+                        [value]="control.value.value" autocomplete="off" [type]="formConfiguration[control.key].type"
+                        required>
+                </mat-form-field>
+            </ng-container>
+            <div class="actions">
+                <button mat-raised-button [disabled]="finalData.formGroup.invalid" color="primary"
+                    type="submit">Kreiraj</button>
+                <button mat-raised-button mat-dialog-close>Odustani</button>
+            </div>
+        </form>
+    </div>
+</ng-container>

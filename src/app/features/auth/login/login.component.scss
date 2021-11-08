@@ -1,5 +1,6 @@
 .example-card {
     max-width: 380px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,4 +11,10 @@
         flex-direction: column;
     }
 
+    .actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

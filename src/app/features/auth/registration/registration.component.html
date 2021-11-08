@@ -1,0 +1,49 @@
+<ng-container *ngIf="registrationForm">
+    <mat-card class="content">
+        <mat-card-header>
+            <mat-card-title>Registracija</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form *ngIf="registrationForm" [formGroup]="registrationForm" autocomplete="off" (ngSubmit)="register()">
+                <input matInput type="password" autocomplete="off" class="true-hidden">
+                <input class="true-hidden" matInput formControlName="Type" placeholder="Email" autocomplete="off"
+                    required>
+                <mat-form-field>
+                    <mat-label>Ime</mat-label>
+                    <input matInput formControlName="FirstName" placeholder="Ime" autocomplete="off" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Prezime</mat-label>
+                    <input matInput formControlName="LastName" placeholder="Prezime" autocomplete="off" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="Email" placeholder="Email" autocomplete="off" required
+                        type="email">
+                    <mat-error *ngIf="registrationForm.controls.Email.errors?.email">E-mail format: abc@site.com</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Lozinka</mat-label>
+                    <input matInput formControlName="Password" placeholder="Lozinka" autocomplete="new-password"
+                        required type="password">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Ponovite lozinku</mat-label>
+                    <input matInput formControlName="RepeatPassword" placeholder="Ponovite lozinku"
+                        autocomplete="new-password" required type="password">
+                </mat-form-field>
+                <div *ngIf="registrationForm.errors?.paswordMatch && (registrationForm.touched || registrationForm.dirty)"
+                    class="error-list">
+                    Lozinke se ne poklapaju!
+                </div>
+
+                <div class="actions">
+                    <button mat-raised-button [disabled]="registrationForm.invalid" color="primary" type="submit">
+                        Registruj se
+                    </button>
+                    <a class="btn-field-register" routerLink="/auth" color="primary">Nazad na prijavu</a>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</ng-container>

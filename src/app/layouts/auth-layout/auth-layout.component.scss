@@ -14,6 +14,13 @@
 
         .bar {
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .padded {
+                padding: 40px;
+            }
 
             .example-card {
                 height: 100%;

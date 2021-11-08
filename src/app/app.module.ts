@@ -12,6 +12,7 @@ import { AgmCoreModule } from "@agm/core";
 import { HttpErrorsInterceptor } from "./shared/interceptors/http-errors.interceptor";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MainLayoutModule } from "./layouts/main-layout/main-layout.module";
+import { AuthLayoutModule } from "./layouts/auth-layout/auth-layout.module";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,6 +22,7 @@ import { MainLayoutModule } from "./layouts/main-layout/main-layout.module";
     MatIconModule,
     MatSnackBarModule,
     MainLayoutModule,
+    AuthLayoutModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: "",

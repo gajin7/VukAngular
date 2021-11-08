@@ -2,23 +2,26 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { SubmittableFormPopupComponent } from "./submittable-form-popup.component";
+import { ForgetPasswordRoutingModule } from "./forgot-password-routing.module";
+
+import { ForgotPasswordComponent } from "./forgot-password.component";
 
 @NgModule({
   imports: [
     CommonModule,
+    ForgetPasswordRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
+    MatButtonModule,
     MatInputModule,
-    MatDialogModule,
   ],
-  exports: [SubmittableFormPopupComponent],
-  declarations: [SubmittableFormPopupComponent],
-  providers: [MatDialog],
+  exports: [ForgotPasswordComponent],
+  declarations: [ForgotPasswordComponent],
+  providers: [],
 })
-export class SubmittableFormPopupModule {}
+export class ForgotPasswordModule {}

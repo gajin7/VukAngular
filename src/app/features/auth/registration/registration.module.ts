@@ -2,23 +2,26 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { SubmittableFormPopupComponent } from "./submittable-form-popup.component";
+import { RegistrationRoutingModule } from "./registration-routing.module";
+
+import { RegistrationComponent } from "./registration.component";
 
 @NgModule({
   imports: [
     CommonModule,
+    RegistrationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
+    MatButtonModule,
     MatInputModule,
-    MatDialogModule,
   ],
-  exports: [SubmittableFormPopupComponent],
-  declarations: [SubmittableFormPopupComponent],
-  providers: [MatDialog],
+  exports: [RegistrationComponent],
+  declarations: [RegistrationComponent],
+  providers: [],
 })
-export class SubmittableFormPopupModule {}
+export class RegistrationModule {}

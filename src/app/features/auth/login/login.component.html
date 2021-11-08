@@ -18,9 +18,10 @@
     <!-- <mat-progress-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-progress-spinner> -->
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button class="btn-field" color="primary" (click)="login()">Prijavi se</button>
+    <button mat-raised-button class="btn-field" color="primary" (click)="login()">Prijavi se</button>
   </mat-card-actions>
-  <div>
-    <p>Nemate nalog? <a class="btn-field-register" href="/registration" mat-button color="primary">Registrujte se</a>
+  <div class="actions">
+    <p>Nemate nalog? <a class="btn-field-register" routerLink="/auth/registration" color="primary">Registrujte se</a>
     </p>
+    <a class="btn-field-register" routerLink="/auth/forgot-password" color="primary">Zaboravljena lozinka</a>
   </div>
