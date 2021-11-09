@@ -40,7 +40,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       .pipe(
         take(1),
         takeUntil(this.destroyEvent$),
-        finalize(() => this.globalService.deactivateLoader)
+        finalize(() => this.globalService.deactivateLoader())
       )
       .subscribe(() => {
         this.emailSent = true;

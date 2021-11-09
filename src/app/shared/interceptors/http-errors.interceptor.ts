@@ -12,7 +12,12 @@ import { BaseAlertService } from "../services/base-alert-service";
 
 @Injectable()
 export class HttpErrorsInterceptor implements HttpInterceptor {
-  ignoreRequests: string[] = ["/users/info"];
+  ignoreRequests: string[] = [
+    "/users/info",
+    "/users/request-password-reset",
+    "/user/forgot-password",
+    "/user/register",
+  ];
 
   constructor(
     private router: Router,
@@ -25,13 +30,14 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err) => {
-        if (err.status === 401) {
-          this.router.navigate(["auth"]);
-        }
+        const parsedUrl = req.url.split("?")[0];
         for (const path of this.ignoreRequests) {
-          if (req.url.endsWith(path)) {
+          if (parsedUrl.endsWith(path)) {
             return observableThrowError(err);
           }
+        }
+        if (err.status === 401) {
+          this.router.navigate(["auth"]);
         }
         this.baseAlertService.showAlert(err.message);
         return observableThrowError(err);

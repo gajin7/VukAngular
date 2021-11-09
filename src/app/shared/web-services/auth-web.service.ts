@@ -49,10 +49,10 @@ export class AuthWebService {
     );
   }
 
-  resetPassword(token: string, data: any) {
+  setNewPassowrd(token: string, data: any) {
     return this.baseWebService.postRequest(
       this.baseWebService.constructUrlWithParams(
-        Configuration.PATH_USERS + "/reset-password",
+        Configuration.PATH_USERS + "/reset-password-token",
         {
           token,
         }

@@ -32,7 +32,12 @@
         </mat-card>
     </div>
     <div class="bar">
-        <router-outlet></router-outlet>
+        <div class="loader-wrapper">
+            <router-outlet></router-outlet>
+            <div class="loader" [class.visible]="isLoading">
+                <div class="lds-hourglass"></div>
+            </div>
+        </div>
     </div>
     <div class="bar">
         <mat-card class="example-card">
