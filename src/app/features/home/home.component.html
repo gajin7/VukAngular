@@ -39,7 +39,7 @@
                 <mat-card-title>Kontakt</mat-card-title>
                 <mat-card-subtitle>Kontakt podaci</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content style="margin-top: 10px;">
+            <mat-card-content style="margin-top: 10px; display: flex; flex-direction: column; flex: 1; min-height: 0;">
                 <mat-card class="working-hours-card">
                     <div>
                         <mat-icon style="float:left">date_range</mat-icon>
@@ -75,12 +75,12 @@
                     <mat-icon style="float:left">email</mat-icon>
                     <h3>Elektronska posta: <a href="mailto: abc@example.com">abc@example.com</a></h3>
                 </mat-card>
-                <mat-card class="address-card">
+                <mat-card class="address-card" style="display: flex;flex-direction: column; flex:1; min-height: 0;">
                     <mat-icon style="float:left">map</mat-icon>
                     <h3>Adresa: Milete Jaksica 7, 21000 Novi Sad</h3>
-                    <div class="mapouter">
-                        <div class="gmap_canvas">
-                            <iframe width="100%" height="200" id="gmap_canvas"
+                    <div class="mapouter" style="display: flex;flex-direction: column; flex:1; min-height: 0;">
+                        <div class="gmap_canvas" style="display: flex;flex-direction: column; flex:1; min-height: 0;">
+                            <iframe width="100%" height="100%" id="gmap_canvas"
                                 src="https://maps.google.com/maps?q=Milete%20Jaksica%207%20Novi%20Sad&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                 frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                         </div>

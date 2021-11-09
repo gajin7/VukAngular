@@ -25,7 +25,7 @@
         </app-appointment-item>
     </div>
 </div>
-<div class="table-wrapper">
+<div class="table-wrapper" [class.marginated]="userRole !== USER_TYPE.PATIENT">
     <h2 *ngIf="userRole !== USER_TYPE.PATIENT">
         Detalji pacijenta:
         <ng-container *ngIf="selectedAppointment$ | async">{{ selectedAppointment$.value?.PatientName  }}
@@ -56,9 +56,9 @@
                     <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
                         <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
                             <div class="intervention">
-                                <div>Usluga: {{intervention.ServiceName}}</div>
-                                <div>Zub: {{intervention.ToothName}}</div>
-                                <mat-icon [class.success]="intervention.IsExecuted"
+                                <div class="intervention-segment">Usluga: {{intervention.ServiceName}}</div>
+                                <div class="intervention-segment">Zub: {{intervention.ToothName}}</div>
+                                <mat-icon class="intervention-segment icon" [class.success]="intervention.IsExecuted"
                                     [color]="intervention.IsExecuted || 'primary'">
                                     {{intervention.IsExecuted ? "task_alt" : "pending_actions"}}
                                 </mat-icon>

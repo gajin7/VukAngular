@@ -49,17 +49,20 @@
         </div>
         <div class="content">
             <ng-container *ngFor="let bill of bills">
-                <mat-expansion-panel #billsItems [class.pointer-none]="!bill.Services.length" [hideToggle]="!bill.Services.length">
+                <mat-expansion-panel #billsItems [class.pointer-none]="!bill.Services.length"
+                    [hideToggle]="!bill.Services.length">
                     <mat-expansion-panel-header>
                         <div class="bill-header">
-                            <div>{{bill.AppointmentDate | date: 'dd.MM.YYYY.'}} -
+                            <div class="bill-info">{{bill.AppointmentDate | date: 'dd.MM.YYYY.'}} -
                                 {{bill.AppointmentDate | date: 'hh:mm'}}</div>
-                            <div *ngIf="userRole === USER_TYPE.ADMIN">Zubar: {{ bill.DentistName}}</div>
-                            <div *ngIf="userRole === USER_TYPE.PATIENT">{{ bill.DentistName}}</div>
-                            <div *ngIf="userRole === USER_TYPE.DENTIST || userRole === USER_TYPE.ADMIN">
+                            <div class="bill-info" *ngIf="userRole === USER_TYPE.ADMIN">Zubar: {{ bill.DentistName}}
+                            </div>
+                            <div class="bill-info" *ngIf="userRole === USER_TYPE.PATIENT">{{ bill.DentistName}}</div>
+                            <div class="bill-info"
+                                *ngIf="userRole === USER_TYPE.DENTIST || userRole === USER_TYPE.ADMIN">
                                 {{ bill.PatientName }}
                             </div>
-                            <div>{{bill.TotalPrice | currency: 'RSD '}}</div>
+                            <div class="bill-info">{{bill.TotalPrice | currency: 'RSD '}}</div>
                         </div>
                     </mat-expansion-panel-header>
                     <div class="bill-panel-content">

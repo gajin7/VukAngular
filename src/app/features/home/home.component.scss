@@ -49,7 +49,9 @@
             .example-card {
                 height: 100%;
                 width: 100%;
-
+                display: flex;
+                flex-direction: column;
+                
                 .card-image {
                     width: 100%;
                 }

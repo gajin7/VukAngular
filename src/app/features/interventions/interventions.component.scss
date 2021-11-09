@@ -51,7 +51,6 @@
     }
 
     .table-wrapper {
-        margin-left: 20px;
         padding: 20px;
         background-color: white;
         flex: 1;
@@ -59,6 +58,10 @@
         display: flex;
         position: relative;
         flex-direction: column;
+
+        &.marginated {
+            margin-left: 20px;
+        }
 
         .add-button {
             position: absolute;
@@ -114,6 +117,17 @@
                         justify-content: space-evenly;
                         align-items: center;
                         flex-wrap: wrap;
+
+                        .intervention-segment {
+                            width: 300px;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+
+                            &.icon {
+                                width: 50px;
+                            }
+                        }
 
                         .success {
                             color: var(--color-success);
@@ -202,6 +216,10 @@
         .table-wrapper {
             margin: 20px 0 0 0;
             min-height: 100%;
+        }
+
+        .intervention-segment {
+            width: 130px !important;
         }
     }
 }
