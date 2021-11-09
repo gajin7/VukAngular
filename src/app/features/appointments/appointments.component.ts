@@ -47,10 +47,11 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.globalService.activateLoader();
     this.userRole = this.authStoreService.role as ROLE;
+    if (this.userRole === ROLE.PATIENT) {
+      this.patientEmail = this.authStoreService.email!;
+    }
     forkJoin([
-      this.appointmentWebService.getPersonalAppointments(
-        this.authStoreService.email!
-      ),
+      this.appointmentWebService.getPersonalAppointments(this.authStoreService.email!),
       this.userWebService.getDentists(),
       ...(this.userRole === ROLE.ADMIN
         ? [this.userWebService.getPatients()]
@@ -172,5 +173,6 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyEvent$.next();
+    this.destroyEvent$.complete();
   }
 }
