@@ -1,0 +1,57 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 50px;
+    position: relative;
+
+    &.selected {
+        margin-left: 10px;
+    }
+
+    &:not(:first-of-type){
+        margin-top: 10px;
+    }
+
+    .status {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 15px;
+        min-height: 100%;
+
+        &.status-free {
+            background-color: var(--color-success);
+        }
+
+        &.past {
+            background-color: var(--color-disabled);
+        }
+    }
+
+    .disabled-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: var(--color-main-lighter);
+        opacity: 0.4;
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+
+        .appointment-detail {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            padding: 5px 20px;
+            text-align: center;
+        }
+    }
+}

@@ -1,37 +1,39 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeGuard } from './auth/guards/home.guard';
-import { ProfileGuard } from './auth/guards/patient.guard';
-import { PatientGuard } from './auth/guards/profile.guard';
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { PatientHomeComponent } from './components/patient/patient-home/patient-home.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { RegistrationComponent } from './components/registration/registration.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
+import { MainLayoutComponent } from "./layouts/main-layout/main-layout.component";
+import { AuthGuard } from "./shared/guards/auth.guard";
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomePageComponent,
-    canActivate: [HomeGuard]
+    path: "",
+    component: MainLayoutComponent,
+    loadChildren: () =>
+      import("./features/main/main.module").then((m) => m.MainModule),
+    canActivate: [AuthGuard],
   },
   {
-    path: 'registration',
-    component: RegistrationComponent,
+    path: "auth",
+    component: AuthLayoutComponent,
+    loadChildren: () =>
+      import("./features/auth/auth.module").then(
+        (m) => m.AuthModule
+      ),
   },
   {
-    path: 'patient',
-    component: PatientHomeComponent,
-    canActivate: [PatientGuard]
+    path: "page-not-found",
+    loadChildren: () =>
+      import("./layouts/page-not-found/page-not-found.module").then(
+        (m) => m.PageNotFoundModule
+      ),
   },
   {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [ProfileGuard]
+    path: "**",
+    redirectTo: "page-not-found",
   },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

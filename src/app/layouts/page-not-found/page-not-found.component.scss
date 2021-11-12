@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .logo {
+    padding: 15px;
+    img {
+      max-height: 50px;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .logo404 {
+      font-size: 18em;
+      font-weight: 700;
+      opacity: 0.1;
+      line-height: 1;
+      background-image: linear-gradient(black, white);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title {
+      font-size: 2.86em;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 1em;
+      font-weight: 600;
+      color: var(--color-main-dark);
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .comment {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: var(--color-main-light);
+      margin-bottom: 30px;
+      max-width: 550px;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.content {
+    position: relative;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .actions {
+        box-sizing: border-box;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: flex-end;
+        margin: 2px 0;
+
+        button:not(:first-of-type) {
+            margin-left: 10px;
+        }
+    }
+
+    .error-list {
+        margin-bottom: 10px;
+        color: var(--color-danger);
+    }
+}

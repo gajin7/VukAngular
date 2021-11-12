@@ -1,0 +1,133 @@
+.bills-container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    .section-title {
+        font-size: xx-large;
+        font-weight: 400;
+    }
+
+    .search-bar {
+        min-height: 100px;
+        min-width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .total-price {
+            position: absolute;
+            right: 0;
+            top: 15px;
+            font-size: xx-large;
+            font-weight: 400;
+            text-align: right;
+
+            div {
+                font-size: large;
+                margin-bottom: 5px;
+            }
+        }
+
+        .search-icon {
+            width: 40px;
+            height: 40px;
+            transform: scale(2);
+            color: var(--color-main);
+            padding-top: 4px;
+            margin-left: 30px;
+        }
+
+        .field-container {
+            margin: 0 10px;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            .x-button {
+                padding-top: 1px;
+                padding-left: 1px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        position: relative;
+        scroll-behavior: smooth;
+
+        .empty-content {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            mat-icon {
+                transform: scale(3);
+                margin-bottom: 40px;
+            }
+        }
+
+        .content {
+            height: fit-content;
+            padding: 2px 0;
+
+            mat-expansion-panel {
+                margin: 0 10px;
+
+                &:not(:first-of-type) {
+                    margin-top: 20px;
+                }
+            }
+
+            .bill-header {
+                width: 100%;
+                padding-right: 30px;
+                display: flex;
+                justify-content: space-evenly;
+
+                .bill-info {
+                    width: 180px;
+                }
+            }
+
+            .bill-panel-content {
+                padding-top: 16px;
+                width: 100%;
+                height: fit-content;
+                max-height: 400px;
+                overflow-y: auto;
+                border-top: 1px solid var(--color-main-lighter);
+
+                .list-item {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-evenly;
+
+                    .text {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 200px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+<div class="select-wrapper">
+    <h2>Odaberi entitet</h2>
+    <mat-selection-list [multiple]="false" (selectionChange)="itemSelected($event)">
+        <mat-list-option *ngFor="let item of administrationItems; trackBy: trackByInternalName" [value]="item">
+            {{item.displayName}}
+        </mat-list-option>
+    </mat-selection-list>
+
+    <div *ngIf="selectedItem?.queryParameters || selectedItem?.parameters" class="depends-on">
+        <h3>Zavisni podaci:</h3>
+        <mat-form-field>
+            <mat-label>{{selectedItem?.queryParameters?.value || selectedItem?.parameters?.value || ''}}</mat-label>
+            <input matInput [(ngModel)]="dependantValue" (input)="dependantIdEntered($event)"
+                [placeholder]="selectedItem?.queryParameters?.value || selectedItem?.parameters?.value || ''">
+        </mat-form-field>
+    </div>
+
+    <button *ngIf="selectedItem?.createModel" mat-raised-button color="primary"
+        (click)="showCreatePopup()">{{selectedItem?.createModel?.button}}</button>
+</div>
+<div class="table-wrapper">
+    <ng-container *ngIf="selectedClassColumns && selectedClassColumns.length">
+        <table mat-table [dataSource]="selectedClassEntities">
+            <ng-container *ngFor="let item of selectedClassColumns" [matColumnDef]="item">
+                <th mat-header-cell *matHeaderCellDef> {{item}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[item]}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="selectedClassColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: selectedClassColumns;"></tr>
+        </table>
+
+    </ng-container>
+    <div *ngIf="selectedItem && !selectedClassEntities.length" class="empty-response">Ne postoje entiteti za navedene
+        podatke!</div>
+</div>

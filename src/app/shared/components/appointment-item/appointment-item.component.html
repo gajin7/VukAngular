@@ -1,0 +1,34 @@
+<ng-container *ngIf="appointment">
+    <div class="status" [class.status-free]="(isDisplayOnly || !appointment.Reserved) && !isPast" [class.past]="isPast">
+    </div>
+    <div class="container">
+        <ng-container *ngIf="isPersonal">
+            <div class="appointment-detail">Datum: {{appointment.DateTimeFrom | date: 'dd.MM.yyyy.'}}</div>
+            <div class="appointment-detail">Vreme: {{appointment.DateTimeFrom  | date: 'HH:mm'}}</div>
+            <!-- <div class="appointment-detail" *ngIf="!isPast">
+                <button mat-stroked-button (click)="emitAppointmentCancel()">Otkaži</button>
+            </div> -->
+        </ng-container>
+        <ng-container *ngIf="!isPersonal">
+            <ng-container *ngIf="!isDisplayOnly">
+                <div class="appointment-detail">Od: {{appointment.DateTimeFrom }}</div>
+                <div class="appointment-detail">Do: {{appointment.DateTimeTo }}</div>
+                <div class="appointment-detail">
+                    {{ appointment.Reserved ? (isPatient ? "Zauzet": "Sa pacijentom") : "Slobodan" }}</div>
+                <div class="appointment-detail">Trajanje: {{duration}}</div>
+                <div *ngIf="isPatient " class="appointment-detail">
+                    <button *ngIf="!isPast" mat-stroked-button (click)="emitAppointmentSelect()">Zakaži</button>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isDisplayOnly">
+                <div class="appointment-detail">Vreme: {{appointment.DateTimeFrom }}</div>
+                <div class="appointment-detail">
+                    {{ appointment.Reserved ? (isPatient ? "Zauzet": "Pacijent: "+appointment.PatientName ) : "Slobodan" }}
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div *ngIf="appointment.Reserved && !isPersonal && !isDisplayOnly" class="disabled-panel"></div>
+</ng-container>

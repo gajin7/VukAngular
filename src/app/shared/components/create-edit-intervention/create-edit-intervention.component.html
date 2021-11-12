@@ -1,0 +1,30 @@
+<h2>{{ isEditMode ? "Detalji intervencije" : "Kreiraj intervenciju"}}</h2>
+<div class="items">
+    <div class="services">
+        <h4>Naziv usluge</h4>
+        <div class="list" #servicesList>
+            <mat-selection-list [multiple]="false" [(ngModel)]="selectedService" [class.pointer-none]="isEditMode">
+                <mat-list-option *ngFor="let service of services" [value]="service">
+                    {{ service.Name }}
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+    </div>
+    <div class="teeth">
+        <h4>Zub</h4>
+        <div class="list" #teethList>
+            <mat-selection-list [multiple]="false" [(ngModel)]="selectedTooth" [class.pointer-none]="isEditMode">
+                <mat-list-option *ngFor="let tooth of teeth" [value]="tooth">
+                    {{ tooth.Name }}
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+    </div>
+    <div class="actions">
+        <button mat-raised-button *ngIf="isEditMode" [disabled]="intervention?.IsExecuted" color="primary"
+            (click)="emmitAction(ACTIONS.FINISH)">Dodaj terminu</button>
+        <button *ngIf="!isEditMode" mat-raised-button color="primary"
+            [disabled]="!selectedTooth.length || !selectedService.length"
+            (click)="emmitAction(ACTIONS.SAVE)">Kreiraj</button>
+    </div>
+</div>

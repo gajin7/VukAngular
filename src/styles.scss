@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('styles/_colors.scss');
+
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.true-hidden {
+    display: none;
+}
+
+.pointer-none {
+    pointer-events: none;
+}
+
+.panel-card {
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    // border-radius: 4px;
+}
+
+// 3rd party customization
+.timepicker-overlay {
+    z-index: 1200 !important;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+}
+
+.mat-list-base {
+    padding-top: 0 !important;
+}
