@@ -56,3 +56,9 @@ body {
 .mat-list-base {
     padding-top: 0 !important;
 }
+
+.bills-container {
+    .mat-list-item-content {
+        padding: 0 !important;
+    }
+}
