@@ -106,7 +106,10 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   itemSelected(event: MatSelectionListChange): void {
     this.selectedItem = event.options[0].value as AdministrationItemI;
     const selectedType = this.selectedItem.type;
-    this.selectedClassColumns = Object.getOwnPropertyNames(new selectedType());
+    this.selectedClassColumns = [
+      ...Object.getOwnPropertyNames(new selectedType()),
+      "Remove",
+    ];
 
     if (this.selectedItem.isDependant) {
       this.selectedClassEntities = [];
@@ -211,6 +214,10 @@ export class AdministrationComponent implements OnInit, OnDestroy {
 
   dependantIdEntered(v: any): void {
     this.dependantValue$.next(v.target.value);
+  }
+
+  deleteItem(v: any): void {
+    // TODO: delete from DB
   }
 
   ngOnDestroy(): void {

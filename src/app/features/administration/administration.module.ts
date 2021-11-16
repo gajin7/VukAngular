@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatTableModule } from "@angular/material/table";
@@ -20,7 +21,8 @@ import { AdministrationComponent } from "./administration.component";
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    SubmittableFormPopupModule
+    SubmittableFormPopupModule,
+    MatIconModule
   ],
   exports: [AdministrationComponent],
   declarations: [AdministrationComponent],

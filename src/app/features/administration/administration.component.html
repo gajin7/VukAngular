@@ -23,11 +23,15 @@
         <table mat-table [dataSource]="selectedClassEntities">
             <ng-container *ngFor="let item of selectedClassColumns" [matColumnDef]="item">
                 <th mat-header-cell *matHeaderCellDef> {{item}} </th>
-                <td mat-cell *matCellDef="let element"> {{element[item]}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <button class="remove-btn" mat-icon-button color="primary" *ngIf="item === 'Remove'; else default">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <ng-template #default>{{element[item]}}</ng-template>
+                </td>
             </ng-container>
-
             <tr mat-header-row *matHeaderRowDef="selectedClassColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: selectedClassColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: selectedClassColumns"></tr>
         </table>
 
     </ng-container>
