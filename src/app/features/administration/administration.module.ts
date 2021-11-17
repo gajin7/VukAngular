@@ -6,7 +6,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
+import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { SubmittableFormPopupModule } from "src/app/shared/components/submittable-form-popup/submittable-form-popup.module";
 import { AdministrationRoutingModule } from "./administration-routing.module";
 import { AdministrationComponent } from "./administration.component";
@@ -22,7 +24,9 @@ import { AdministrationComponent } from "./administration.component";
     FormsModule,
     MatButtonModule,
     SubmittableFormPopupModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    MatTooltipModule
   ],
   exports: [AdministrationComponent],
   declarations: [AdministrationComponent],

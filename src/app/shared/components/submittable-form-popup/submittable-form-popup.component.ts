@@ -5,6 +5,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 export interface SubbmitableFormDataI {
   formGroup: FormGroup;
   title: string;
+  submitButton?: string;
+  selections?: { [key: string]: { key: any; value: string }[] };
+  displayValues: { [key: string]: string };
+  isEdit?: boolean;
 }
 
 @Component({
@@ -13,7 +17,13 @@ export interface SubbmitableFormDataI {
   styleUrls: ["./submittable-form-popup.component.scss"],
 })
 export class SubmittableFormPopupComponent implements OnInit {
-  formConfiguration: { [key: string]: { visible: boolean; type: string } } = {};
+  formConfiguration: {
+    [key: string]: {
+      visible: boolean;
+      type: string;
+      values?: { key: any; value: string }[];
+    };
+  } = {};
 
   @Input() formData?: SubbmitableFormDataI;
   finalData?: SubbmitableFormDataI = undefined;
@@ -29,7 +39,10 @@ export class SubmittableFormPopupComponent implements OnInit {
     if (this.finalData?.formGroup?.controls) {
       for (const controlKey in this.finalData.formGroup.controls) {
         this.formConfiguration[controlKey] = {
-          visible: !this.finalData.formGroup.controls[controlKey].value,
+          visible:
+            controlKey !== "Id" &&
+            (!this.finalData.formGroup.controls[controlKey].value ||
+              !!this.finalData.isEdit),
           type: ((controlKey) => {
             switch (controlKey) {
               case "Email":
@@ -40,6 +53,10 @@ export class SubmittableFormPopupComponent implements OnInit {
                 return "text";
             }
           })(controlKey),
+          values:
+            this.finalData.selections && controlKey in this.finalData.selections
+              ? this.finalData.selections![controlKey]
+              : [],
         };
       }
     }
@@ -47,8 +64,10 @@ export class SubmittableFormPopupComponent implements OnInit {
 
   submitForm(): void {
     if (this.finalData?.formGroup.valid) {
-      console.log(this.finalData.formGroup);
-      this.dialogRef.close(this.finalData.formGroup.value);
+      this.dialogRef.close({
+        ...this.finalData.formGroup.value,
+        isEdit: !!this.finalData.isEdit,
+      });
     }
   }
 }

@@ -47,6 +47,19 @@
             width: 260px;
             text-align: center;
         }
+
+        .status-icon {
+            height: 40px;
+            width: 40px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            color: var(--color-danger);
+
+            &.executed {
+                color: var(--color-success);
+            }
+        }
     }
 
     @media screen and (max-width: 1080px) {

@@ -1,6 +1,6 @@
 <div class="select-wrapper">
     <h2>Odaberi entitet</h2>
-    <mat-selection-list [multiple]="false" (selectionChange)="itemSelected($event)">
+    <mat-selection-list [(ngModel)]="selectedItemModel" [multiple]="false" (selectionChange)="itemSelected($event)">
         <mat-list-option *ngFor="let item of administrationItems; trackBy: trackByInternalName" [value]="item">
             {{item.displayName}}
         </mat-list-option>
@@ -10,8 +10,18 @@
         <h3>Zavisni podaci:</h3>
         <mat-form-field>
             <mat-label>{{selectedItem?.queryParameters?.value || selectedItem?.parameters?.value || ''}}</mat-label>
-            <input matInput [(ngModel)]="dependantValue" (input)="dependantIdEntered($event)"
-                [placeholder]="selectedItem?.queryParameters?.value || selectedItem?.parameters?.value || ''">
+            <ng-container *ngIf="selectedItem?.queryParameters?.values; else inputTemplate">
+                <mat-select [(ngModel)]="dependantValue" (selectionChange)="dependantIdEntered($event)">
+                    <mat-option *ngFor="let item of selectedItem!.queryParameters!.values | keyvalue"
+                        [value]="item.key">
+                        {{item.value}}
+                    </mat-option>
+                </mat-select>
+            </ng-container>
+            <ng-template #inputTemplate>
+                <input matInput [(ngModel)]="dependantValue" (input)="dependantIdEntered($event.target)"
+                    [placeholder]="selectedItem?.queryParameters?.value || selectedItem?.parameters?.value || ''">
+            </ng-template>
         </mat-form-field>
     </div>
 
@@ -21,14 +31,41 @@
 <div class="table-wrapper">
     <ng-container *ngIf="selectedClassColumns && selectedClassColumns.length">
         <table mat-table [dataSource]="selectedClassEntities">
-            <ng-container *ngFor="let item of selectedClassColumns" [matColumnDef]="item">
-                <th mat-header-cell *matHeaderCellDef> {{item}} </th>
-                <td mat-cell *matCellDef="let element">
-                    <button class="remove-btn" mat-icon-button color="primary" *ngIf="item === 'Remove'; else default">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                    <ng-template #default>{{element[item]}}</ng-template>
-                </td>
+            <ng-container *ngFor="let item of selectedClassColumns">
+                <ng-container *ngIf="COLUMN_DN.hasOwnProperty(item)" [matColumnDef]="item">
+                    <th mat-header-cell *matHeaderCellDef> {{ COLUMN_DN[item] }} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="item==='Akcije' ; else default">
+                            <button *ngIf="selectedItem?.goForDetails" matTooltip="Detalji liste" class="remove-btn"
+                                mat-icon-button color="primary" (click)="goForDetails(element)">
+                                <mat-icon>read_more</mat-icon>
+                            </button>
+                            <button *ngIf="selectedItem?.editable" matTooltip="Izmeni" class="remove-btn"
+                                mat-icon-button color="primary" (click)="editItem(element)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button *ngIf="!selectedItem?.permanent" class="remove-btn" mat-icon-button
+                                matTooltip="Obriši" color="primary" (click)="deleteItem(element)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </ng-container>
+                        <ng-template #default [ngSwitch]="item">
+                            <ng-container *ngSwitchCase="'LastAppointment'">{{element[item] | date}}</ng-container>
+                            <ng-container *ngSwitchCase="'SuggestedAppointment'">{{element[item] | date}}</ng-container>
+                            <ng-container *ngSwitchCase="'AppointmentDate'">{{element[item] | date}}</ng-container>
+                            <ng-container *ngSwitchCase="'Price'">{{element[item] | currency: 'RSD '}}</ng-container>
+                            <ng-container *ngSwitchCase="'TotalPrice'">{{element[item] | currency: 'RSD '}}
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'IsExecuted'">
+                                <mat-icon class="status-icon" [class.executed]="element[item]">
+                                    {{element[item] ? 'done' : 'close' }}</mat-icon>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                {{element[item] ? element[item] : 'N/A'}}
+                            </ng-container>
+                        </ng-template>
+                    </td>
+                </ng-container>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="selectedClassColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: selectedClassColumns"></tr>

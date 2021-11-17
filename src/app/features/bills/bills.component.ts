@@ -98,7 +98,6 @@ export class BillsComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
           if (this.billFromRoute && this.billsList) {
-            console.log(this.billFromRoute);
             const index = this.bills.indexOf(this.billFromRoute);
             if (index > 0) {
               this.billsList.nativeElement.scrollTop =

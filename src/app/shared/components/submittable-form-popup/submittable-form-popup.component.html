@@ -5,16 +5,32 @@
             (ngSubmit)="submitForm()">
             <input matInput [type]="'password'" autocomplete="off" class="true-hidden">
             <ng-container *ngFor="let control of finalData.formGroup.controls | keyvalue">
-                <mat-form-field *ngIf="formConfiguration[control.key].visible">
-                    <mat-label>{{control.key}}</mat-label>
-                    <input matInput [formControlName]="control.key" [placeholder]="control.key"
-                        [value]="control.value.value" autocomplete="off" [type]="formConfiguration[control.key].type"
-                        required>
+                <mat-form-field *ngIf="formConfiguration[control.key].values?.length; else elseTemplate">
+                    <mat-label>
+                        {{ finalData.displayValues && finalData.displayValues.hasOwnProperty(control.key) ? finalData.displayValues[control.key] : control.key }}
+                    </mat-label>
+                    <mat-select required="" [formControlName]="control.key">
+                        <mat-option *ngFor="let selection of formConfiguration[control.key].values"
+                            [value]="selection.key">
+                            {{selection.value | titlecase}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
+                <ng-template #elseTemplate>
+                    <mat-form-field *ngIf="formConfiguration[control.key].visible">
+                        <mat-label>
+                            {{ finalData.displayValues && finalData.displayValues.hasOwnProperty(control.key) ? finalData.displayValues[control.key] : control.key }}
+                        </mat-label>
+                        <input matInput [formControlName]="control.key" [placeholder]="control.key"
+                            [value]="control.value.value" autocomplete="off"
+                            [type]="formConfiguration[control.key].type" required>
+                    </mat-form-field>
+                </ng-template>
             </ng-container>
             <div class="actions">
-                <button mat-raised-button [disabled]="finalData.formGroup.invalid" color="primary"
-                    type="submit">Kreiraj</button>
+                <button mat-raised-button [disabled]="finalData.formGroup.invalid || !finalData.formGroup.dirty"
+                    color="primary" type="submit">
+                    {{ finalData.submitButton || 'Kreiraj'}} </button>
                 <button mat-raised-button mat-dialog-close>Odustani</button>
             </div>
         </form>
