@@ -8,7 +8,10 @@ export interface AdministrationItemI {
   createUrl?: string;
   paginated?: boolean;
   isDependant?: boolean;
+  permanent?: boolean;
   parameters?: { key: string; value: string };
-  queryParameters?: { key: string; value: string };
+  queryParameters?: { key: string; value: string; values?: {} };
   createModel?: { [key: string]: any };
+  editable?: boolean;
+  goForDetails?: string;
 }

@@ -3,6 +3,6 @@ export class ServiceModel {
   Name: string = "";
   Price: number = 0;
   Description: string = "";
+  ServiceTypeId: string = "";
+  ServiceTypeName: string = "";
 }
-
-ServiceModel.prototype.toString = () => 'jabuka'

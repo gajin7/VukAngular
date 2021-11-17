@@ -67,8 +67,18 @@
                     </mat-expansion-panel-header>
                     <div class="bill-panel-content">
                         <mat-list role="list">
+                            <mat-list-item role="listitem" *ngIf="bill.Services?.length">
+                                <div class="list-item">
+                                    <div class="text"></div>
+                                    <div class="text" *ngIf="userRole === USER_TYPE.ADMIN"></div>
+                                    <div class="text">Usluga:</div>
+                                    <div class="text"></div>
+                                </div>
+                            </mat-list-item>
                             <mat-list-item role="listitem" *ngFor="let service of bill.Services">
                                 <div class="list-item">
+                                    <div class="text"></div>
+                                    <div class="text" *ngIf="userRole === USER_TYPE.ADMIN"></div>
                                     <div class="text" [matTooltip]="service.Description">{{service.Name}}</div>
                                     <div class="text">{{service.Price | currency: 'RSD '}}</div>
                                 </div>

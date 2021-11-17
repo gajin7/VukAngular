@@ -117,14 +117,15 @@
 
                 .list-item {
                     width: 100%;
+                    padding-right: 37px;
                     display: flex;
                     justify-content: space-evenly;
 
                     .text {
                         display: flex;
-                        justify-content: center;
+                        justify-content: flex-start;
                         align-items: center;
-                        width: 200px;
+                        width: 180px;
                     }
                 }
             }
