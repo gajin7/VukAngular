@@ -41,12 +41,12 @@ export class AppointmentWebService {
   }
 
   bookAppointment(
-    appointmnetId: string | number,
+    appointmentId: string | number,
     email: string
   ): Observable<void> {
     return this.baseWebService.putRequest(
       this.baseWebService.constructUrlWithParams(
-        Configuration.PATH_APPOINTMENTS + "/" + appointmnetId,
+        Configuration.PATH_APPOINTMENTS + "/" + appointmentId,
         { userEmail: email }
       ),
       {}
@@ -66,5 +66,12 @@ export class AppointmentWebService {
         };
       }),
     });
+  }
+
+  setMissedAppointment(appointmentId: string): Observable<void> {
+    return this.baseWebService.patchRequest(
+      Configuration.PATH_APPOINTMENTS + "/" + appointmentId,
+      {}
+    );
   }
 }

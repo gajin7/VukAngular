@@ -58,6 +58,15 @@ export class BaseWebService {
     );
   }
 
+  patchRequest<T, K>(url: string, data: K, classType?: Type<T>): Observable<T> {
+    const options = this.addOptionsForRequest();
+    return this.http.patch<T>(url, data, options).pipe(
+      map((res) => {
+        return classType ? plainToClass(classType, res as T) : res;
+      })
+    );
+  }
+
   constructUrlWithParams(
     url: string,
     params: { [key: string]: string | number }

@@ -21,6 +21,8 @@ export class AppointmentItemComponent implements OnInit {
   @Input()
   isPatient: boolean = true;
   @Input()
+  isMissed: boolean = false;
+  @Input()
   isDisplayOnly: boolean = false;
   @Input()
   dateToCalculate: Date = new Date();

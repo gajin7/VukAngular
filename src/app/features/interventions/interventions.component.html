@@ -20,7 +20,7 @@
     <div class="appoinments-list">
         <app-appointment-item *ngFor="let item of appointments" [class.clickable]="item.Reserved"
             [dateToCalculate]="dateValue" [appointment]="item" [isDisplayOnly]="true" [isPatient]="false"
-            [isSelected]="(selectedAppointment$ | async) === item" class="panel-card"
+            [isMissed]="!!item.NotCome" [isSelected]="(selectedAppointment$ | async) === item" class="panel-card"
             (click)="appointmentSelected(item)">
         </app-appointment-item>
     </div>
@@ -33,71 +33,87 @@
     </h2>
     <h2 *ngIf="userRole === USER_TYPE.PATIENT">Vaš karton</h2>
 
-    <ng-container *ngIf="(selectedAppointment$ | async) || (userRole === USER_TYPE.PATIENT &&  interventions.length)">
-        <ng-container *ngIf="userRole !== USER_TYPE.PATIENT">
-            <div class="add-button">
-                <button *ngIf="(selectedAppointment$ | async)?.Reserved" mat-mini-fab color="primary"
-                    matTooltip="Prikaz detaljanog računa" (click)="showBillForAppointment()">
-                    <mat-icon>receipt_long</mat-icon>
-                </button>
-            </div>
-        </ng-container>
 
-        <div class="intervention-container" [class.full-height]="userRole === USER_TYPE.PATIENT">
-            <div class="previous-interventions">
-                <h3>Istorija intervencija</h3>
-                <div class="add-button" *ngIf="userRole !== USER_TYPE.PATIENT">
-                    <button *ngIf="interventionSelection.length" mat-mini-fab color="primary"
-                        (click)="interventionsList.deselectAll()">
-                        <mat-icon>add</mat-icon>
+    <div *ngIf="(selectedAppointment$ | async)?.NotCome; else notMissed" class="empty-content">
+        <mat-icon>do_disturb_on</mat-icon>
+        Termin zatvoren sa statusom propušten
+    </div>
+
+    <ng-template #notMissed>
+        <ng-container
+            *ngIf="(selectedAppointment$ | async) || (userRole === USER_TYPE.PATIENT && interventions.length)">
+            <ng-container *ngIf="userRole !== USER_TYPE.PATIENT">
+                <div class="button-section">
+                    <button
+                        *ngIf="(selectedAppointment$ | async)?.Reserved  && ((bill$ | async)?.Services?.length || 0) === 0"
+                        mat-mini-fab color="primary" matTooltip="Označi kao propušten" (click)="markAsMissed()">
+                        <mat-icon>do_disturb_on</mat-icon>
+                    </button>
+                    <button *ngIf="(selectedAppointment$ | async)?.Reserved" mat-mini-fab color="primary"
+                        matTooltip="Prikaz detaljanog računa" (click)="showBillForAppointment()">
+                        <mat-icon>receipt_long</mat-icon>
                     </button>
                 </div>
-                <div #interventionsListElement class="interventions-list">
-                    <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
-                        <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
-                            <div class="intervention">
-                                <div class="intervention-segment">Usluga: {{intervention.ServiceName}}</div>
-                                <div class="intervention-segment">Zub: {{intervention.ToothName}}</div>
-                                <mat-icon class="intervention-segment icon" [class.success]="intervention.IsExecuted"
-                                    [color]="intervention.IsExecuted || 'primary'">
-                                    {{intervention.IsExecuted ? "task_alt" : "pending_actions"}}
-                                </mat-icon>
-                            </div>
-                        </mat-list-option>
-                    </mat-selection-list>
-                    <div class="empty-content" *ngIf="!interventions.length">
-                        <mat-icon>history_edu</mat-icon>
-                        {{userRole === USER_TYPE.PATIENT ? "Nemate pređašnjih intervencija" : "Pacijent nema pređašnjih intervencija"}}
+            </ng-container>
+
+            <div class="intervention-container" [class.full-height]="userRole === USER_TYPE.PATIENT">
+                <div class="previous-interventions">
+                    <h3>Istorija intervencija</h3>
+                    <div class=""></div>
+                    <div class="button-section" *ngIf="userRole !== USER_TYPE.PATIENT">
+                        <button *ngIf="interventionSelection.length" mat-mini-fab color="primary"
+                            (click)="interventionsList.deselectAll()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div #interventionsListElement class="interventions-list">
+                        <mat-selection-list #interventionsList [multiple]="false" [(ngModel)]="interventionSelection">
+                            <mat-list-option *ngFor="let intervention of interventions" [value]="intervention">
+                                <div class="intervention">
+                                    <div class="intervention-segment">Usluga: {{intervention.ServiceName}}</div>
+                                    <div class="intervention-segment tooth">Zub: {{intervention.ToothName}}</div>
+                                    <mat-icon class="intervention-segment icon"
+                                        [class.success]="intervention.IsExecuted"
+                                        [color]="intervention.IsExecuted || 'primary'">
+                                        {{intervention.IsExecuted ? "task_alt" : "pending_actions"}}
+                                    </mat-icon>
+                                </div>
+                            </mat-list-option>
+                        </mat-selection-list>
+                        <div class="empty-content" *ngIf="!interventions.length">
+                            <mat-icon>history_edu</mat-icon>
+                            {{userRole === USER_TYPE.PATIENT ? "Nemate pređašnjih intervencija" : "Pacijent nema pređašnjih intervencija"}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div *ngIf="billServices && userRole !== USER_TYPE.PATIENT" class="bill-items">
-                <h3>Usluge termina</h3>
-                <div class="bill-items-container">
-                    <mat-list role="list">
-                        <mat-list-item role="listitem" *ngFor="let service of billServices | keyvalue">
-                            <div>{{service.value.name + " x"+service.value.count}}</div>
-                        </mat-list-item>
-                    </mat-list>
+                <div *ngIf="billServices && userRole !== USER_TYPE.PATIENT" class="bill-items">
+                    <h3>Usluge termina</h3>
+                    <div class="bill-items-container">
+                        <mat-list role="list">
+                            <mat-list-item role="listitem" *ngFor="let service of billServices | keyvalue">
+                                <div>{{service.value.name + " x"+service.value.count}}</div>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                    <div *ngIf="bill$.value" class="total-price"> {{ bill$.value.TotalPrice | currency: 'RSD '}} </div>
                 </div>
-                <div *ngIf="bill$.value" class="total-price"> {{ bill$.value.TotalPrice | currency: 'RSD '}} </div>
             </div>
-        </div>
 
-        <div *ngIf="userRole !== USER_TYPE.PATIENT" class="intervention-details">
-            <div class="transition-container" [class.show-bottom]="interventionSelection.length">
-                <app-create-edit-intervention [services]="services" [teeth]="teeth"
-                    (saveClick)="createIntervenion($event)" class="intervention-panel">
-                </app-create-edit-intervention>
-                <app-create-edit-intervention [services]="services" [teeth]="teeth" [isEditMode]="true"
-                    [intervention]="interventionSelection[0]"
-                    (finishClick)="completeIntervention(interventionSelection[0])"
-                    (showBillClick)="showBillForAppointment()" class="intervention-panel">
-                </app-create-edit-intervention>
+            <div *ngIf="userRole !== USER_TYPE.PATIENT" class="intervention-details">
+                <div class="transition-container" [class.show-bottom]="interventionSelection.length">
+                    <app-create-edit-intervention [services]="services" [teeth]="teeth"
+                        (saveClick)="createIntervenion($event)" class="intervention-panel">
+                    </app-create-edit-intervention>
+                    <app-create-edit-intervention [services]="services" [teeth]="teeth" [isEditMode]="true"
+                        [intervention]="interventionSelection[0]"
+                        (finishClick)="completeIntervention(interventionSelection[0])"
+                        (showBillClick)="showBillForAppointment()" class="intervention-panel">
+                    </app-create-edit-intervention>
+                </div>
             </div>
-        </div>
 
-    </ng-container>
+        </ng-container>
+    </ng-template>
 
     <div *ngIf="(userRole === USER_TYPE.PATIENT && !interventions.length) || (userRole !== USER_TYPE.PATIENT && (selectedAppointment$ | async) === null)"
         class="empty-content">

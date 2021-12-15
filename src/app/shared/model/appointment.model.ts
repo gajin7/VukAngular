@@ -6,4 +6,5 @@ export class AppointmentModel {
   PatientName: string | undefined;
   Reserved: boolean | undefined;
   PatientEmail: string | undefined;
+  NotCome: boolean | undefined;
 }

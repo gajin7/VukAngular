@@ -34,7 +34,7 @@
         <h2 class="section-title">{{ userRole === USER_TYPE.ADMIN ? "Termini pacijenta" : "Moji termini"}}</h2>
         <div class="appoinments-list">
             <app-appointment-item *ngFor="let item of appointmentsPersonal" [isPersonal]="true" [appointment]="item"
-                class="panel-card">
+                [isMissed]="!!item.NotCome" class="panel-card">
             </app-appointment-item>
         </div>
     </div>
@@ -55,8 +55,8 @@
 
     <div class="appoinments-list">
         <app-appointment-item *ngFor="let item of appointments" [dateToCalculate]="dateValue"
-            [isPatient]="userRole === USER_TYPE.PATIENT || userRole === USER_TYPE.ADMIN" (bookAppointment)="bookAppointment(item)" [appointment]="item"
-            class="panel-card">
+            [isPatient]="userRole === USER_TYPE.PATIENT || userRole === USER_TYPE.ADMIN" [isMissed]="!!item.NotCome"
+            (bookAppointment)="bookAppointment(item)" [appointment]="item" class="panel-card">
         </app-appointment-item>
         <div *ngIf="!appointments.length" class="empty-content">
             <mat-icon>event_busy</mat-icon>

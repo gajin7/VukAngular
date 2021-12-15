@@ -108,6 +108,7 @@ export class InterventionsComponent implements OnInit, OnDestroy {
           this.getBill(appointemnt.Id || "");
           this.loadTeeth();
           this.loadServices();
+          this.interventionSelection = [];
         } else {
           this.cardId = undefined;
           this.interventions = [];
@@ -253,6 +254,21 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     this.router.navigate(["bills"], {
       queryParams: { appointmentId: this.selectedAppointment$.value?.Id },
     });
+  }
+
+  markAsMissed(): void {
+    this.appointmentWebService
+      .setMissedAppointment(
+        this.selectedAppointment$.value?.Id?.toLocaleString() || ""
+      )
+      .subscribe(() => {
+        this.appointments = this.appointments.map((a) => {
+          if (a.Id === this.selectedAppointment$.value?.Id) {
+            a.NotCome = true;
+          }
+          return a;
+        });
+      });
   }
 
   ngOnDestroy(): void {

@@ -39,6 +39,14 @@
         }
     }
 
+    @media screen and (max-height: 650px) {
+        .logo-wrapper {
+            height: 130px;
+            padding: 30px 80px;
+        }
+    }
+
+
     .nav-wrapper {
         width: 100%;
         display: flex;

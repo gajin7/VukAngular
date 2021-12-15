@@ -118,6 +118,25 @@
             .calendar {
                 margin: 0;
                 margin-top: 20px;
+                min-height: 400px;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1081px) and (max-height: 800px) {
+        .picker {
+            flex-direction: row;
+            min-width: 500px;
+
+            .picker-date {
+                order: 2;
+                margin: 0;
+                max-width: 250px;
+            }
+
+            .my-appointment {
+                order: 1;
+                margin: 0 20px 0 0;
             }
         }
     }
