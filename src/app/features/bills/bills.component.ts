@@ -11,6 +11,7 @@ import { MatExpansionPanel } from "@angular/material/expansion";
 import { ActivatedRoute } from "@angular/router";
 import { forkJoin, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
+import { Configuration } from "src/app/config/configuration";
 import { BillModel } from "src/app/shared/model/bill.model";
 import { ROLE } from "src/app/shared/model/role";
 import { ServiceModel } from "src/app/shared/model/service.model";
@@ -147,6 +148,10 @@ export class BillsComponent implements OnInit, OnDestroy {
     this.totalPrice = this.bills
       .map((x: BillModel) => x.TotalPrice)
       .reduce((a: number, b: number) => a + b, 0);
+  }
+
+  downloadPDFUrl(appointmentId: number | undefined): string {
+    return Configuration.PATH_BILLS + "/pdf/" + appointmentId;
   }
 
   ngOnDestroy(): void {

@@ -104,6 +104,19 @@
 
                 .bill-info {
                     width: 180px;
+
+                    &.button {
+                        width: 40px;
+                        overflow: visible;
+                        position: relative;
+
+                        button {
+                            position: absolute;
+                            top: -10px;
+                            transform: scale(0.7);
+                            z-index: 1000;
+                        }
+                    }
                 }
             }
 
@@ -126,6 +139,10 @@
                         justify-content: flex-start;
                         align-items: center;
                         width: 180px;
+
+                        &.small {
+                            width: 40px;
+                        }
                     }
                 }
             }
