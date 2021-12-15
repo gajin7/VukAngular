@@ -45,6 +45,12 @@
             <ng-container *ngIf="userRole !== USER_TYPE.PATIENT">
                 <div class="button-section">
                     <button
+                        *ngIf="(selectedAppointment$ | async)?.Reserved && ((bill$ | async)?.Services?.length || 0) > 0"
+                        mat-mini-fab color="primary" matTooltip="Pošalji račun korisniku na email"
+                        (click)="sendBillToEmail()">
+                        <mat-icon>forward_to_inbox</mat-icon>
+                    </button>
+                    <button
                         *ngIf="(selectedAppointment$ | async)?.Reserved  && ((bill$ | async)?.Services?.length || 0) === 0"
                         mat-mini-fab color="primary" matTooltip="Označi kao propušten" (click)="markAsMissed()">
                         <mat-icon>do_disturb_on</mat-icon>

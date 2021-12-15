@@ -24,4 +24,11 @@ export class BillWebService {
       Configuration.PATH_BILLS + "/" + appointmentId
     );
   }
+
+  requestBillInEmail(appointmentId: number | string): Observable<BillModel> {
+    return this.baseWebService.putRequest(
+      Configuration.PATH_BILLS + "/email/" + appointmentId,
+      {}
+    );
+  }
 }

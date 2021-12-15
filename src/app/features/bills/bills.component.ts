@@ -10,13 +10,15 @@ import {
 import { MatExpansionPanel } from "@angular/material/expansion";
 import { ActivatedRoute } from "@angular/router";
 import { forkJoin, Subject } from "rxjs";
-import { take, takeUntil } from "rxjs/operators";
+import { finalize, take, takeUntil } from "rxjs/operators";
 import { Configuration } from "src/app/config/configuration";
 import { BillModel } from "src/app/shared/model/bill.model";
 import { ROLE } from "src/app/shared/model/role";
 import { ServiceModel } from "src/app/shared/model/service.model";
 import { UserModel } from "src/app/shared/model/user.model";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
+import { BaseAlertService } from "src/app/shared/services/base-alert-service";
+import { GlobalService } from "src/app/shared/services/global-service";
 import { BillWebService } from "src/app/shared/web-services/bill-web.service";
 import { UserWebService } from "src/app/shared/web-services/user-web.service";
 
@@ -62,7 +64,9 @@ export class BillsComponent implements OnInit, OnDestroy {
     private authStoreService: AuthStoreService,
     private userWebService: UserWebService,
     private billWebService: BillWebService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private globalService: GlobalService,
+    private baseAlertService: BaseAlertService
   ) {}
 
   ngOnInit(): void {
@@ -152,6 +156,26 @@ export class BillsComponent implements OnInit, OnDestroy {
 
   downloadPDFUrl(appointmentId: number | undefined): string {
     return Configuration.PATH_BILLS + "/pdf/" + appointmentId;
+  }
+
+  sendBillToEmail(e: Event, appointmentId?: number): void {
+    if (!appointmentId) return;
+    e.stopPropagation();
+    this.globalService.activateLoader();
+    this.billWebService
+      .requestBillInEmail(appointmentId)
+      .pipe(
+        take(1),
+        takeUntil(this.destroyEvent$),
+        finalize(() => this.globalService.deactivateLoader())
+      )
+      .subscribe(() => {
+        this.baseAlertService.showAlert(
+          `Račun uspešno poslat na ${
+            this.userRole === ROLE.PATIENT ? "Vašu" : "korisnikovu"
+          } e-mail adresu!`
+        );
+      });
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import { ServiceModel } from "src/app/shared/model/service.model";
 import { ToothModel } from "src/app/shared/model/tooth.model";
 import { UserModel } from "src/app/shared/model/user.model";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
+import { BaseAlertService } from "src/app/shared/services/base-alert-service";
 import { GlobalService } from "src/app/shared/services/global-service";
 import { AppointmentWebService } from "src/app/shared/web-services/appointment-web.service";
 import { BillWebService } from "src/app/shared/web-services/bill-web.service";
@@ -70,7 +71,8 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     private globalService: GlobalService,
     private userWebService: UserWebService,
     private billWebService: BillWebService,
-    private router: Router
+    private router: Router,
+    private baseAlertService: BaseAlertService
   ) {}
 
   private readonly destroyEvent$ = new Subject();
@@ -256,11 +258,29 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     });
   }
 
+  sendBillToEmail(): void {
+    if (!this.bill$.value?.AppointmentId) return;
+    this.globalService.activateLoader();
+    this.billWebService
+      .requestBillInEmail(this.bill$.value.AppointmentId)
+      .pipe(
+        take(1),
+        takeUntil(this.destroyEvent$),
+        finalize(() => this.globalService.deactivateLoader())
+      )
+      .subscribe(() => {
+        this.baseAlertService.showAlert(
+          "Račun uspešno poslat na korisnikovu e-mail adresu!"
+        );
+      });
+  }
+
   markAsMissed(): void {
     this.appointmentWebService
       .setMissedAppointment(
         this.selectedAppointment$.value?.Id?.toLocaleString() || ""
       )
+      .pipe(take(1), takeUntil(this.destroyEvent$))
       .subscribe(() => {
         this.appointments = this.appointments.map((a) => {
           if (a.Id === this.selectedAppointment$.value?.Id) {

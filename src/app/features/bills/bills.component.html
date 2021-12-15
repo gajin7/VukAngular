@@ -64,6 +64,10 @@
                             </div>
                             <div class="bill-info">{{bill.TotalPrice | currency: 'RSD '}}</div>
                             <div class="bill-info button">
+                                <button mat-mini-fab matTooltip="Pošalji na mail" color="primary"
+                                    (click)="sendBillToEmail($event, bill.AppointmentId)">
+                                    <mat-icon>forward_to_inbox</mat-icon>
+                                </button>
                                 <a target="_self" [href]="downloadPDFUrl(bill.AppointmentId)">
                                     <button mat-mini-fab matTooltip="Preuzmi" color="primary"
                                         (click)="$event.stopPropagation()">
