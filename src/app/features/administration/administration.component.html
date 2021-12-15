@@ -49,20 +49,29 @@
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </ng-container>
-                        <ng-template #default [ngSwitch]="item">
-                            <ng-container *ngSwitchCase="'LastAppointment'">{{element[item] | date}}</ng-container>
-                            <ng-container *ngSwitchCase="'SuggestedAppointment'">{{element[item] | date}}</ng-container>
-                            <ng-container *ngSwitchCase="'AppointmentDate'">{{element[item] | date}}</ng-container>
-                            <ng-container *ngSwitchCase="'Price'">{{element[item] | currency: 'RSD '}}</ng-container>
-                            <ng-container *ngSwitchCase="'TotalPrice'">{{element[item] | currency: 'RSD '}}
+                        <ng-template #default>
+                            <ng-container *ngIf="element[item]">
+                                <ng-container [ngSwitch]="item">
+                                    <ng-container *ngSwitchCase="'LastAppointment'">{{element[item] | date}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'SuggestedAppointment'">{{element[item] | date}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'AppointmentDate'">{{element[item] | date}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'Price'">{{element[item] | currency: 'RSD '}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'TotalPrice'">{{element[item] | currency: 'RSD '}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'IsExecuted'">
+                                        <mat-icon class="status-icon" [class.executed]="element[item]">
+                                            {{element[item] ? 'done' : 'close' }}</mat-icon>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        {{element[item]}}
+                                    </ng-container>
+                                </ng-container>
                             </ng-container>
-                            <ng-container *ngSwitchCase="'IsExecuted'">
-                                <mat-icon class="status-icon" [class.executed]="element[item]">
-                                    {{element[item] ? 'done' : 'close' }}</mat-icon>
-                            </ng-container>
-                            <ng-container *ngSwitchDefault>
-                                {{element[item] ? element[item] : 'N/A'}}
-                            </ng-container>
+                            <ng-container *ngIf="!element[item]">N/A</ng-container>
                         </ng-template>
                     </td>
                 </ng-container>
