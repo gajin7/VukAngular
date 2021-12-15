@@ -69,7 +69,7 @@ export class CreateAppointmentPopupComponent implements OnInit {
         const intervalInMs = this.inputForm.value["intervals"] * 60 * 1000;
         const intervalStartObjects = [];
         let tempStartTime = dateFrom!.getTime();
-        while (tempStartTime + intervalInMs < dateTo!.getTime()) {
+        while (tempStartTime + intervalInMs <= dateTo!.getTime()) {
           intervalStartObjects.push({
             DateTimeFrom: new Date(tempStartTime).toLocaleString(),
             DateTimeTo: new Date(tempStartTime + intervalInMs).toLocaleString(),
