@@ -66,3 +66,33 @@ body {
 .mat-content {
     overflow: visible !important;
 }
+
+.discount-field {
+    .mat-form-field-flex {
+        padding-right: 0.2em !important;
+    }
+
+    .mat-form-field-suffix {
+        top: 0.45em !important;
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+        margin: 2px 0 3px !important;
+    }
+
+    .mat-form-field-label-wrapper {
+        top: -0.6em;
+    }
+
+    button.extended {
+        min-width: 60px !important;
+        border-radius: 20px;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        width: 50px;
+        height: 40px;
+        border-top: 0;
+    }
+}

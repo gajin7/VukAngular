@@ -31,4 +31,18 @@ export class BillWebService {
       {}
     );
   }
+
+  setDiscount(
+    appointmentId: number | string,
+    discount: number
+  ): Observable<BillModel> {
+    return this.baseWebService.patchRequest<BillModel, object>(
+      this.baseWebService.constructUrlWithParams(
+        Configuration.PATH_BILLS + "/discount",
+        { appointmentId, discount }
+      ),
+      {},
+      BillModel
+    );
+  }
 }

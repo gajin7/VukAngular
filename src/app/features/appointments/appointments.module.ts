@@ -31,7 +31,7 @@ import { MatNativeDateModule } from "@angular/material/core";
     MatTooltipModule,
     CreateAppointmentPopupModule,
     MatDialogModule,
-    MatNativeDateModule,
+    MatNativeDateModule
   ],
   exports: [AppointmentsComponent],
   declarations: [AppointmentsComponent],

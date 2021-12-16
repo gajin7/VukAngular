@@ -1,11 +1,10 @@
-<div class="picker">
+<div class="picker" [class.reduced]="userRole !== USER_TYPE.DENTIST">
     <div class="picker-date panel-card">
         <h2 class="section-title">{{ userRole === USER_TYPE.DENTIST ? "Datum" : "Zakazivanje termina"}}</h2>
         <label class="date-label">Odaberite datum:</label>
         <mat-form-field>
             <mat-label>Datum</mat-label>
-            <input (dateChange)="dataChangedHandler()" matInput [matDatepickerFilter]="disablePastDays"
-                [matDatepicker]="picker" [(ngModel)]="dateValue">
+            <input (dateChange)="dataChangedHandler()" matInput [matDatepicker]="picker" [(ngModel)]="dateValue">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -34,7 +33,7 @@
         <h2 class="section-title">{{ userRole === USER_TYPE.ADMIN ? "Termini pacijenta" : "Moji termini"}}</h2>
         <div class="appoinments-list">
             <app-appointment-item *ngFor="let item of appointmentsPersonal" [isPersonal]="true" [appointment]="item"
-                [isMissed]="!!item.NotCome" class="panel-card">
+                [isMissed]="!!item.NotCome" class="panel-card" [isPatient]="userRole === USER_TYPE.PATIENT">
             </app-appointment-item>
         </div>
     </div>
@@ -55,8 +54,9 @@
 
     <div class="appoinments-list">
         <app-appointment-item *ngFor="let item of appointments" [dateToCalculate]="dateValue"
-            [isPatient]="userRole === USER_TYPE.PATIENT || userRole === USER_TYPE.ADMIN" [isMissed]="!!item.NotCome"
-            (bookAppointment)="bookAppointment(item)" [appointment]="item" class="panel-card">
+            [isPatient]="userRole === USER_TYPE.PATIENT" [isAdmin]="userRole === USER_TYPE.ADMIN"
+            [isMissed]="!!item.NotCome" (bookAppointment)="bookAppointment(item)" [appointment]="item"
+            class="panel-card">
         </app-appointment-item>
         <div *ngIf="!appointments.length" class="empty-content">
             <mat-icon>event_busy</mat-icon>

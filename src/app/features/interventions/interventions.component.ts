@@ -5,9 +5,17 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
+import { FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Subject } from "rxjs";
-import { finalize, take, takeUntil } from "rxjs/operators";
+import {
+  debounceTime,
+  filter,
+  finalize,
+  take,
+  takeUntil,
+  tap,
+} from "rxjs/operators";
 import { AppointmentModel } from "src/app/shared/model/appointment.model";
 import { BillModel } from "src/app/shared/model/bill.model";
 import { InterventionModel } from "src/app/shared/model/intervention.model";
@@ -49,6 +57,7 @@ export class InterventionsComponent implements OnInit, OnDestroy {
   selectedAppointment$: BehaviorSubject<AppointmentModel | null> =
     new BehaviorSubject<AppointmentModel | null>(null);
   interventionSelection: InterventionModel[] = [];
+  discount = new FormControl("");
 
   readonly USER_TYPE = ROLE;
   userRole: ROLE = ROLE.PATIENT;
@@ -111,6 +120,7 @@ export class InterventionsComponent implements OnInit, OnDestroy {
           this.loadTeeth();
           this.loadServices();
           this.interventionSelection = [];
+          this.discount.reset(null, { emitEvent: false });
         } else {
           this.cardId = undefined;
           this.interventions = [];
@@ -132,6 +142,26 @@ export class InterventionsComponent implements OnInit, OnDestroy {
         }
       });
     });
+
+    this.discount.valueChanges
+      .pipe(
+        takeUntil(this.destroyEvent$),
+        tap((v) => {
+          if (v < 0) this.discount.setValue(0);
+          else if (v > 100) this.discount.setValue(100);
+        }),
+        filter((v) => v >= 0 && v <= 100),
+        debounceTime(400)
+      )
+      .subscribe((v) => {
+        if (!this.bill$.value?.Id || v === this.bill$.value?.Discount) return;
+        this.billWebService
+          .setDiscount(this.bill$.value?.Id, v || 0)
+          .pipe(takeUntil(this.destroyEvent$))
+          .subscribe((r) => {
+            this.bill$.next(r);
+          });
+      });
   }
 
   getInterventions(email: string, skipUncompeted?: boolean): void {
@@ -177,7 +207,10 @@ export class InterventionsComponent implements OnInit, OnDestroy {
     this.billWebService
       .getBillByAppointment(appointmentId)
       .pipe(take(1), takeUntil(this.destroyEvent$))
-      .subscribe((v) => this.bill$.next(v));
+      .subscribe((v) => {
+        this.discount.setValue(v.Discount, { emitEvent: false });
+        this.bill$.next(v);
+      });
   }
 
   loadTeeth(): void {
@@ -274,6 +307,8 @@ export class InterventionsComponent implements OnInit, OnDestroy {
         );
       });
   }
+
+  setDiscount(discount: number): void {}
 
   markAsMissed(): void {
     this.appointmentWebService

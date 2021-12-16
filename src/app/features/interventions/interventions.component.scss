@@ -67,9 +67,39 @@
             position: absolute;
             top: 14px;
             right: 18px;
+            display: flex;
 
             button:not(:first-of-type) {
                 margin-left: 10px;
+            }
+
+            .discount-field {
+                display: flex;
+                position: relative;
+                margin-right: 10px;
+
+                .discount-button,
+                mat-form-field {
+                    position: absolute;
+                    right: 0;
+                    transition: opacity 0.4s ease;
+                }
+
+                mat-form-field {
+                    opacity: 0;
+                    display: none;
+                }
+
+                &:hover {
+                    .discount-button {
+                        opacity: 0;
+                    }
+
+                    mat-form-field {
+                        opacity: 1;
+                        display: inline-block;
+                    }
+                }
             }
         }
 
@@ -162,6 +192,17 @@
                     align-self: flex-end;
                     justify-self: flex-end;
                     padding: 0 4px;
+
+                    .discounted {
+                        text-decoration: line-through;
+                        color: red;
+                    }
+
+                    .discounted-price {
+                        position: absolute;
+                        top: -90%;
+                        right: 5px;
+                    }
                 }
             }
         }

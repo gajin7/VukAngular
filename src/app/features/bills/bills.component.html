@@ -62,8 +62,16 @@
                                 *ngIf="userRole === USER_TYPE.DENTIST || userRole === USER_TYPE.ADMIN">
                                 {{ bill.PatientName }}
                             </div>
-                            <div class="bill-info">{{bill.TotalPrice | currency: 'RSD '}}</div>
+                            <div class="bill-info"> <span
+                                    [class.discounted]="bill.Discount">{{bill.TotalPrice | currency: 'RSD '}}</span>
+                                <div *ngIf="bill.Discount" class="discounted-price">
+                                    {{ bill.TotalPrice * (1-bill.Discount/100) | currency: 'RSD '}}</div>
+
+                            </div>
                             <div class="bill-info button">
+                                <b class="discount" *ngIf="bill.Discount" style="margin-left: 5px;">
+                                    {{" -" + bill.Discount + "%"}}
+                                </b>
                                 <button mat-mini-fab matTooltip="Pošalji na mail" color="primary"
                                     (click)="sendBillToEmail($event, bill.AppointmentId)">
                                     <mat-icon>forward_to_inbox</mat-icon>
@@ -93,7 +101,8 @@
                                     <div class="text"></div>
                                     <div class="text" *ngIf="userRole === USER_TYPE.ADMIN"></div>
                                     <div class="text" [matTooltip]="service.Description">{{service.Name}}</div>
-                                    <div class="text">{{service.Price | currency: 'RSD '}}</div>
+                                    <div class="text">
+                                        {{service.Price | currency: 'RSD '}}</div>
                                     <div class="text small"></div>
                                 </div>
                             </mat-list-item>

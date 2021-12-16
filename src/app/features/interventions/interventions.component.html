@@ -44,6 +44,22 @@
             *ngIf="(selectedAppointment$ | async) || (userRole === USER_TYPE.PATIENT && interventions.length)">
             <ng-container *ngIf="userRole !== USER_TYPE.PATIENT">
                 <div class="button-section">
+                    <div class="discount-field" *ngIf="((bill$ | async)?.Services?.length || 0) > 0">
+                        <button class="discount-button" [class.extended]="bill$.value && bill$.value.Discount > 0"
+                            mat-mini-fab color="primary">
+                            <ng-container *ngIf="(bill$ | async) && bill$.value && bill$.value.Discount > 0">
+                                {{ bill$.value.Discount }}
+                            </ng-container>
+                            <mat-icon>percent</mat-icon>
+                        </button>
+                        <mat-form-field>
+                            <mat-label>Popust</mat-label>
+                            <input matInput [formControl]="discount" type="number" min="0" max="100">
+                            <button matSuffix mat-icon-button aria-label="Clear" (click)="discount.setValue('')">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
                     <button
                         *ngIf="(selectedAppointment$ | async)?.Reserved && ((bill$ | async)?.Services?.length || 0) > 0"
                         mat-mini-fab color="primary" matTooltip="Pošalji račun korisniku na email"
@@ -97,11 +113,18 @@
                     <div class="bill-items-container">
                         <mat-list role="list">
                             <mat-list-item role="listitem" *ngFor="let service of billServices | keyvalue">
-                                <div>{{service.value.name + " x"+service.value.count}}</div>
+                                <div>{{service.value.name + " x" + service.value.count}}</div>
                             </mat-list-item>
                         </mat-list>
                     </div>
-                    <div *ngIf="bill$.value" class="total-price"> {{ bill$.value.TotalPrice | currency: 'RSD '}} </div>
+                    <div *ngIf="bill$.value" class="total-price">
+                        <span [class.discounted]="bill$.value.Discount">
+                            {{ bill$.value.TotalPrice | currency: 'RSD '}}
+                        </span>
+                        <div *ngIf="bill$.value.Discount" class="discounted-price">
+                            {{ bill$.value.TotalPrice * (1-bill$.value.Discount/100) | currency: 'RSD '}}
+                        </div>
+                    </div>
                 </div>
             </div>
 

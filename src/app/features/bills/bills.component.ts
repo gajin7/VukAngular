@@ -150,7 +150,9 @@ export class BillsComponent implements OnInit, OnDestroy {
     );
 
     this.totalPrice = this.bills
-      .map((x: BillModel) => x.TotalPrice)
+      .map((x: BillModel) =>
+        x.Discount ? x.TotalPrice * (1 - x.Discount / 100) : x.TotalPrice
+      )
       .reduce((a: number, b: number) => a + b, 0);
   }
 

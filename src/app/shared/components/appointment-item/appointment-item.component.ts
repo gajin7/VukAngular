@@ -21,6 +21,8 @@ export class AppointmentItemComponent implements OnInit {
   @Input()
   isPatient: boolean = true;
   @Input()
+  isAdmin: boolean = false;
+  @Input()
   isMissed: boolean = false;
   @Input()
   isDisplayOnly: boolean = false;

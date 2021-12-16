@@ -8,4 +8,6 @@ export class BillModel {
   PatientName: string = "";
   DentistName: string = "";
   Services: ServiceModel[] = [];
+  Discount: number = 0;
+  DiscountedPrice: number = 0;
 }

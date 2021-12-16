@@ -106,6 +106,25 @@
                     width: 180px;
                     display: flex;
                     align-items: center;
+                    position: relative;
+
+                    .discount {
+                        position: absolute;
+                        vertical-align: center;
+                        left: -45px;
+                    }
+
+                    .discounted {
+                        text-decoration: line-through;
+                        color: red;
+                        align-self: flex-end;
+                    }
+
+                    .discounted-price {
+                        position: absolute;
+                        top: 2px;
+                        left: 0;
+                    }
 
                     &.button {
                         width: 80px;

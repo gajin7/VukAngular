@@ -1,6 +1,6 @@
 <ng-container *ngIf="appointment">
     <div class="status" [class.status-free]="(isDisplayOnly || !appointment.Reserved) && !isPast" [class.past]="isPast"
-        [class.missed]="isMissed">
+        [class.missed]="isMissed && (!isPatient|| isPersonal)">
     </div>
     <div class="container">
         <ng-container *ngIf="isPersonal">
@@ -15,10 +15,10 @@
                 <div class="appointment-detail">Od: {{appointment.DateTimeFrom }}</div>
                 <div class="appointment-detail">Do: {{appointment.DateTimeTo }}</div>
                 <div class="appointment-detail">
-                    {{ appointment.Reserved ? (isMissed ? "Nije došao" : isPatient ? "Zauzet": "Sa pacijentom") : "Slobodan" }}
+                    {{ appointment.Reserved ? (isPatient ? "Zauzet": isMissed ? "Nije došao" : "Sa pacijentom") : "Slobodan" }}
                 </div>
                 <div class="appointment-detail">Trajanje: {{duration}}</div>
-                <div *ngIf="isPatient " class="appointment-detail">
+                <div *ngIf="isPatient || isAdmin" class="appointment-detail">
                     <button *ngIf="!isPast && !appointment.Reserved" mat-stroked-button
                         (click)="emitAppointmentSelect()">Zakaži</button>
                 </div>

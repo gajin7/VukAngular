@@ -126,12 +126,19 @@
     @media screen and (min-width: 1081px) and (max-height: 800px) {
         .picker {
             flex-direction: row;
-            min-width: 500px;
+
+            &.reduced {
+                min-width: 500px;
+
+                .picker-date {
+                    max-width: 250px;
+                }
+            }
 
             .picker-date {
                 order: 2;
                 margin: 0;
-                max-width: 250px;
+                width: 100%;
             }
 
             .my-appointment {

@@ -1,7 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { MatDatepickerInputEvent } from "@angular/material/datepicker";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { forkJoin, Subject } from "rxjs";
+import { BehaviorSubject, forkJoin, Subject } from "rxjs";
 import { finalize, take, takeUntil } from "rxjs/operators";
 import { AppointmentModel } from "src/app/shared/model/appointment.model";
 import { CreateAppointmentPopupComponent } from "src/app/shared/components/create-appointment-popup/create-appointment-popup.component";
@@ -51,7 +50,9 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       this.patientEmail = this.authStoreService.email!;
     }
     forkJoin([
-      this.appointmentWebService.getPersonalAppointments(this.authStoreService.email!),
+      this.appointmentWebService.getPersonalAppointments(
+        this.authStoreService.email!
+      ),
       this.userWebService.getDentists(),
       ...(this.userRole === ROLE.ADMIN
         ? [this.userWebService.getPatients()]
@@ -87,6 +88,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Removed from picker, in case of need just attach [matDatepickerFilter]="disablePastDays" to picker
   disablePastDays = (d: Date | null): boolean => {
     return !!d && d.getDay() > 0 && d.getTime() > this.yesterday.getTime();
   };
