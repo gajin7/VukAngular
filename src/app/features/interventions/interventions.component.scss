@@ -183,6 +183,11 @@
                     flex: 1;
                     min-height: 0;
                     overflow-y: auto;
+
+                    .bill-item {
+                        height: fit-content;
+                        padding: 5px 0;
+                    }
                 }
 
                 .total-price {

@@ -14,6 +14,7 @@ import { BaseAlertService } from "../services/base-alert-service";
 export class HttpErrorsInterceptor implements HttpInterceptor {
   ignoreRequests: string[] = [
     "/users/info",
+    "/oauth/token",
     "/users/request-password-reset",
     "/user/forgot-password",
     "/user/register",

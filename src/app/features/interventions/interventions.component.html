@@ -113,7 +113,7 @@
                     <div class="bill-items-container">
                         <mat-list role="list">
                             <mat-list-item role="listitem" *ngFor="let service of billServices | keyvalue">
-                                <div>{{service.value.name + " x" + service.value.count}}</div>
+                                <div class="bill-item">{{service.value.name + " x" + service.value.count}}</div>
                             </mat-list-item>
                         </mat-list>
                     </div>

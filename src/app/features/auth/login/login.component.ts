@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 import { AuthStoreService } from "src/app/shared/services/auth-store-service";
+import { BaseAlertService } from "src/app/shared/services/base-alert-service";
 import { AuthWebService } from "src/app/shared/web-services/auth-web.service";
 
 @Component({
@@ -26,7 +27,8 @@ export class LoginComponent implements OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     public authWebService: AuthWebService,
-    private authStoreService: AuthStoreService
+    private authStoreService: AuthStoreService,
+    private baseAlert: BaseAlertService,
   ) {}
 
   login() {
@@ -52,6 +54,7 @@ export class LoginComponent implements OnDestroy {
           }
         },
         () => {
+          this.baseAlert.showAlert("Nije moguće pristupiti sa navedenim kredencijalima!")
           this.authStoreService.token = null;
           this.authStoreService.user = null;
         }

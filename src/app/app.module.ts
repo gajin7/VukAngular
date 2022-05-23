@@ -13,6 +13,7 @@ import { HttpErrorsInterceptor } from "./shared/interceptors/http-errors.interce
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MainLayoutModule } from "./layouts/main-layout/main-layout.module";
 import { AuthLayoutModule } from "./layouts/auth-layout/auth-layout.module";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -43,4 +44,4 @@ import { AuthLayoutModule } from "./layouts/auth-layout/auth-layout.module";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

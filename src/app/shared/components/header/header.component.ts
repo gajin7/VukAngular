@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     public authStoreService: AuthStoreService,
     private authWebService: AuthWebService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authStoreService.user$.subscribe((value) => {
@@ -35,6 +35,10 @@ export class HeaderComponent implements OnInit {
       this.authStoreService.user = null;
       this.router.navigate(["auth"]);
     });
+  }
+
+  account(): void {
+    this.router.navigate(["account"])
   }
 
   openProfile() {

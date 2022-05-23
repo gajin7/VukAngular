@@ -96,3 +96,7 @@ body {
         border-top: 0;
     }
 }
+
+app-interventions .bill-items-container .mat-list-item {
+    height: auto !important;
+}

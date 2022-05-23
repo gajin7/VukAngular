@@ -1,0 +1,25 @@
+<div class="account">
+    <form class="form-wrapper" *ngIf="registrationForm" [formGroup]="registrationForm" autocomplete="off"
+        (ngSubmit)="saveUser()">
+        <h2>Vaši javni podaci:</h2>
+        <mat-form-field>
+            <mat-label>Ime</mat-label>
+            <input matInput formControlName="FirstName" placeholder="Ime" autocomplete="off" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Prezime</mat-label>
+            <input matInput formControlName="LastName" placeholder="Prezime" autocomplete="off" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input readonly matInput formControlName="Email" placeholder="Email" autocomplete="off" required type="email">
+            <mat-error *ngIf="registrationForm.controls.Email.errors?.email">E-mail format: abc@site.com</mat-error>
+        </mat-form-field>
+
+        <div class="actions">
+            <button mat-raised-button [disabled]="registrationForm.invalid || btnDisabled$.value" color="primary" type="submit">
+                Sačuvaj
+            </button>
+        </div>
+    </form>
+</div>
